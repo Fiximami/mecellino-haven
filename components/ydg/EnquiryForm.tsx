@@ -7,7 +7,8 @@ import { demoEnquiryNotice } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 type Audience = "family" | "school" | "help" | "sponsor" | "mentor" | "event";
-type FieldKey = "audience" | "name" | "phone" | "under18" | "guardian" | "message" | "consent";
+type ConsentBand = "10-17" | "18-25";
+type FieldKey = "audience" | "name" | "phone" | "consentBand" | "guardian" | "message" | "consent";
 
 const audienceOptions: { value: Audience; title: string; hint: string }[] = [
   {
@@ -61,10 +62,10 @@ const fieldMeta: Record<
     anchor: "f-phone",
     message: "Please check this phone number and enter at least 9 digits.",
   },
-  under18: {
-    label: "Is the young person under 18?",
-    anchor: "f-under18",
-    message: "Please tell us whether the young person is under 18.",
+  consentBand: {
+    label: "Programme consent band",
+    anchor: "f-consent-band",
+    message: "Please choose the programme consent band that applies.",
   },
   guardian: {
     label: "Parent or guardian",
@@ -93,7 +94,7 @@ export function EnquiryForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [under18, setUnder18] = useState<"yes" | "no" | "">("");
+  const [consentBand, setConsentBand] = useState<ConsentBand | "">("");
   const [guardian, setGuardian] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
@@ -104,13 +105,13 @@ export function EnquiryForm() {
   const audienceFirstRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
-  const under18FirstRef = useRef<HTMLInputElement>(null);
+  const consentBandFirstRef = useRef<HTMLInputElement>(null);
   const guardianRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const consentRef = useRef<HTMLInputElement>(null);
 
-  const showUnder18 = audience === "family" || audience === "help";
-  const showGuardian = showUnder18 && under18 === "yes";
+  const showConsentBand = audience === "family" || audience === "help";
+  const showGuardian = showConsentBand && consentBand === "10-17";
 
   const focusFieldControl = (field: FieldKey) => {
     const scrollTargetId = fieldMeta[field].anchor;
@@ -125,8 +126,8 @@ export function EnquiryForm() {
       case "phone":
         phoneRef.current?.focus();
         break;
-      case "under18":
-        under18FirstRef.current?.focus();
+      case "consentBand":
+        consentBandFirstRef.current?.focus();
         break;
       case "guardian":
         guardianRef.current?.focus();
@@ -156,7 +157,7 @@ export function EnquiryForm() {
     if (!audience) nextInvalid.push("audience");
     if (!name.trim()) nextInvalid.push("name");
     if (digitsOnly(phone).length < 9) nextInvalid.push("phone");
-    if (showUnder18 && !under18) nextInvalid.push("under18");
+    if (showConsentBand && !consentBand) nextInvalid.push("consentBand");
     if (showGuardian && !guardian.trim()) nextInvalid.push("guardian");
     if (!message.trim()) nextInvalid.push("message");
     if (!consent) nextInvalid.push("consent");
@@ -192,7 +193,7 @@ export function EnquiryForm() {
     setName("");
     setPhone("");
     setEmail("");
-    setUnder18("");
+    setConsentBand("");
     setGuardian("");
     setMessage("");
     setConsent(false);
@@ -379,55 +380,71 @@ export function EnquiryForm() {
           />
         </div>
 
-        {showUnder18 ? (
-          <div id="f-under18" className={cn("ydg-field", isInvalid("under18") && "bad")}>
-            <span id="under18-label">
-              Is the young person under 18? <span className="ydg-req">Required</span>
+        {showConsentBand ? (
+          <div id="f-consent-band" className={cn("ydg-field", isInvalid("consentBand") && "bad")}>
+            <span id="consent-band-label">
+              Which programme consent band applies? <span className="ydg-req">Required</span>
             </span>
+            <p className="hint" id="consent-band-hint">
+              We do not ask for date of birth in this demonstration. Education stage is recorded separately when live
+              intake opens — it is not inferred from age alone.
+            </p>
             <div
-              className={cn("ydg-choices", isInvalid("under18") && "bad")}
+              className={cn("ydg-choices", isInvalid("consentBand") && "bad")}
               role="radiogroup"
-              aria-labelledby="under18-label"
-              aria-invalid={isInvalid("under18") || undefined}
-              aria-describedby={isInvalid("under18") ? "e-under18" : undefined}
+              aria-labelledby="consent-band-label"
+              aria-describedby={
+                isInvalid("consentBand") ? "consent-band-hint e-consent-band" : "consent-band-hint"
+              }
+              aria-invalid={isInvalid("consentBand") || undefined}
             >
-              <label className={cn("ydg-choice", under18 === "yes" && "sel")}>
+              <label className={cn("ydg-choice", consentBand === "10-17" && "sel")}>
                 <input
-                  ref={under18FirstRef}
+                  ref={consentBandFirstRef}
                   type="radio"
-                  name="under18"
-                  value="yes"
-                  checked={under18 === "yes"}
-                  onChange={() => setUnder18("yes")}
+                  name="consentBand"
+                  value="10-17"
+                  checked={consentBand === "10-17"}
+                  onChange={() => setConsentBand("10-17")}
                 />
                 <span>
-                  <b>Yes</b>
+                  <b>Ages 10–17</b>
                   <span>
-                    A parent or legal guardian will need to give programme consent, alongside the young person&apos;s
-                    own assent
+                    A parent or legal guardian gives programme consent, and the young person gives their own separate
+                    assent. They may withdraw at any time.
                   </span>
                 </span>
               </label>
-              <label className={cn("ydg-choice", under18 === "no" && "sel")}>
+              <label className={cn("ydg-choice", consentBand === "18-25" && "sel")}>
                 <input
                   type="radio"
-                  name="under18"
-                  value="no"
-                  checked={under18 === "no"}
-                  onChange={() => setUnder18("no")}
+                  name="consentBand"
+                  value="18-25"
+                  checked={consentBand === "18-25"}
+                  onChange={() => setConsentBand("18-25")}
                 />
                 <span>
-                  <b>No — they are 18 or over</b>
+                  <b>Ages 18–25</b>
                   <span>
-                    They give their own legal consent; a parent, guardian or approved responsible adult also gives
-                    programme acknowledgement
+                    The participant gives their own legal consent. A parent, guardian or approved responsible adult
+                    also gives programme acknowledgement — it never overrides the participant&apos;s consent or right to
+                    withdraw.
                   </span>
                 </span>
               </label>
             </div>
-            {isInvalid("under18") ? (
-              <p className="ydg-errmsg" id="e-under18">
-                {fieldMeta.under18.message}
+            {consentBand === "18-25" ? (
+              <div className="ydg-notice mt-2">
+                <span className="ydg-notice-ic">i</span>
+                <div>
+                  Where a Safeguarding Lead has approved an exception, an approved responsible adult may act in place of
+                  a parent or guardian. Photography and video permission stays separate and optional.
+                </div>
+              </div>
+            ) : null}
+            {isInvalid("consentBand") ? (
+              <p className="ydg-errmsg" id="e-consent-band">
+                {fieldMeta.consentBand.message}
               </p>
             ) : null}
           </div>
@@ -436,10 +453,10 @@ export function EnquiryForm() {
         {showGuardian ? (
           <div id="f-guardian" className={cn("ydg-field", isInvalid("guardian") && "bad")}>
             <label htmlFor="enq-guardian">
-              Parent or guardian&apos;s name and phone <span className="ydg-req">Required</span>
+              Parent or legal guardian&apos;s name and phone <span className="ydg-req">Required</span>
             </label>
             <p className="hint" id="enq-guardian-hint">
-              Under-18s cannot take part without an adult who is responsible for them.
+              Ages 10–17 cannot take part without an adult who is legally responsible for them.
             </p>
             <input
               ref={guardianRef}

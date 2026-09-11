@@ -51,6 +51,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -72,6 +73,8 @@ body {
   font-family: var(--font-libre-franklin), "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.55;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 :focus-visible {
@@ -129,6 +132,8 @@ body {
   .ydg-wrap {
     max-width: none;
     margin: 0 auto;
+    width: 100%;
+    min-width: 0;
   }
 
   @media (min-width: 1024px) {
@@ -141,12 +146,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    min-width: 0;
   }
 
   .ydg-stack-lg {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    min-width: 0;
   }
 
   .ydg-measure {
@@ -156,6 +163,11 @@ body {
   .ydg-grid-2 {
     display: grid;
     gap: 16px;
+    min-width: 0;
+  }
+
+  .ydg-grid-2 > * {
+    min-width: 0;
   }
 
   @media (min-width: 768px) {
@@ -168,6 +180,11 @@ body {
   .ydg-grid-3 {
     display: grid;
     gap: 16px;
+    min-width: 0;
+  }
+
+  .ydg-grid-3 > * {
+    min-width: 0;
   }
 
   @media (min-width: 768px) {
@@ -186,6 +203,11 @@ body {
   .ydg-grid-4 {
     display: grid;
     gap: 16px;
+    min-width: 0;
+  }
+
+  .ydg-grid-4 > * {
+    min-width: 0;
   }
 
   @media (min-width: 768px) {
@@ -375,6 +397,12 @@ body {
     border-left: 4px solid var(--mh-cyan);
     border-radius: 20px;
     padding: 16px 18px;
+    min-width: 0;
+  }
+
+  .ydg-status > div {
+    min-width: 0;
+    flex: 1;
   }
 
   .ydg-status-dot {
@@ -740,26 +768,27 @@ body {
     }
   }
 
-  .ydg-imgph {
-    background: repeating-linear-gradient(
-      135deg,
-      var(--mh-dark-card),
-      var(--mh-dark-card) 10px,
-      var(--mh-dark-surface) 10px,
-      var(--mh-dark-surface) 20px
-    );
-    border: 1px dashed var(--mh-dark-border);
+  .ydg-info-visual {
+    background: var(--mh-dark-card);
+    border: 1px solid var(--mh-dark-border);
     border-radius: 20px;
+    padding: 20px;
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ydg-info-visual-ic {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
-    font-size: 11px;
-    color: var(--mh-dark-muted);
-    padding: 16px;
-    min-height: 150px;
-    letter-spacing: 0.03em;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--mh-cyan) 12%, var(--mh-dark-surface));
+    border: 1px solid color-mix(in srgb, var(--mh-cyan) 28%, var(--mh-dark-border));
+    font-size: 22px;
+    line-height: 1;
   }
 
   .ydg-faq {
@@ -819,7 +848,7 @@ body {
 
   .ydg-field label,
   .ydg-field #audience-label,
-  .ydg-field #under18-label {
+  .ydg-field #consent-band-label {
     font-weight: 600;
     font-size: 15px;
     color: var(--mh-dark-text);
@@ -1082,6 +1111,8 @@ body {
   .mh-wrap {
     max-width: 1180px;
     margin: 0 auto;
+    width: 100%;
+    min-width: 0;
   }
 
   .mh-eyebrow {
@@ -1233,6 +1264,11 @@ body {
   .mh-grid-2 {
     display: grid;
     gap: 16px;
+    min-width: 0;
+  }
+
+  .mh-grid-2 > * {
+    min-width: 0;
   }
 
   @media (min-width: 768px) {
@@ -1245,6 +1281,11 @@ body {
   .mh-grid-3 {
     display: grid;
     gap: 16px;
+    min-width: 0;
+  }
+
+  .mh-grid-3 > * {
+    min-width: 0;
   }
 
   @media (min-width: 768px) {

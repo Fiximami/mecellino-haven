@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   BoundaryBlock,
   LinkArrow,
+  Notice,
   PageHero,
   PageSection,
   PathCard,
@@ -9,12 +10,14 @@ import {
   TickList,
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
+import { publicPageMetadata } from "@/lib/public-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = publicPageMetadata({
   title: "Schools & partners",
   description:
-    "How schools, sponsors, mentors and facilitators work with Mecellino Haven and Youth Discovery Gateway.",
-};
+    "How schools, sponsors, mentors and facilitators may work with Mecellino Haven. Mentor participation is planned but not publicly open. No live referral portal.",
+  path: publicRoutes.schools,
+});
 
 export default function SchoolsPage() {
   return (
@@ -62,6 +65,29 @@ export default function SchoolsPage() {
             <LinkArrow href={publicRoutes.contact}>Preview mentor enquiry form →</LinkArrow>
           </PathCard>
           </div>
+        </div>
+      </PageSection>
+
+      <PageSection tone="cream2">
+        <div className="ydg-stack-lg ydg-measure">
+          <SectionHeading>Mentors and facilitators — planned, not open</SectionHeading>
+          <p className="text-[15px] text-[var(--ink-2)]">
+            Mentor and facilitator participation is planned for future programme delivery, but it is{" "}
+            <b>not publicly open</b> today. Different roles carry different responsibilities and will have separate
+            future permissions — facilitators lead approved sessions; mentors provide narrower guided support under
+            screening.
+          </p>
+          <TickList
+            items={[
+              "Screening, safeguarding training and recorded vetting are required before any access to programme delivery.",
+              "Role definition and written approval come before assignment to a cohort or session.",
+              "Expressing interest through the demonstration enquiry form does not create a volunteer record or offer.",
+            ]}
+          />
+          <Notice icon="!">
+            <b>No open mentor or facilitator registration exists on this website.</b> There is no mentor portal,
+            application workflow or operational intake for volunteers in this milestone.
+          </Notice>
         </div>
       </PageSection>
 

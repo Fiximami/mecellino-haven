@@ -344,8 +344,28 @@ export function FaqAccordion({
   );
 }
 
-export function ImagePlaceholder({ children }: { children: ReactNode }) {
-  return <div className="ydg-imgph">{children}</div>;
+export function InfoVisualCard({
+  icon,
+  title,
+  children,
+}: {
+  icon: string;
+  title: string;
+  children: ReactNode;
+}) {
+  const titleId = `info-visual-${title.replace(/\s+/g, "-").toLowerCase()}`;
+
+  return (
+    <div className="ydg-info-visual" role="group" aria-labelledby={titleId}>
+      <span className="ydg-info-visual-ic" aria-hidden="true">
+        {icon}
+      </span>
+      <h3 id={titleId} className="ydg-h3">
+        {title}
+      </h3>
+      <div className="text-[15px] text-[var(--ink-2)]">{children}</div>
+    </div>
+  );
 }
 
 export function ButtonRow({ children }: { children: ReactNode }) {

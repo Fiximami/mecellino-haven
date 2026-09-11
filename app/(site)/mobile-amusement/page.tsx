@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
   BoundaryBlock,
-  ImagePlaceholder,
+  InfoVisualCard,
   LinkArrow,
   Notice,
   PageHero,
@@ -10,12 +10,14 @@ import {
   TickList,
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
+import { publicPageMetadata } from "@/lib/public-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = publicPageMetadata({
   title: "Mobile amusement",
   description:
-    "Mecellino Haven brings temporary mobile amusement stands to selected community, school, corporate and public events in Ghana.",
-};
+    "Temporary mobile amusement stands at selected community, school, corporate and public events in Ghana. No permanent park. No event listings or bookings on this site.",
+  path: publicRoutes.mobileAmusement,
+});
 
 export default function MobileAmusementPage() {
   return (
@@ -46,9 +48,13 @@ export default function MobileAmusementPage() {
             />
           </div>
           <div className="ydg-stack">
-            <ImagePlaceholder>
-              Image placeholder — approved photograph of a temporary event stand in setup.
-            </ImagePlaceholder>
+            <InfoVisualCard icon="⛺" title="Temporary event stand">
+              <p>
+                Mecellino Haven brings a mobile stand to selected events — setup, supervised operation and pack-down.
+                Approved photography of stands and activities will appear here only after assets are commissioned and
+                rights are confirmed. No fabricated participants or impact imagery is shown.
+              </p>
+            </InfoVisualCard>
             <PathCard title="Invite us to your event">
               <p>
                 Schools, companies and community organisers can ask us to bring a stand. Tell us the date, the place

@@ -14,12 +14,14 @@ import {
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
 import { boundaryStatementShort, identitySafeguardStatement, programmeFacts } from "@/config/site";
+import { publicPageMetadata } from "@/lib/public-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = publicPageMetadata({
   title: "Youth Discovery Gateway",
   description:
-    "Youth Discovery Gateway helps young people aged 10–25 build evidence about their interests, strengths and possible directions.",
-};
+    "Youth Discovery Gateway helps young people aged 10–25 build evidence about their interests and possible directions. Recruitment and applications are not open.",
+  path: publicRoutes.ydg,
+});
 
 export default function YdgOverviewPage() {
   return (
@@ -60,13 +62,7 @@ export default function YdgOverviewPage() {
       <PageSection>
         <div className="ydg-stack-lg">
           <PageHero as="h2" eyebrow="Choose your way in" title="Who are you?" />
-          <div className="ydg-grid-3">
-            <PathCard title="A young person" variant="ydg">
-              <p>{programmeFacts.ageRange}, wondering what you are good at.</p>
-              <LinkArrow href={publicRoutes.howYdgWorks} variant="ydg">
-                Start here →
-              </LinkArrow>
-            </PathCard>
+          <div className="ydg-grid-2">
             <PathCard title="A parent or guardian" variant="ydg">
               <p>Safety, consent, cost and collection — answered plainly.</p>
               <LinkArrow href={publicRoutes.parents} variant="ydg">
@@ -79,6 +75,39 @@ export default function YdgOverviewPage() {
                 Start here →
               </LinkArrow>
             </PathCard>
+          </div>
+
+          <div className="ydg-stack">
+            <SectionHeading as="h3">If you are a young person</SectionHeading>
+            <p className="text-[15px] text-[var(--ink-2)]">
+              Your age helps you find the right programme track. Education stage — such as school year, training or
+              other learning context — is separate from age and is not always the same for everyone in a given age
+              band.
+            </p>
+            <div className="ydg-grid-2">
+              <PathCard title={`Ages ${programmeFacts.consentMinor}`} variant="ydg">
+                <p>
+                  Discovery Gateway, Foundation or Direction tracks may apply depending on age on the cohort first day.
+                  A parent or legal guardian gives programme consent; you give your own separate assent.
+                </p>
+                <LinkArrow href={publicRoutes.tracks} variant="ydg">
+                  See programme tracks →
+                </LinkArrow>
+              </PathCard>
+              <PathCard title={`Ages ${programmeFacts.consentAdult}`} variant="ydg">
+                <p>
+                  Execution &amp; Progression track. You give your own legal consent. A parent, guardian or approved
+                  responsible adult also gives programme acknowledgement — it never overrides your consent or right to
+                  withdraw.
+                </p>
+                <LinkArrow href={publicRoutes.tracks} variant="ydg">
+                  See programme tracks →
+                </LinkArrow>
+              </PathCard>
+            </div>
+            <LinkArrow href={publicRoutes.howYdgWorks} variant="ydg">
+              How YDG works →
+            </LinkArrow>
           </div>
         </div>
       </PageSection>

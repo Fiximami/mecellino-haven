@@ -43,5 +43,5 @@ export const footerAudienceLinks: NavLink[] = [
 export const footerOrganisationLinks: NavLink[] = [
   { label: "About us", href: publicRoutes.about },
   { label: "Enquiry preview", href: publicRoutes.contact },
-  { label: "Complaints", href: publicRoutes.parents },
+  { label: "Safeguarding information", href: publicRoutes.parents },
 ];

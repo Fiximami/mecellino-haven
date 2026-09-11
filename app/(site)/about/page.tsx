@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import {
+  ButtonRow,
+  GhostButton,
   LeaderCard,
   Notice,
   PageHero,
   PageSection,
+  PrimaryButton,
   SectionHeading,
   TickList,
   leadershipTeam,
 } from "@/components/ydg";
+import { publicRoutes } from "@/config/routes";
 import {
   girlsCommitmentStatement,
   pilotFundingStatement,
@@ -15,12 +19,14 @@ import {
   recruitmentClosedStatement,
   selectionStatement,
 } from "@/config/site";
+import { publicPageMetadata } from "@/lib/public-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = publicPageMetadata({
   title: "About",
   description:
-    "About Mecellino Haven and the Youth Discovery Gateway — governance, reporting commitments and programme scope.",
-};
+    "About Mecellino Haven and Youth Discovery Gateway — governance, pilot scope, and recruitment status. Applications are not open.",
+  path: publicRoutes.about,
+});
 
 export default function AboutPage() {
   return (
@@ -77,6 +83,10 @@ export default function AboutPage() {
             {recruitmentClosedStatement} No partner logos, sponsor names, testimonials or impact figures appear here
             until they are verified and evidenced.
           </Notice>
+          <ButtonRow>
+            <PrimaryButton href={publicRoutes.ydg}>Youth Discovery Gateway programme</PrimaryButton>
+            <GhostButton href={publicRoutes.parents}>Safeguarding information</GhostButton>
+          </ButtonRow>
         </div>
       </PageSection>
     </>

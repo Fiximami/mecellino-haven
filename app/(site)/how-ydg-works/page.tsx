@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
 import {
+  ButtonRow,
   Chip,
+  GhostButton,
   KeyValueList,
   PageHero,
   PageSection,
   PathCard,
+  PrimaryButton,
   UnfoldSequence,
   unfoldStepsDetailed,
 } from "@/components/ydg";
+import { publicRoutes } from "@/config/routes";
+import { publicPageMetadata } from "@/lib/public-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = publicPageMetadata({
   title: "How YDG works",
   description:
-    "UNFOLD is the seven-stage method behind Youth Discovery Gateway. Each cohort cycle runs for at least five working days.",
-};
+    "UNFOLD is the seven-stage method behind Youth Discovery Gateway. Each cohort cycle runs at least five working days. Recruitment is not open.",
+  path: publicRoutes.howYdgWorks,
+});
 
 export default function HowYdgWorksPage() {
   return (
@@ -63,6 +69,20 @@ export default function HowYdgWorksPage() {
               </p>
             </PathCard>
           </div>
+        </div>
+      </PageSection>
+
+      <PageSection tone="cream2">
+        <div className="ydg-stack-lg ydg-measure">
+          <h2 className="ydg-h2">Next steps on the public site</h2>
+          <p className="text-[15px] text-[var(--ink-2)]">
+            See how age-based tracks relate to your situation, or preview how enquiry will look when live intake is
+            approved. Neither link opens applications or registration today.
+          </p>
+          <ButtonRow>
+            <PrimaryButton href={publicRoutes.tracks}>See the four tracks</PrimaryButton>
+            <GhostButton href={publicRoutes.contact}>Preview programme enquiry form</GhostButton>
+          </ButtonRow>
         </div>
       </PageSection>
     </>

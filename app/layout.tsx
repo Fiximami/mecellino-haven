@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   },
   description:
     "Mecellino Haven works with children, young people and families in Ghana — through mobile amusement and the Youth Discovery Gateway programme.",
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL
+    ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+    : undefined,
   keywords: [
     "Youth Discovery Gateway",
     "YDG",

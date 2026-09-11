@@ -17,12 +17,15 @@ import {
   programmeFacts,
   recruitmentClosedStatement,
 } from "@/config/site";
+import { publicRoutes } from "@/config/routes";
+import { publicPageMetadata } from "@/lib/public-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = publicPageMetadata({
   title: "Parents, safety & safeguarding",
   description:
-    "Programme safeguarding information for parents and guardians. Live reporting routes are not open in this milestone.",
-};
+    "Safeguarding, consent and supervision information for parents and guardians. This page is informational only — no operational concern-submission channel.",
+  path: publicRoutes.parents,
+});
 
 const parentFaqs = [
   {
