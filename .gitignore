@@ -44,3 +44,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local design and review artefacts
+/.prototype-ref/
+/docs/audits/
+/docs/milestone-*-screenshots/
+/docs/MILESTONE_*_BASELINE.md
+/docs/MILESTONE_*_REPORT.md
