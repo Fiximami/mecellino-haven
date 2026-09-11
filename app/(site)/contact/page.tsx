@@ -1,19 +1,30 @@
-import { BookingInquiryForm } from "@/components/booking";
+import type { Metadata } from "next";
+import { EnquiryForm } from "@/components/ydg/EnquiryForm";
+import { Notice, PageHero, PageSection } from "@/components/ydg";
+import { demoEnquiryNotice } from "@/config/site";
+
+export const metadata: Metadata = {
+  title: "Enquiry preview",
+  description:
+    "Design demonstration of the programme enquiry form. Nothing entered is transmitted in this milestone.",
+};
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight text-[var(--foreground)]">
-          Booking inquiry
-        </h1>
-        <p className="mt-2 text-[var(--muted)]">
-          Tell us about your visit and we&apos;ll get back to you as soon as we can.
-        </p>
-      </div>
-      <div className="rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)] sm:p-8">
-        <BookingInquiryForm />
-      </div>
-    </div>
+    <>
+      <PageSection tone="paper">
+        <PageHero
+          eyebrow="Contact"
+          title="Programme enquiry preview"
+          lede="This page shows how segmented enquiry will look when live intake is approved. Nothing you enter here is transmitted or retained in this milestone."
+        />
+        <Notice icon="!" variant="divert" className="mt-6">
+          {demoEnquiryNotice}
+        </Notice>
+      </PageSection>
+      <PageSection>
+        <EnquiryForm />
+      </PageSection>
+    </>
   );
 }

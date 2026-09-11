@@ -1,23 +1,12 @@
-import { HeroSection } from "@/components/sections/HeroSection";
-import { FeaturedAttractionsSection } from "@/components/sections/FeaturedAttractionsSection";
-import { AboutPreviewSection } from "@/components/sections/AboutPreviewSection";
-import { PackagesPreviewSection } from "@/components/sections/PackagesPreviewSection";
-import { SafetySection } from "@/components/sections/SafetySection";
-import { GalleryPreviewSection } from "@/components/sections/GalleryPreviewSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { ContactCtaSection } from "@/components/sections/ContactCtaSection";
+import type { Metadata } from "next";
+import { HomePageContent } from "@/components/home/HomePageContent";
+import { siteConfig } from "@/config/site";
 
-export default function Home() {
-  return (
-    <>
-      <HeroSection />
-      <FeaturedAttractionsSection />
-      <AboutPreviewSection />
-      <PackagesPreviewSection />
-      <SafetySection />
-      <GalleryPreviewSection />
-      <TestimonialsSection />
-      <ContactCtaSection />
-    </>
-  );
+export const metadata: Metadata = {
+  title: "Home",
+  description: siteConfig.description,
+};
+
+export default function HomePage() {
+  return <HomePageContent />;
 }

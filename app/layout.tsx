@@ -1,25 +1,39 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Libre_Franklin, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const libreFranklin = Libre_Franklin({
+  variable: "--font-libre-franklin",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-ibm-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Mecellino Haven | Family Fun & Recreation",
+    default: "Mecellino Haven | Youth Discovery Gateway",
     template: "%s | Mecellino Haven",
   },
   description:
-    "Mecellino Haven is a children's amusement and family recreation brand offering fun, safe experiences for all ages.",
-  keywords: ["family recreation", "children amusement", "family fun", "kids activities"],
+    "Mecellino Haven works with children, young people and families in Ghana — through mobile amusement and the Youth Discovery Gateway programme.",
+  keywords: [
+    "Youth Discovery Gateway",
+    "YDG",
+    "Mecellino Haven",
+    "Ghana youth programme",
+    "mobile amusement",
+  ],
 };
 
 export default function RootLayout({
@@ -30,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
+        className={`${sourceSerif.variable} ${libreFranklin.variable} ${ibmPlexMono.variable} flex min-h-screen flex-col antialiased`}
       >
         {children}
       </body>
