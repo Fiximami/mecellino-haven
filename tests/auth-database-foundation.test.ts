@@ -19,7 +19,7 @@ const alignment = readFileSync(
     "..",
     "supabase",
     "migrations",
-    "20260912150000_align_legal_guardian_role.sql",
+    "20260912155902_align_legal_guardian_role.sql",
   ),
   "utf8",
 );
