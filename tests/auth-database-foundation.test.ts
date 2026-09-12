@@ -84,6 +84,8 @@ describe("authentication database foundation migration", () => {
     assert.match(alignment, /legal_guardian/);
     assert.match(alignment, /drop constraint role_assignments_role_check/i);
     assert.match(alignment, /add constraint role_assignments_role_check/i);
+    assert.match(alignment, /disable trigger role_assignments_preserve_history/i);
+    assert.match(alignment, /enable trigger role_assignments_preserve_history/i);
     assert.doesNotMatch(alignment, /grant|create table|create policy/i);
   });
 });
