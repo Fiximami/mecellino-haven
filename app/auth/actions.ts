@@ -1,11 +1,10 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { emitNonDurableAuthAudit, emitRequiredAuthAudit } from "@/lib/auth/audit";
 import { createPostgresAuthAuditSink } from "@/lib/auth/audit-postgres";
-import { sessionCookieOptions, isAuthCookieName } from "@/lib/auth/cookies";
 import { completePasswordSignIn, completeRecoveryRequest } from "@/lib/auth/credentials";
+import { revokeServerSession } from "@/lib/auth/revoke-session";
 import { sanitizeReturnPath } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 
@@ -34,7 +33,7 @@ export async function signInAction(formData: FormData) {
       auditSink,
       requireDurableAudit: true,
       revokeAuthenticatedSession: async () => {
-        await supabase?.auth.signOut();
+        await revokeServerSession(supabase);
       },
     },
   );
@@ -72,16 +71,7 @@ export async function recoverAction(formData: FormData) {
 export async function signOutAction() {
   const supabase = await createClient();
   const auditSink = createPostgresAuthAuditSink();
-  if (supabase) {
-    await supabase.auth.signOut();
-  }
-
-  const store = await cookies();
-  for (const cookie of store.getAll()) {
-    if (isAuthCookieName(cookie.name)) {
-      store.set(cookie.name, "", { ...sessionCookieOptions(), maxAge: 0 });
-    }
-  }
+  await revokeServerSession(supabase);
 
   if (auditSink) {
     await emitRequiredAuthAudit({ class: "sign_out", result: "success" }, auditSink);

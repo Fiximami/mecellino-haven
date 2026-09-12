@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { emitNonDurableAuthAudit, emitRequiredAuthAudit } from "@/lib/auth/audit";
 import { createPostgresAuthAuditSink } from "@/lib/auth/audit-postgres";
+import { revokeServerSession } from "@/lib/auth/revoke-session";
 import { sanitizeReturnPath } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 
@@ -26,7 +27,7 @@ export async function GET(request: Request) {
   }
 
   if (!auditSink) {
-    await supabase.auth.signOut();
+    await revokeServerSession(supabase);
     emitNonDurableAuthAudit({ class: "sign_in", result: "fail_closed" });
     return NextResponse.redirect(signIn);
   }
@@ -36,7 +37,7 @@ export async function GET(request: Request) {
     auditSink,
   );
   if (!auditResult.persisted) {
-    await supabase.auth.signOut();
+    await revokeServerSession(supabase);
     return NextResponse.redirect(signIn);
   }
 
