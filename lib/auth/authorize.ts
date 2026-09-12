@@ -1,0 +1,89 @@
+import { ALWAYS_DENIED_ACTIONS, type PrivilegedAction, type ProgrammeRole } from "./roles";
+import { hasProtectedGrant, type AuthIdentity } from "./identity";
+
+export type AuthorizationDecision = {
+  allowed: false;
+  reason:
+    | "unauthenticated"
+    | "missing_protected_grant"
+    | "insufficient_role"
+    | "safeguarding_isolated"
+    | "stale_identity"
+    | "client_supplied_claims_ignored"
+    | "fail_closed";
+};
+
+export type AuthorizationSuccess = {
+  allowed: true;
+};
+
+export type AuthorizationResult = AuthorizationSuccess | AuthorizationDecision;
+
+const ROLE_FOR_ACTION: Partial<Record<PrivilegedAction, readonly ProgrammeRole[]>> = {
+  provision_users: ["system_administrator"],
+  invite_account: ["system_administrator"],
+  assign_protected_role: ["system_administrator"],
+  revoke_protected_role: ["system_administrator"],
+  deactivate_account: ["system_administrator"],
+  manage_integration_secrets: ["system_administrator"],
+};
+
+export type AuthorizeInput = {
+  identity: AuthIdentity | null;
+  action: PrivilegedAction;
+  fresh: boolean;
+  clientRole?: unknown;
+  clientScope?: unknown;
+  userMetadata?: unknown;
+};
+
+/**
+ * Server-only authorization. Fail closed.
+ *
+ * Roles are taken only from a freshly validated ProtectedIdentity, which must
+ * be built from `app_metadata` or a later server-owned RoleAssignment record.
+ * `user_metadata`, URL parameters, form fields and other client state are
+ * ignored even if present on this input.
+ *
+ * Revocation / stale-claim risk: JWT `app_metadata` can lag a server-side
+ * revoke until the next validated user fetch. Privileged actions therefore
+ * require `fresh: true` (Auth `getUser()`, not cookie `getSession()` and not
+ * an unverified browser session). 4B does not implement RoleAssignment tables.
+ */
+export function authorize(input: AuthorizeInput): AuthorizationResult {
+  void input.clientRole;
+  void input.clientScope;
+  void input.userMetadata;
+
+  if (!input.fresh) {
+    return { allowed: false, reason: "stale_identity" };
+  }
+
+  if (!input.identity || !input.identity.authenticated) {
+    return { allowed: false, reason: "unauthenticated" };
+  }
+
+  if ((ALWAYS_DENIED_ACTIONS as readonly PrivilegedAction[]).includes(input.action)) {
+    return { allowed: false, reason: "safeguarding_isolated" };
+  }
+
+  if (!hasProtectedGrant(input.identity)) {
+    return { allowed: false, reason: "missing_protected_grant" };
+  }
+
+  const permitted = ROLE_FOR_ACTION[input.action];
+  if (!permitted) {
+    return { allowed: false, reason: "fail_closed" };
+  }
+
+  const allowed = input.identity.roles.some((role) => permitted.includes(role));
+  if (!allowed) {
+    return { allowed: false, reason: "insufficient_role" };
+  }
+
+  return { allowed: true };
+}
+
+export function denyClientSuppliedElevation(): AuthorizationDecision {
+  return { allowed: false, reason: "client_supplied_claims_ignored" };
+}

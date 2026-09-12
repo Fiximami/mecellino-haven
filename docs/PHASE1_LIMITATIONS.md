@@ -9,8 +9,7 @@ All `/admin/*` routes return **404** unconditionally in this milestone. This is 
 Before any admin surface or operational data workflow is enabled:
 
 - **Role-based authorisation** is required — an explicit allowlist or role claim (for example `app_metadata.role === 'admin'`), not merely any authenticated Supabase user.
-- **Restrictive Row Level Security** is required on every table that holds operational or safeguarding-related data. The existing `booking_inquiries` migration grants broad access to authenticated users and must not be treated as a production policy.
-- **Database migrations must not be changed** in Phase 1; this note records the requirement for a later hardening pass.
+- **Restrictive Row Level Security** is required on every table that holds operational or safeguarding-related data. The repository `booking_inquiries` baseline now has RLS enabled, revokes `anon` and `authenticated` privileges, and has no public or general-authenticated policies. The table is dormant and must not be used for YDG intake. It must not be treated as a production YDG policy or as a template for participant, guardian, consent or safeguarding data. If an older version of that migration was applied to an external database, that database still requires independent inspection and remediation.
 
 Do not enable admin routes or connect live intake until these controls are designed, reviewed and deployed.
 

@@ -1,11 +1,13 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { isAdminPath } from "@/lib/auth/admin-gate";
+import { refreshAuthSession } from "@/lib/supabase/proxy";
 
-export function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+export async function proxy(request: NextRequest) {
+  if (isAdminPath(request.nextUrl.pathname)) {
     return new NextResponse(null, { status: 404 });
   }
 
-  return NextResponse.next({ request });
+  return refreshAuthSession(request);
 }
 
 export const config = {
