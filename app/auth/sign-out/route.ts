@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { emitNonDurableAuthAudit } from "@/lib/auth/audit";
+import { emitNonDurableAuthAudit, emitRequiredAuthAudit } from "@/lib/auth/audit";
+import { createPostgresAuthAuditSink } from "@/lib/auth/audit-postgres";
 import { isAuthCookieName, sessionCookieOptions } from "@/lib/auth/cookies";
 import { isTrustedMutationOrigin } from "@/lib/auth/origin";
 import { createClient } from "@/lib/supabase/server";
@@ -13,6 +14,7 @@ export async function POST(request: Request) {
   }
 
   const supabase = await createClient();
+  const auditSink = createPostgresAuthAuditSink();
   if (supabase) {
     await supabase.auth.signOut();
   }
@@ -24,7 +26,11 @@ export async function POST(request: Request) {
     }
   }
 
-  emitNonDurableAuthAudit({ class: "sign_out", result: "success" });
+  if (auditSink) {
+    await emitRequiredAuthAudit({ class: "sign_out", result: "success" }, auditSink);
+  } else {
+    emitNonDurableAuthAudit({ class: "sign_out", result: "success" });
+  }
   return NextResponse.redirect(new URL("/", request.url), { status: 303 });
 }
 

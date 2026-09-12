@@ -1,7 +1,9 @@
 import { anonymousIdentity, identityFromProtectedClaims, type AuthIdentity } from "./identity";
+import { loadProtectedRoles } from "./database-roles";
 import { createClient } from "../supabase/server";
 
 type AuthUserLike = {
+  id: string;
   app_metadata?: unknown;
   user_metadata?: unknown;
 };
@@ -26,8 +28,12 @@ export async function getServerIdentity(): Promise<AuthIdentity> {
     return anonymousIdentity();
   }
 
+  const protectedRoles = await loadProtectedRoles(user.id);
+
   return identityFromProtectedClaims({
-    appMetadata: user.app_metadata,
+    appMetadata: protectedRoles.available
+      ? { roles: protectedRoles.roles }
+      : user.app_metadata,
     userMetadata: user.user_metadata,
   });
 }

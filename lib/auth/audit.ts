@@ -21,8 +21,12 @@ export type AuthAuditEvent = {
 };
 
 export interface AuthAuditSink {
-  emit(event: AuthAuditEvent): void;
+  emit(event: AuthAuditEvent): Promise<void>;
 }
+
+export type RequiredAuditResult =
+  | { persisted: true; event: AuthAuditEvent }
+  | { persisted: false; reason: "audit_unavailable" };
 
 const SENSITIVE_KEY = /(password|token|secret|authorization|cookie|email|phone|name|dob|birth|school)/i;
 
@@ -66,11 +70,30 @@ export function buildAuthAuditEvent(event: Omit<AuthAuditEvent, "at">): AuthAudi
  * must fail closed; that fail-closed persistence path is not implemented here.
  */
 export const localNonDurableAuditSink: AuthAuditSink = {
-  emit() {},
+  async emit() {},
 };
 
 export function emitNonDurableAuthAudit(event: Omit<AuthAuditEvent, "at">): AuthAuditEvent {
   const built = buildAuthAuditEvent(event);
-  localNonDurableAuditSink.emit(built);
+  void localNonDurableAuditSink.emit(built);
   return built;
+}
+
+/**
+ * Privileged operations must call this path and stop when persistence fails.
+ * The caller decides how to surface the neutral failure; this function never
+ * logs the event payload or the persistence error.
+ */
+export async function emitRequiredAuthAudit(
+  event: Omit<AuthAuditEvent, "at">,
+  sink: AuthAuditSink,
+): Promise<RequiredAuditResult> {
+  const built = buildAuthAuditEvent(event);
+
+  try {
+    await sink.emit(built);
+    return { persisted: true, event: built };
+  } catch {
+    return { persisted: false, reason: "audit_unavailable" };
+  }
 }

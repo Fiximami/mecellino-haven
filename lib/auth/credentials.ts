@@ -1,4 +1,8 @@
-import { emitNonDurableAuthAudit } from "./audit";
+import {
+  emitNonDurableAuthAudit,
+  emitRequiredAuthAudit,
+  type AuthAuditSink,
+} from "./audit";
 import { NEUTRAL_AUTH_ERROR, NEUTRAL_RECOVERY_MESSAGE } from "./errors";
 import {
   clearFailedAttempts,
@@ -29,6 +33,8 @@ export type PasswordAuthenticator = (input: {
   password: string;
 }) => Promise<{ ok: true } | { ok: false }>;
 
+export type AuthenticatedSessionRevoker = () => Promise<void>;
+
 export type RecoverySender = (input: { email: string }) => Promise<void>;
 
 function asTrimmedString(value: unknown): string {
@@ -38,36 +44,49 @@ function asTrimmedString(value: unknown): string {
 export async function completePasswordSignIn(
   request: SignInRequest,
   authenticate: PasswordAuthenticator,
+  options: {
+    auditSink?: AuthAuditSink | null;
+    revokeAuthenticatedSession?: AuthenticatedSessionRevoker;
+  } = {},
 ): Promise<SignInResult | SignInSuccess> {
   const email = asTrimmedString(request.email);
   const password = typeof request.password === "string" ? request.password : "";
   const redirectTo = sanitizeReturnPath(request.next);
 
   if (!email || !password) {
-    emitNonDurableAuthAudit({ class: "sign_in", result: "failure" });
+    await persistAudit({ class: "sign_in", result: "failure" }, options.auditSink);
     return { ok: false, message: NEUTRAL_AUTH_ERROR };
   }
 
   if (isIdentifierLocked(email)) {
-    emitNonDurableAuthAudit({ class: "sign_in", result: "denied" });
+    await persistAudit({ class: "sign_in", result: "denied" }, options.auditSink);
     return { ok: false, message: NEUTRAL_AUTH_ERROR };
   }
 
   const outcome = await authenticate({ email, password });
   if (!outcome.ok) {
     recordFailedAttempt(email);
-    emitNonDurableAuthAudit({ class: "sign_in", result: "failure" });
+    await persistAudit({ class: "sign_in", result: "failure" }, options.auditSink);
     return { ok: false, message: NEUTRAL_AUTH_ERROR };
   }
 
   clearFailedAttempts(email);
-  emitNonDurableAuthAudit({ class: "sign_in", result: "success" });
+  const auditPersisted = await persistAudit(
+    { class: "sign_in", result: "success" },
+    options.auditSink,
+  );
+  if (!auditPersisted) {
+    await options.revokeAuthenticatedSession?.();
+    return { ok: false, message: NEUTRAL_AUTH_ERROR };
+  }
+
   return { ok: true, redirectTo };
 }
 
 export async function completeRecoveryRequest(
   identifier: unknown,
   sendRecovery: RecoverySender | null,
+  auditSink?: AuthAuditSink | null,
 ): Promise<{ message: string }> {
   const email = asTrimmedString(identifier);
 
@@ -79,6 +98,19 @@ export async function completeRecoveryRequest(
     }
   }
 
-  emitNonDurableAuthAudit({ class: "recovery", result: "success" });
+  await persistAudit({ class: "recovery", result: "success" }, auditSink);
   return { message: NEUTRAL_RECOVERY_MESSAGE };
+}
+
+async function persistAudit(
+  event: Parameters<typeof emitNonDurableAuthAudit>[0],
+  auditSink?: AuthAuditSink | null,
+): Promise<boolean> {
+  if (!auditSink) {
+    emitNonDurableAuthAudit(event);
+    return true;
+  }
+
+  const result = await emitRequiredAuthAudit(event, auditSink);
+  return result.persisted;
 }

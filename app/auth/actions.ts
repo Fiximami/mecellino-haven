@@ -2,7 +2,8 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { emitNonDurableAuthAudit } from "@/lib/auth/audit";
+import { emitNonDurableAuthAudit, emitRequiredAuthAudit } from "@/lib/auth/audit";
+import { createPostgresAuthAuditSink } from "@/lib/auth/audit-postgres";
 import { sessionCookieOptions, isAuthCookieName } from "@/lib/auth/cookies";
 import { completePasswordSignIn, completeRecoveryRequest } from "@/lib/auth/credentials";
 import { sanitizeReturnPath } from "@/lib/auth/return-path";
@@ -15,6 +16,7 @@ async function unavailableAuthenticator(): Promise<{ ok: false }> {
 export async function signInAction(formData: FormData) {
   const next = sanitizeReturnPath(formData.get("next"));
   const supabase = await createClient();
+  const auditSink = createPostgresAuthAuditSink();
 
   const result = await completePasswordSignIn(
     {
@@ -28,6 +30,12 @@ export async function signInAction(formData: FormData) {
           return error ? { ok: false } : { ok: true };
         }
       : unavailableAuthenticator,
+    {
+      auditSink,
+      revokeAuthenticatedSession: async () => {
+        await supabase?.auth.signOut();
+      },
+    },
   );
 
   if (!result.ok) {
@@ -39,6 +47,7 @@ export async function signInAction(formData: FormData) {
 
 export async function recoverAction(formData: FormData) {
   const supabase = await createClient();
+  const auditSink = createPostgresAuthAuditSink();
   await completeRecoveryRequest(
     formData.get("email"),
     supabase
@@ -53,6 +62,7 @@ export async function recoverAction(formData: FormData) {
           await supabase.auth.resetPasswordForEmail(email);
         }
       : null,
+    auditSink,
   );
 
   redirect("/auth/recovery?sent=1");
@@ -60,6 +70,7 @@ export async function recoverAction(formData: FormData) {
 
 export async function signOutAction() {
   const supabase = await createClient();
+  const auditSink = createPostgresAuthAuditSink();
   if (supabase) {
     await supabase.auth.signOut();
   }
@@ -71,6 +82,10 @@ export async function signOutAction() {
     }
   }
 
-  emitNonDurableAuthAudit({ class: "sign_out", result: "success" });
+  if (auditSink) {
+    await emitRequiredAuthAudit({ class: "sign_out", result: "success" }, auditSink);
+  } else {
+    emitNonDurableAuthAudit({ class: "sign_out", result: "success" });
+  }
   redirect("/");
 }

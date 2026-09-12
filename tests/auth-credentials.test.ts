@@ -51,4 +51,51 @@ describe("authentication lifecycle foundation", () => {
       assert.equal(result.redirectTo, "/");
     }
   });
+
+  it("revokes a newly authenticated session when durable audit persistence fails", async () => {
+    resetLockoutStoreForTests();
+    let revoked = false;
+    const result = await completePasswordSignIn(
+      {
+        email: "synthetic.staff@example.test",
+        password: "synthetic-only",
+      },
+      async () => ({ ok: true }),
+      {
+        auditSink: {
+          async emit() {
+            throw new Error("synthetic audit outage");
+          },
+        },
+        revokeAuthenticatedSession: async () => {
+          revoked = true;
+        },
+      },
+    );
+
+    assert.deepEqual(result, { ok: false, message: NEUTRAL_AUTH_ERROR });
+    assert.equal(revoked, true);
+  });
+
+  it("uses the durable audit sink when configured", async () => {
+    resetLockoutStoreForTests();
+    const events: string[] = [];
+    const result = await completePasswordSignIn(
+      {
+        email: "synthetic.staff@example.test",
+        password: "synthetic-only",
+      },
+      async () => ({ ok: true }),
+      {
+        auditSink: {
+          async emit(event) {
+            events.push(`${event.class}:${event.result}`);
+          },
+        },
+      },
+    );
+
+    assert.equal(result.ok, true);
+    assert.deepEqual(events, ["sign_in:success"]);
+  });
 });
