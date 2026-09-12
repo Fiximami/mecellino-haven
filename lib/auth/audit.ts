@@ -65,9 +65,9 @@ export function buildAuthAuditEvent(event: Omit<AuthAuditEvent, "at">): AuthAudi
 /**
  * Local sink only. Events are discarded.
  * This is not an operational audit trail and does not persist.
- * Durable append-only storage is required before hosted authentication
- * or privileged role changes. Sink failure for those later operations
- * must fail closed; that fail-closed persistence path is not implemented here.
+ * This sink remains available only for local synthetic flows. Hosted
+ * authentication and privileged role changes must use emitRequiredAuthAudit
+ * with a durable server-side sink.
  */
 export const localNonDurableAuditSink: AuthAuditSink = {
   async emit() {},

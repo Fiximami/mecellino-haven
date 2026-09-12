@@ -72,7 +72,7 @@ export function parseProtectedRoles(appMetadata: unknown): ProgrammeRole[] {
 }
 
 export type AuthorizationScope = {
-  type: "person" | "cohort" | "delivery_assignment" | "case";
+  type: "person" | "programme" | "participant" | "cohort" | "delivery_assignment" | "case";
   id: string;
 };
 
@@ -89,6 +89,8 @@ export function parseServerScopes(value: unknown): AuthorizationScope[] {
     const record = item as Record<string, unknown>;
     if (
       (record.type === "person" ||
+        record.type === "programme" ||
+        record.type === "participant" ||
         record.type === "cohort" ||
         record.type === "delivery_assignment" ||
         record.type === "case") &&

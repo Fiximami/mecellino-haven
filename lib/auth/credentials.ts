@@ -46,6 +46,7 @@ export async function completePasswordSignIn(
   authenticate: PasswordAuthenticator,
   options: {
     auditSink?: AuthAuditSink | null;
+    requireDurableAudit?: boolean;
     revokeAuthenticatedSession?: AuthenticatedSessionRevoker;
   } = {},
 ): Promise<SignInResult | SignInSuccess> {
@@ -74,6 +75,7 @@ export async function completePasswordSignIn(
   const auditPersisted = await persistAudit(
     { class: "sign_in", result: "success" },
     options.auditSink,
+    options.requireDurableAudit === true,
   );
   if (!auditPersisted) {
     await options.revokeAuthenticatedSession?.();
@@ -105,8 +107,12 @@ export async function completeRecoveryRequest(
 async function persistAudit(
   event: Parameters<typeof emitNonDurableAuthAudit>[0],
   auditSink?: AuthAuditSink | null,
+  required = false,
 ): Promise<boolean> {
   if (!auditSink) {
+    if (required) {
+      return false;
+    }
     emitNonDurableAuthAudit(event);
     return true;
   }

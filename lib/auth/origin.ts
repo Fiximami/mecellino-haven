@@ -1,4 +1,5 @@
 import { isAuthConfigured } from "./env";
+import { readDatabaseConnectionConfig } from "../database/config";
 
 const PLACEHOLDER_SITE_HOSTS = new Set(["your-production-domain.example"]);
 
@@ -63,7 +64,7 @@ export function isHostedAuthenticationReady(env: EnvMap = process.env): boolean 
     return false;
   }
 
-  return isAuthConfigured(env);
+  return isAuthConfigured(env) && readDatabaseConnectionConfig(env).ok;
 }
 
 export function isTrustedMutationOrigin(request: Request, env: EnvMap = process.env): boolean {

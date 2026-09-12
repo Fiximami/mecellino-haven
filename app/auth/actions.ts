@@ -32,6 +32,7 @@ export async function signInAction(formData: FormData) {
       : unavailableAuthenticator,
     {
       auditSink,
+      requireDurableAudit: true,
       revokeAuthenticatedSession: async () => {
         await supabase?.auth.signOut();
       },

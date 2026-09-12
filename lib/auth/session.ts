@@ -31,10 +31,8 @@ export async function getServerIdentity(): Promise<AuthIdentity> {
   const protectedRoles = await loadProtectedRoles(user.id);
 
   return identityFromProtectedClaims({
-    appMetadata: protectedRoles.available
-      ? { roles: protectedRoles.roles }
-      : user.app_metadata,
-    userMetadata: user.user_metadata,
+    appMetadata: protectedRoles.available ? { roles: protectedRoles.roles } : { roles: [] },
+    serverScopes: protectedRoles.scopes,
   });
 }
 

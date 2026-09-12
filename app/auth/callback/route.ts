@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { emitNonDurableAuthAudit } from "@/lib/auth/audit";
+import { emitNonDurableAuthAudit, emitRequiredAuthAudit } from "@/lib/auth/audit";
+import { createPostgresAuthAuditSink } from "@/lib/auth/audit-postgres";
 import { sanitizeReturnPath } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 
@@ -12,6 +13,7 @@ export async function GET(request: Request) {
   const signIn = new URL("/auth/sign-in?error=1", url.origin);
 
   const supabase = await createClient();
+  const auditSink = createPostgresAuthAuditSink();
   if (!supabase || !code) {
     emitNonDurableAuthAudit({ class: "sign_in", result: "fail_closed" });
     return NextResponse.redirect(signIn);
@@ -23,6 +25,20 @@ export async function GET(request: Request) {
     return NextResponse.redirect(signIn);
   }
 
-  emitNonDurableAuthAudit({ class: "sign_in", result: "success" });
+  if (!auditSink) {
+    await supabase.auth.signOut();
+    emitNonDurableAuthAudit({ class: "sign_in", result: "fail_closed" });
+    return NextResponse.redirect(signIn);
+  }
+
+  const auditResult = await emitRequiredAuthAudit(
+    { class: "sign_in", result: "success" },
+    auditSink,
+  );
+  if (!auditResult.persisted) {
+    await supabase.auth.signOut();
+    return NextResponse.redirect(signIn);
+  }
+
   return NextResponse.redirect(new URL(next, url.origin));
 }

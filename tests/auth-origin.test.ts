@@ -11,6 +11,12 @@ const VALID_AUTH = {
   NEXT_PUBLIC_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.x",
 };
 
+const VALID_DATABASE = {
+  SUPABASE_PROJECT_REF: "mecellino-ref",
+  SUPABASE_DATABASE_URL:
+    "postgresql://postgres.mecellino-ref:password@aws-0-eu-west-2.pooler.supabase.com:6543/postgres",
+};
+
 function post(url: string, headers: Record<string, string>): Request {
   return new Request(url, { method: "POST", headers });
 }
@@ -90,6 +96,14 @@ describe("hosted origin requirement", () => {
     assert.equal(
       isHostedAuthenticationReady({
         ...VALID_AUTH,
+        NEXT_PUBLIC_SITE_URL: "https://ydg.example",
+      }),
+      false,
+    );
+    assert.equal(
+      isHostedAuthenticationReady({
+        ...VALID_AUTH,
+        ...VALID_DATABASE,
         NEXT_PUBLIC_SITE_URL: "https://ydg.example",
       }),
       true,

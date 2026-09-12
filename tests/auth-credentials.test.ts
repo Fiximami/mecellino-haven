@@ -98,4 +98,26 @@ describe("authentication lifecycle foundation", () => {
     assert.equal(result.ok, true);
     assert.deepEqual(events, ["sign_in:success"]);
   });
+
+  it("fails closed for hosted sign-in when the durable sink is unavailable", async () => {
+    resetLockoutStoreForTests();
+    let authenticated = false;
+    const result = await completePasswordSignIn(
+      { email: "synthetic.staff@example.test", password: "synthetic-only" },
+      async () => {
+        authenticated = true;
+        return { ok: true };
+      },
+      {
+        requireDurableAudit: true,
+        auditSink: null,
+        revokeAuthenticatedSession: async () => {
+          authenticated = false;
+        },
+      },
+    );
+
+    assert.deepEqual(result, { ok: false, message: NEUTRAL_AUTH_ERROR });
+    assert.equal(authenticated, false);
+  });
 });

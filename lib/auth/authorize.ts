@@ -41,14 +41,14 @@ export type AuthorizeInput = {
  * Server-only authorization. Fail closed.
  *
  * Roles are taken only from a freshly validated ProtectedIdentity, which must
- * be built from `app_metadata` or a later server-owned RoleAssignment record.
+ * be built from the server-owned RoleAssignment record. Client and JWT
+ * metadata are never used as a fallback for privileged authorization.
  * `user_metadata`, URL parameters, form fields and other client state are
  * ignored even if present on this input.
  *
- * Revocation / stale-claim risk: JWT `app_metadata` can lag a server-side
- * revoke until the next validated user fetch. Privileged actions therefore
- * require `fresh: true` (Auth `getUser()`, not cookie `getSession()` and not
- * an unverified browser session). 4B does not implement RoleAssignment tables.
+ * Privileged actions require `fresh: true` (Auth `getUser()`, not cookie
+ * `getSession()` and not an unverified browser session). Role and scope data
+ * are loaded from the protected server-side assignment store.
  */
 export function authorize(input: AuthorizeInput): AuthorizationResult {
   void input.clientRole;
