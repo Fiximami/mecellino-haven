@@ -1,10 +1,10 @@
 # R2 — Consent, safeguarding and privacy gates
 
-**Milestone:** Reconstruction R2 — specification only.  
-**Extends:** `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, public `/parents` instruments, 3A P4 (concern channel still unapproved).  
+**Milestone:** Reconstruction R2 — specification only.\
+**Extends:** `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, public `/parents` instruments, 3A P4 (concern channel still unapproved).\
 **Does not:** invent a public safeguarding-reporting route, collect personal data, or implement casework.
 
-Journey roles and lifecycle: `R2_YDG_LONGITUDINAL_JOURNEY.md`.  
+Journey roles and lifecycle: `R2_YDG_LONGITUDINAL_JOURNEY.md`.\
 Experience and backend: `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md`.
 
 ---
