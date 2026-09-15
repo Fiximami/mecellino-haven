@@ -26,7 +26,7 @@ export default function SchoolsPage() {
         <PageHero
           eyebrow="Schools, partners and mentors"
           title="What working with us actually involves"
-          lede="Three different relationships, three different sets of controls. None of them involve unsupervised contact with young people."
+          lede="Three different relationships, three different sets of controls. Youth Discovery Gateway sits under Capacity Building. None of these relationships involve unsupervised contact with young people."
         />
       </PageSection>
 

@@ -3,12 +3,22 @@ import { primaryNav } from "@/config/routes";
 
 export const siteConfig: SiteConfig = {
   name: "Mecellino Haven",
-  tagline: "Mobile amusement and Youth Discovery Gateway",
+  tagline: "Capacity, coaching, events and future amusement",
   description:
-    "Mecellino Haven works with children, young people and families in Ghana — through mobile amusement at selected events, and through the Youth Discovery Gateway programme for ages 10–25.",
+    "Mecellino Haven builds individual and institutional capacity through practical training, Youth Discovery Gateway programmes, lifestyle coaching, and inclusive events and entertainment, while developing safe amusement experiences that bring people together.",
   nav: primaryNav,
   social: [],
+  contact: {
+    email: "opheenana@gmail.com",
+  },
 };
+
+export const organisationVision =
+  "To be a trusted haven where individuals and institutions discover opportunities for growth, meaningful experiences and lasting positive impact.";
+
+export const organisationMission = siteConfig.description;
+
+export const publicEnquiryEmail = "opheenana@gmail.com";
 
 export const programmeFacts = {
   ageRange: "10–25",
@@ -44,5 +54,11 @@ export const ages1012SafeguardingNote =
 export const demoEnquiryNotice =
   "This contact form is a design demonstration only. Nothing you enter is transmitted, stored or reviewed. Live enquiry handling will open only after a monitored contact channel and privacy controls are approved.";
 
+export const publicEnquiryChannelNotice =
+  `${publicEnquiryEmail} is the approved temporary address for general enquiries and service requests. It can receive those messages. The interactive form remains demonstration-only. This address is not an emergency contact and is not a safeguarding-reporting channel. Organisation concern routes will be published only after they are formally approved.`;
+
 export const identitySafeguardStatement =
   "No participant and approver may use the same identity or telephone number unless this is independently verified through an approved accessibility accommodation.";
+
+export const amusementDevelopmentStatement =
+  "Permanent and mobile amusement are in development. Mecellino Haven does not currently operate a permanent amusement site. Visitors may register interest or request mobile-amusement information.";

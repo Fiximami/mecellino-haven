@@ -22,20 +22,23 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Mecellino Haven | Youth Discovery Gateway",
+    default: "Mecellino Haven | Capacity, coaching and experiences",
     template: "%s | Mecellino Haven",
   },
   description:
-    "Mecellino Haven works with children, young people and families in Ghana — through mobile amusement and the Youth Discovery Gateway programme.",
+    "Mecellino Haven builds individual and institutional capacity through practical training, Youth Discovery Gateway programmes, lifestyle coaching, and inclusive events and entertainment, while developing safe amusement experiences.",
   metadataBase: process.env.NEXT_PUBLIC_SITE_URL
     ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
     : undefined,
   keywords: [
+    "Mecellino Haven",
+    "Capacity Building",
     "Youth Discovery Gateway",
     "YDG",
-    "Mecellino Haven",
-    "Ghana youth programme",
-    "mobile amusement",
+    "Lifestyle Coaching",
+    "Events and Entertainment",
+    "Amusement",
+    "Ghana",
   ],
 };
 

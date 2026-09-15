@@ -4,20 +4,31 @@ import { join } from "node:path";
 
 const PUBLIC_ROUTES = [
   "/",
-  "/ydg",
-  "/tracks",
   "/about",
-  "/how-ydg-works",
-  "/schools",
-  "/mobile-amusement",
-  "/contact",
+  "/capacity-building",
+  "/capacity-building/ydg",
+  "/capacity-building/ydg/how-it-works",
+  "/capacity-building/ydg/tracks",
+  "/capacity-building/retirement-life-preparedness",
+  "/lifestyle-coaching",
+  "/events-entertainment",
+  "/amusement",
   "/parents",
+  "/schools",
+  "/contact",
 ];
 
-const REDIRECTS = [
-  ["/attractions", "/mobile-amusement"],
-  ["/events", "/mobile-amusement"],
-  ["/visit", "/mobile-amusement"],
+const PERMANENT_REDIRECTS = [
+  ["/ydg", "/capacity-building/ydg"],
+  ["/how-ydg-works", "/capacity-building/ydg/how-it-works"],
+  ["/tracks", "/capacity-building/ydg/tracks"],
+  ["/mobile-amusement", "/amusement"],
+];
+
+const LEGACY_REDIRECTS = [
+  ["/attractions", "/amusement"],
+  ["/events", "/events-entertainment"],
+  ["/visit", "/amusement"],
   ["/gallery", "/"],
 ];
 
@@ -64,6 +75,17 @@ function countHeading(html, tag) {
   return matches ? matches.length : 0;
 }
 
+async function assertRedirect(origin, from, to, allowedStatuses) {
+  const response = await fetch(`${origin}${from}`, { redirect: "manual" });
+  if (!allowedStatuses.includes(response.status)) {
+    throw new Error(`${from} returned ${response.status}, expected ${allowedStatuses.join(" or ")}`);
+  }
+  const location = response.headers.get("location") ?? "";
+  if (!location.endsWith(to)) {
+    throw new Error(`${from} redirected to ${location}, expected ${to}`);
+  }
+}
+
 async function main() {
   const port = await unusedPort();
   const origin = `http://127.0.0.1:${port}`;
@@ -92,13 +114,9 @@ async function main() {
       if (countHeading(html, "h1") !== 1) {
         throw new Error(`${path} did not contain exactly one h1`);
       }
-      if (path === "/tracks") {
-        const canonical = response.headers.get("x-unused");
-        void canonical;
-        if (!html.includes('rel="canonical"') && !html.includes("og:title")) {
-          if (!html.includes("Youth Discovery Gateway") && !html.includes("tracks")) {
-            throw new Error("/tracks missing expected metadata markers");
-          }
+      if (path === "/capacity-building/ydg/tracks") {
+        if (!html.includes("Youth Discovery Gateway") && !html.includes("tracks")) {
+          throw new Error("/capacity-building/ydg/tracks missing expected metadata markers");
         }
       }
       if (path === "/") {
@@ -117,15 +135,12 @@ async function main() {
       }
     }
 
-    for (const [from, to] of REDIRECTS) {
-      const response = await fetch(`${origin}${from}`, { redirect: "manual" });
-      if (response.status !== 307 && response.status !== 308) {
-        throw new Error(`${from} returned ${response.status}, expected redirect`);
-      }
-      const location = response.headers.get("location") ?? "";
-      if (!location.endsWith(to)) {
-        throw new Error(`${from} redirected to ${location}, expected ${to}`);
-      }
+    for (const [from, to] of PERMANENT_REDIRECTS) {
+      await assertRedirect(origin, from, to, [308]);
+    }
+
+    for (const [from, to] of LEGACY_REDIRECTS) {
+      await assertRedirect(origin, from, to, [307, 308]);
     }
 
     for (const path of ["/admin", "/admin/bookings", "/does-not-exist"]) {

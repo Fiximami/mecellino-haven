@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
 import {
   BoundaryBlock,
   Chip,
@@ -26,8 +27,16 @@ export default function TracksPage() {
     <>
       <PageSection tone="paper">
         <div className="ydg-stack-lg ydg-measure">
+          <PageBreadcrumb
+            items={[
+              { href: publicRoutes.home, label: "Home" },
+              { href: publicRoutes.capacityBuilding, label: "Capacity Building" },
+              { href: publicRoutes.ydg, label: "Youth Discovery Gateway" },
+              { label: "Tracks" },
+            ]}
+          />
           <PageHero
-            eyebrow="Tracks"
+            eyebrow="Capacity Building · Tracks"
             title="Four tracks, by age at cohort start"
             lede="Age is counted on the official first day of the cohort — not on the day you might register interest when live intake opens. Entry is possible directly at the age-appropriate track."
           />

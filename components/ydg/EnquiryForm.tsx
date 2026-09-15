@@ -6,7 +6,7 @@ import { publicRoutes } from "@/config/routes";
 import { demoEnquiryNotice } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-type Audience = "family" | "school" | "help" | "sponsor" | "mentor" | "event";
+type Audience = "family" | "school" | "help" | "sponsor" | "mentor" | "event" | "lifestyle" | "amusement";
 type ConsentBand = "10-17" | "18-25";
 type FieldKey = "audience" | "name" | "phone" | "consentBand" | "guardian" | "message" | "consent";
 
@@ -39,7 +39,17 @@ const audienceOptions: { value: Audience; title: string; hint: string }[] = [
   {
     value: "event",
     title: "An event enquiry",
-    hint: "Inviting a mobile amusement stand",
+    hint: "Youth or wider-audience events — not ticket sales",
+  },
+  {
+    value: "lifestyle",
+    title: "Lifestyle coaching",
+    hint: "Personal development and life transitions",
+  },
+  {
+    value: "amusement",
+    title: "Amusement interest",
+    hint: "Register interest or request mobile-amusement information",
   },
 ];
 

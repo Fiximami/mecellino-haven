@@ -66,7 +66,7 @@ export default function ParentsPage() {
         <PageHero
           eyebrow="For parents and guardians"
           title="Safety, consent and who is responsible for your child"
-          lede="Programme safeguarding information for adults responsible for a young person. This page describes rules the programme is designed to work to — not live reporting routes."
+          lede="Programme safeguarding information for adults responsible for a young person. Youth Discovery Gateway sits under Capacity Building. This page describes rules the programme is designed to work to — not live reporting routes."
         />
         <Notice icon="i" className="mt-6">
           {recruitmentClosedStatement} Organisation safeguarding reporting contact details are not published until

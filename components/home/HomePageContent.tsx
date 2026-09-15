@@ -1,30 +1,59 @@
 import Link from "next/link";
+import {
+  AmusementIcon,
+  CapacityIcon,
+  EventsIcon,
+  LifestyleIcon,
+} from "@/components/brand/ServiceIcons";
+import { ServiceJourneyCard } from "@/components/brand/ServiceJourneyCard";
 import { publicRoutes } from "@/config/routes";
-import { boundaryStatementShort, demoEnquiryNotice, programmeFacts } from "@/config/site";
+import {
+  amusementDevelopmentStatement,
+  boundaryStatementShort,
+  demoEnquiryNotice,
+  organisationVision,
+  programmeFacts,
+} from "@/config/site";
 
-const experiences = [
+const services = [
   {
-    icon: "🎪",
-    title: "Community gatherings",
+    title: "Capacity Building",
     description:
-      "Temporary stands at selected community events — supervised family fun without a permanent park.",
-    href: publicRoutes.mobileAmusement,
+      "Practical training for people and institutions, including Youth Discovery Gateway for ages 10–25 and Retirement Life Preparedness.",
+    href: publicRoutes.capacityBuilding,
+    action: "Explore Capacity Building →",
+    icon: <CapacityIcon />,
+    visual: "capacity" as const,
+    chip: "Four pathways",
   },
   {
-    icon: "🏫",
-    title: "School and youth events",
+    title: "Lifestyle Coaching",
     description:
-      "Mobile amusement brought to school fairs and youth programmes when a host has confirmed arrangements.",
-    href: publicRoutes.mobileAmusement,
+      "Personal development, confidence, relationships, wellbeing, purpose, family life and general life transitions.",
+    href: publicRoutes.lifestyleCoaching,
+    action: "Explore Lifestyle Coaching →",
+    icon: <LifestyleIcon />,
+    visual: "lifestyle" as const,
   },
   {
-    icon: "🎉",
-    title: "Corporate and public events",
+    title: "Events and Entertainment",
     description:
-      "Family-friendly stands for company days and public celebrations — always mobile, always temporary.",
-    href: publicRoutes.mobileAmusement,
+      "Youth and wider-audience events with developmental, recreational and entertainment experiences. Age limits and guardian consent apply.",
+    href: publicRoutes.eventsEntertainment,
+    action: "Explore events →",
+    icon: <EventsIcon />,
+    visual: "events" as const,
   },
-] as const;
+  {
+    title: "Amusement",
+    description: amusementDevelopmentStatement,
+    href: publicRoutes.amusement,
+    action: "Register amusement interest →",
+    icon: <AmusementIcon />,
+    visual: "amusement" as const,
+    chip: "Coming soon",
+  },
+];
 
 const safetyPoints = [
   {
@@ -57,7 +86,7 @@ const communityLinks = [
   },
   {
     title: "About Mecellino Haven",
-    description: "Governance, accountability and how the two pathways fit together.",
+    description: "Mission, vision, leadership and how the four service areas fit together.",
     href: publicRoutes.about,
   },
 ] as const;
@@ -66,23 +95,21 @@ export function HomePageContent() {
   return (
     <div className="mh-home">
       <section className="mh-section">
-        <div className="mh-wrap mx-auto flex flex-col items-center gap-6 text-center">
-          <p className="mh-eyebrow">Fun for the whole family</p>
-          <h1 className="mh-h1">
-            Where families <span className="mh-accent">play</span> together
-          </h1>
-          <p className="mh-lede mx-auto">
-            Mecellino Haven brings mobile amusement to selected events in Ghana — and runs the Youth Discovery
-            Gateway, our flagship programme helping young people aged {programmeFacts.ageRange} explore what comes
-            next.
-          </p>
-          <div className="mh-btnrow justify-center">
-            <Link href={publicRoutes.mobileAmusement} className="mh-btn mh-btn-primary">
-              Explore mobile amusement
-            </Link>
-            <Link href={publicRoutes.ydg} className="mh-btn mh-btn-ghost">
-              Discover YDG
-            </Link>
+        <div className="mh-wrap mx-auto">
+          <div className="mh-hero-panel mx-auto flex max-w-4xl flex-col items-center gap-6 text-center">
+            <p className="mh-eyebrow">Mecellino Haven</p>
+            <h1 className="mh-h1">
+              A trusted <span className="mh-accent-brand">haven</span> for growth and meaningful experiences
+            </h1>
+            <p className="mh-lede mx-auto">{organisationVision}</p>
+            <div className="mh-btnrow justify-center">
+              <Link href={publicRoutes.capacityBuilding} className="mh-btn mh-btn-primary">
+                Explore Capacity Building
+              </Link>
+              <Link href={publicRoutes.contact} className="mh-btn mh-btn-ghost">
+                Preview an enquiry
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -90,34 +117,16 @@ export function HomePageContent() {
       <section className="mh-section pt-0">
         <div className="mh-wrap mx-auto flex flex-col gap-5">
           <div className="text-center">
-            <h2 className="mh-h2">Two pathways under one name</h2>
+            <h2 className="mh-h2">Four service areas, one organisation</h2>
             <p className="mh-lede mx-auto mt-3">
-              Play at events today. Prepare for tomorrow through structured youth discovery when intake opens.
+              Capacity Building, Lifestyle Coaching, Events and Entertainment, and amusement that is still in
+              development.
             </p>
           </div>
-          <div className="mh-grid-2">
-            <article className="mh-card mh-card-ydg">
-              <span className="mh-chip mh-chip-pilot">Pilot in preparation</span>
-              <h3 className="text-lg font-semibold">Youth Discovery Gateway</h3>
-              <p className="text-[15px] leading-relaxed text-[var(--mh-dark-muted)]">
-                Helps young people build evidence about their interests, strengths and possible directions — through
-                discovery, guided exploration, practical experience and reflection.
-              </p>
-              <Link href={publicRoutes.ydg} className="mh-link mt-auto">
-                About YDG →
-              </Link>
-            </article>
-            <article className="mh-card">
-              <span className="mh-chip mh-chip-live">Currently operating</span>
-              <h3 className="text-lg font-semibold">Mobile Amusement &amp; Events</h3>
-              <p className="text-[15px] leading-relaxed text-[var(--mh-dark-muted)]">
-                We bring temporary event stands to selected community, school, corporate and public events. No
-                permanent park, passes or opening hours.
-              </p>
-              <Link href={publicRoutes.mobileAmusement} className="mh-link mt-auto">
-                Where we will be →
-              </Link>
-            </article>
+          <div className="mh-grid-4">
+            {services.map((item) => (
+              <ServiceJourneyCard key={item.title} {...item} />
+            ))}
           </div>
         </div>
       </section>
@@ -126,45 +135,16 @@ export function HomePageContent() {
         <div className="mh-wrap mx-auto flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <p className="mh-eyebrow text-[var(--mh-cyan)]">Youth Discovery Gateway</p>
-            <h2 className="mh-h2 mt-2">Structured discovery for ages {programmeFacts.ageRange}</h2>
+            <h2 className="mh-h2 mt-2">A Capacity Building programme for ages {programmeFacts.ageRange}</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-[var(--mh-dark-muted)]">
-              YDG is not a job scheme or a test with a pass mark. It helps young people test interests safely, build
-              evidence and write their own next-step plan — with families involved throughout.
+              YDG sits under Capacity Building. It is not a job scheme or a test with a pass mark. It helps young
+              people test interests safely, build evidence and write their own next-step plan — with families involved
+              throughout.
             </p>
           </div>
           <Link href={publicRoutes.ydg} className="mh-link">
-            Explore the programme →
+            About Youth Discovery Gateway →
           </Link>
-        </div>
-      </section>
-
-      <section className="mh-section">
-        <div className="mh-wrap mx-auto flex flex-col gap-6">
-          <div className="text-center">
-            <h2 className="mh-h2">Selected mobile experiences</h2>
-            <p className="mh-lede mx-auto mt-3">
-              We set up where hosts invite us — always temporary, always supervised.
-            </p>
-          </div>
-          <div className="mh-grid-3">
-            {experiences.map((item) => (
-              <article key={item.title} className="mh-card">
-                <span className="mh-icon-badge" aria-hidden="true">
-                  {item.icon}
-                </span>
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="text-[15px] leading-relaxed text-[var(--mh-dark-muted)]">{item.description}</p>
-                <Link href={item.href} className="mh-link mt-auto">
-                  Learn more →
-                </Link>
-              </article>
-            ))}
-          </div>
-          <div className="flex justify-center">
-            <Link href={publicRoutes.mobileAmusement} className="mh-btn mh-btn-primary">
-              View mobile amusement
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -225,7 +205,7 @@ export function HomePageContent() {
       <section className="mh-section pt-0">
         <div className="mh-wrap mx-auto">
           <div className="mh-cta-panel flex flex-col items-center gap-4">
-            <h2 className="mh-h2">Preview a programme enquiry</h2>
+            <h2 className="mh-h2">Preview an enquiry</h2>
             <p className="mh-lede mx-auto max-w-xl text-[#083344]">
               See how segmented enquiry will look when live intake is approved. {demoEnquiryNotice}
             </p>

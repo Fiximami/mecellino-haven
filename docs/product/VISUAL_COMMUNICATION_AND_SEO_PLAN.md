@@ -7,7 +7,7 @@
 - **Palette:** Near-black backgrounds (`globals.css` dark tokens), cyan accent highlights, gold/navy focus rings.
 - **Typography:** Source Serif 4 (headings), Libre Franklin (body), IBM Plex Mono (labels/code).
 - **Components:** `PageHero`, `PathCard`, `Notice`, `BoundaryBlock`, pill CTAs — dark “playful professional” tone.
-- **Logo:** `public/brand/mecellino-haven-logo.jpg` (1024×188) — use with documented alt text.
+- **Logo:** `public/brand/mecellino-haven-logo.svg` with raster companion `public/brand/mecellino-haven-logo.png`; compact monogram `public/brand/mecellino-haven-mark.svg` / `.png`. Use with documented alt text. Confirmed source: `public/brand/source/Mecellino-Haven-new-LOGO.pdf`.
 
 ### Global media policy
 

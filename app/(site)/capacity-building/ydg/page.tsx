@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
 import {
   BoundaryBlock,
   ButtonRow,
@@ -28,8 +29,15 @@ export default function YdgOverviewPage() {
     <>
       <PageSection tone="navy">
         <div className="ydg-stack-lg">
+          <PageBreadcrumb
+            items={[
+              { href: publicRoutes.home, label: "Home" },
+              { href: publicRoutes.capacityBuilding, label: "Capacity Building" },
+              { label: "Youth Discovery Gateway" },
+            ]}
+          />
           <PageHero
-            eyebrow="Mecellino Haven · Flagship programme"
+            eyebrow="Capacity Building · Youth Discovery Gateway"
             title="Youth Discovery Gateway"
             lede={`An early interest is a hypothesis to test — not a label a young person carries for life. YDG gives ${programmeFacts.ageRange} year olds structured ways to test theirs.`}
             onNavy

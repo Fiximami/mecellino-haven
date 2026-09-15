@@ -1,13 +1,17 @@
 const PUBLIC_RETURN_PATHS = new Set([
   "/",
-  "/ydg",
-  "/tracks",
   "/about",
-  "/how-ydg-works",
-  "/schools",
-  "/mobile-amusement",
-  "/contact",
+  "/capacity-building",
+  "/capacity-building/ydg",
+  "/capacity-building/ydg/how-it-works",
+  "/capacity-building/ydg/tracks",
+  "/capacity-building/retirement-life-preparedness",
+  "/lifestyle-coaching",
+  "/events-entertainment",
+  "/amusement",
   "/parents",
+  "/schools",
+  "/contact",
   "/auth/sign-in",
 ]);
 

@@ -6,6 +6,7 @@ import {
   Notice,
   PageHero,
   PageSection,
+  PathCard,
   PrimaryButton,
   SectionHeading,
   TickList,
@@ -14,6 +15,8 @@ import {
 import { publicRoutes } from "@/config/routes";
 import {
   girlsCommitmentStatement,
+  organisationMission,
+  organisationVision,
   pilotFundingStatement,
   programmeFacts,
   recruitmentClosedStatement,
@@ -24,7 +27,7 @@ import { publicPageMetadata } from "@/lib/public-metadata";
 export const metadata: Metadata = publicPageMetadata({
   title: "About",
   description:
-    "About Mecellino Haven and Youth Discovery Gateway — governance, pilot scope, and recruitment status. Applications are not open.",
+    "About Mecellino Haven — vision, mission, operating structure, governance and recruitment status. Applications are not open.",
   path: publicRoutes.about,
 });
 
@@ -35,8 +38,50 @@ export default function AboutPage() {
         <PageHero
           eyebrow="About"
           title="Mecellino Haven"
-          lede="A Ghanaian organisation working with children, young people and families — currently through mobile amusement at selected events, and through the Youth Discovery Gateway for ages 10–25."
+          lede="A Ghanaian organisation working with individuals, families and institutions through Capacity Building, Lifestyle Coaching, Events and Entertainment, and amusement experiences that are still in development."
         />
+      </PageSection>
+
+      <PageSection>
+        <div className="ydg-grid-2">
+          <div className="ydg-stack">
+            <SectionHeading>Vision</SectionHeading>
+            <p className="text-[15px] text-[var(--ink-2)]">{organisationVision}</p>
+            <SectionHeading as="h3">Mission</SectionHeading>
+            <p className="text-[15px] text-[var(--ink-2)]">{organisationMission}</p>
+          </div>
+          <div className="ydg-stack">
+            <SectionHeading>How we operate</SectionHeading>
+            <TickList
+              items={[
+                "Capacity Building includes Youth Discovery Gateway, Retirement Life Preparedness, individual training and institutional training.",
+                "Lifestyle Coaching supports personal development, confidence, relationships, wellbeing, purpose, family life and general life transitions.",
+                "Events and Entertainment serve youth and wider audiences, with event-specific age limits and guardian consent for minors.",
+                "Permanent and mobile amusement remain in development and are presented only as coming soon.",
+              ]}
+            />
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection tone="cream2">
+        <div className="ydg-stack-lg">
+          <SectionHeading>Four public service areas</SectionHeading>
+          <div className="ydg-grid-2">
+            <PathCard title="Capacity Building" href={publicRoutes.capacityBuilding} variant="ydg">
+              <p>Training and programmes that help people and institutions grow, including YDG for ages {programmeFacts.ageRange}.</p>
+            </PathCard>
+            <PathCard title="Lifestyle Coaching" href={publicRoutes.lifestyleCoaching}>
+              <p>Personal development, confidence, relationships, wellbeing, purpose, family life and general life transitions.</p>
+            </PathCard>
+            <PathCard title="Events and Entertainment" href={publicRoutes.eventsEntertainment}>
+              <p>Developmental, recreational and entertainment experiences for youth and wider audiences.</p>
+            </PathCard>
+            <PathCard title="Amusement" href={publicRoutes.amusement}>
+              <p>Coming soon. No permanent amusement site currently exists.</p>
+            </PathCard>
+          </div>
+        </div>
       </PageSection>
 
       <PageSection>
@@ -68,12 +113,11 @@ export default function AboutPage() {
 
       <PageSection tone="cream2">
         <div className="ydg-stack-lg ydg-measure">
-          <SectionHeading>Mecellino Haven and Youth Discovery Gateway</SectionHeading>
+          <SectionHeading>Youth Discovery Gateway</SectionHeading>
           <p className="text-[15px] text-[var(--ink-2)]">
-            Mecellino Haven operates mobile amusement at selected events and runs Youth Discovery Gateway (YDG), a
-            structured programme for young people aged {programmeFacts.ageRange}. YDG helps participants build evidence
-            about their interests, strengths and possible directions. It does not replace school, clinical assessment,
-            counselling or regulated training.
+            Youth Discovery Gateway is Mecellino Haven&apos;s flagship Capacity Building programme for young people aged{" "}
+            {programmeFacts.ageRange}. YDG helps participants build evidence about their interests, strengths and
+            possible directions. It does not replace school, clinical assessment, counselling or regulated training.
           </p>
           <SectionHeading as="h3">Selection</SectionHeading>
           <p className="text-[15px] text-[var(--ink-2)]">{selectionStatement}</p>

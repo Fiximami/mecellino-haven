@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { focusMainContent, setMobileNavFocusPending } from "@/components/layout/MainContentFocus";
 import { drawerNav, primaryNav, publicRoutes } from "@/config/routes";
 import { cn } from "@/lib/utils";
@@ -68,24 +68,17 @@ export function SiteHeader() {
           className="mr-auto flex min-h-11 items-center no-underline"
           aria-label="Mecellino Haven home"
         >
-          <Image
-            src="/brand/mecellino-haven-logo.jpg"
-            alt="Mecellino Haven"
-            width={1024}
-            height={188}
-            priority
-            className="h-9 w-auto md:h-10"
-          />
+          <BrandLogo />
         </Link>
 
-        <ul className="hidden list-none items-center gap-1 md:flex">
+        <ul className="hidden list-none items-center gap-0.5 md:flex lg:gap-1">
           {primaryNav.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
                 aria-current={isCurrent(item.href) ? "page" : undefined}
                 className={cn(
-                  "flex min-h-11 items-center rounded-full px-3.5 text-sm font-medium text-[var(--mh-dark-muted)] no-underline transition-colors lg:text-[15px]",
+                  "flex min-h-11 items-center rounded-full px-2.5 text-[13px] font-medium text-[var(--mh-dark-muted)] no-underline transition-colors lg:px-3.5 lg:text-[15px]",
                   isCurrent(item.href)
                     ? "bg-white/8 font-semibold text-[var(--mh-dark-text)]"
                     : "hover:text-[var(--mh-dark-text)]"

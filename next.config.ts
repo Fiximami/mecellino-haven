@@ -22,10 +22,14 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/attractions", destination: "/mobile-amusement", permanent: false },
-      { source: "/events", destination: "/mobile-amusement", permanent: false },
+      { source: "/ydg", destination: "/capacity-building/ydg", permanent: true },
+      { source: "/how-ydg-works", destination: "/capacity-building/ydg/how-it-works", permanent: true },
+      { source: "/tracks", destination: "/capacity-building/ydg/tracks", permanent: true },
+      { source: "/mobile-amusement", destination: "/amusement", permanent: true },
+      { source: "/attractions", destination: "/amusement", permanent: false },
+      { source: "/events", destination: "/events-entertainment", permanent: false },
       { source: "/gallery", destination: "/", permanent: false },
-      { source: "/visit", destination: "/mobile-amusement", permanent: false },
+      { source: "/visit", destination: "/amusement", permanent: false },
     ];
   },
 };
