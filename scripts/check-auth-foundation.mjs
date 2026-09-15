@@ -62,6 +62,25 @@ if (existsSync(bookingMigration)) {
   }
 }
 
+const migrationsDir = join(ROOT, "supabase", "migrations");
+if (existsSync(migrationsDir)) {
+  for (const name of readdirSync(migrationsDir).filter((entry) => entry.endsWith(".sql"))) {
+    const sql = readFileSync(join(migrationsDir, name), "utf8");
+    if (/create policy/i.test(sql) || /with check \(true\)/i.test(sql) || /using \(true\)/i.test(sql)) {
+      fail(`${name} introduces a policy or open check.`);
+    }
+    if (/grant[\s\S]*?\sto\s+(anon|authenticated|public)\b/i.test(sql)) {
+      fail(`${name} broadens grants to anon, authenticated or public.`);
+    }
+  }
+}
+
+const rolesSource = readFileSync(join(ROOT, "lib", "auth", "roles.ts"), "utf8");
+const deniedBlock = rolesSource.split("export const ALWAYS_DENIED_ACTIONS")[1]?.split("] as const")[0] ?? "";
+if (!deniedBlock.includes('"link_adult_relationship"')) {
+  fail("link_adult_relationship must remain in ALWAYS_DENIED_ACTIONS.");
+}
+
 const envExample = readFileSync(join(ROOT, ".env.example"), "utf8");
 if (envExample.includes("NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY")) {
   fail(".env.example exposes a public service-role name.");

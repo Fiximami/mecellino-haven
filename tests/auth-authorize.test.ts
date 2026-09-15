@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { authorize } from "../lib/auth/authorize.ts";
-import { anonymousIdentity } from "../lib/auth/identity.ts";
+import { anonymousIdentity, identityFromProtectedClaims } from "../lib/auth/identity.ts";
+import { ALWAYS_DENIED_ACTIONS } from "../lib/auth/roles.ts";
 import {
   SYNTHETIC_ADMINISTRATOR,
   SYNTHETIC_OPERATIONS,
@@ -92,5 +93,25 @@ describe("authorization foundation", () => {
       fresh: true,
     });
     assert.equal(fresh.allowed, true);
+  });
+
+  it("keeps link_adult_relationship denied even for a safeguarding lead", () => {
+    assert.equal(
+      (ALWAYS_DENIED_ACTIONS as readonly string[]).includes("link_adult_relationship"),
+      true,
+    );
+
+    const safeguardingLead = identityFromProtectedClaims({
+      appMetadata: { roles: ["safeguarding_lead"] },
+    });
+    const result = authorize({
+      identity: safeguardingLead,
+      action: "link_adult_relationship",
+      fresh: true,
+    });
+    assert.equal(result.allowed, false);
+    if (!result.allowed) {
+      assert.equal(result.reason, "safeguarding_isolated");
+    }
   });
 });
