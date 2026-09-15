@@ -1,25 +1,45 @@
 # MVP implementation roadmap
 
-**Milestone 4A — specification only.** Ordered increments after this architecture pass. No authentication, API, database, storage, dashboard, onboarding or tracking work starts without the gates below.
+Reconstruction Milestone **R1 is complete** (`feat(site): establish reconstructed service architecture`). Reconstruction Milestone **R2 is specification only**: YDG longitudinal journey architecture and experience planning. R2 does not implement dashboards, collect personal data, or open recruitment.
+
+Authenticated programme work still follows the gated 4A–4I sequence below. **4A, 4A.1 and 4B are closed.** **4C is the next implementation increment**, and it now depends on R2 as well as the original 4C gates.
+
+No API, database, storage, dashboard, onboarding or tracking work starts without the gates below.
+
+---
+
+## Reconstruction sequence
+
+| ID | Increment | Status | Outcome | Depends on |
+|----|-----------|--------|---------|------------|
+| **R1** | Reconstructed public service architecture | **Complete** | Capacity Building (including nested YDG), Lifestyle Coaching, Events & Entertainment, Amusement coming soon; canonical routes and redirects | Approved reconstruction |
+| **R2** | YDG longitudinal journey architecture | **This milestone — documents only** | Roles, lifecycle, age vs education stage, journey/engagement concepts, consent/safeguarding gates, dashboard IA, phase boundaries, backend map, acceptance sequence | R1 committed |
+| **R3+** | Authenticated journey delivery | Not started | Implements Phase A in `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md` through later 4C–4G slices | R2 accepted; Gate M before minor PII; no live recruitment until named gates close |
+
+R2 documents:
+
+- `R2_YDG_LONGITUDINAL_JOURNEY.md`
+- `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`
+- `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md`
 
 ---
 
 ## Increments
 
-| ID | Increment | Outcome | Explicit approval gate before start |
-|----|-----------|---------|-------------------------------------|
-| **4A** | Architecture approval | These five documents accepted | Product owner + safeguarding owner sign-off on roles, consent and isolation |
-| **4A.1** | Dependency hardening | Patched runtime baseline; lockfile updated only in that dedicated pass | Owner-approved implementation pass. **Must complete before 4B.** Separate from product-feature work. See below. |
-| **4B** | Authentication foundation | Server-validated sessions; protected role claims; `/admin` remains 404 until RBAC is proven | **4A.1 closed.** Provider decision recorded (see architecture options). Security review of session and secrets. **No minor PII.** Authentication must not begin on the currently vulnerable framework baseline. |
-| **4C** | Consent and relationship model | Instruments, adult relationships, identity-reuse rule, exception workflow (no public SL contact invented) | Legal/privacy review of instruments. 10–17 and 18–25 rules testable without live collection |
-| **4D** | Enquiry / register-interest service | Replaces demonstration form for approved audiences only; audit + retention class | Monitored channel + privacy notice. Recruitment may remain closed. **Still no minor intake unless Gate M is closed** |
-| **4E** | Participant onboarding | Enrolment, education stage captured separately from age, track/cohort assignment | **Gate M (minors)** plus ages 10–12 approval if that band is in scope |
-| **4F** | Programme progression | UNFOLD stage, milestones, structured evidence, attendance | Delivery safeguarding ratios and session policy approved. **File-backed evidence** additionally requires the upload principles and a closed file-handling approval |
-| **4G** | Mentor / facilitator workflows | Screening status, assignments, limited write | Volunteer screening policy; roles remain planned until that policy exists |
-| **4H** | Reporting | Role-scoped aggregates; girls’ enrolment commitment reporting when data exist | No case-body fields in any general report |
-| **4I** | Restricted safeguarding operations | Segregated case store, restriction markers, audited break-glass | Safeguarding manual, monitored concern channel (3A P4), independent escalation policy. **Not** the enquiry form |
+| ID | Increment | Status | Outcome | Explicit approval gate before start |
+|----|-----------|--------|---------|-------------------------------------|
+| **4A** | Architecture approval | **Closed** | Five 4A documents accepted | Product owner + safeguarding owner sign-off on roles, consent and isolation |
+| **4A.1** | Dependency hardening | **Closed** | Patched Next.js 16.3.3 baseline | Owner-approved implementation pass. **Must complete before 4B.** Separate from product-feature work. See below. |
+| **4B** | Authentication foundation | **Closed (dormant, fail-closed)** | Server-validated sessions; protected role claims; `/admin` remains 404 until RBAC is proven | **4A.1 closed.** Provider decision recorded. Hosted project, durable audit and distributed lockout remain prerequisites before live Auth. **No minor PII.** |
+| **4C** | Consent and relationship model | Next implementation slice | Instruments, adult relationships, identity-reuse rule, exception workflow (no public SL contact invented) | **R2 accepted.** Legal/privacy review of instruments. 10–17 and 18–25 rules testable without live collection |
+| **4D** | Enquiry / register-interest service | Not started | Replaces demonstration form for approved audiences only; audit + retention class | Monitored channel + privacy notice. Recruitment may remain closed. **Still no minor intake unless Gate M is closed** |
+| **4E** | Participant onboarding | Not started | Enrolment, education stage captured separately from age, track/cohort assignment | **Gate M (minors)** plus ages 10–12 approval if that band is in scope. Use 4A stages `upper_primary \| jhs \| shs \| tertiary \| other`. **`tvet` as an education-stage value remains an open owner decision** — do not encode TVET as `other` and do not treat it as approved |
+| **4F** | Programme progression | Not started | My Journey, UNFOLD stage (**Execute** preserved), milestones, structured evidence, attendance, `TransitionReviewCompleted`, `EnrolmentEnded` / `EnrolmentTransferred` | R2 Phase A engagement model. Delivery safeguarding ratios and session policy approved. **File-backed evidence** additionally requires the upload principles and a closed file-handling approval. No scores, rankings, DMs, silent enrolment moves or automatic progression |
+| **4G** | Mentor / facilitator workflows | Not started | Screening status, assignments, limited write; structured mentor interaction only | Volunteer screening policy; roles remain planned until that policy exists. No mentorship marketplace |
+| **4H** | Reporting | Not started | Role-scoped aggregates; girls’ enrolment commitment reporting when data exist | No case-body fields in any general report |
+| **4I** | Restricted safeguarding operations | Not started | Segregated case store, restriction markers, audited break-glass | Safeguarding manual, monitored concern channel (3A P4), independent escalation policy. **Not** the enquiry form |
 
-Public nine-route site, closed recruitment messaging, and demonstration enquiry stay until 4D is approved and cut over (3A D2, 3B).
+The reconstructed public site (R1 canonical routes), closed recruitment messaging, and demonstration enquiry stay until 4D is approved and cut over (3A D2, 3B). Direct messaging, community feeds, automated matching and alumni grants wait for their named phases in `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md`.
 
 ---
 
@@ -29,8 +49,8 @@ All of the following must be recorded as approved. Until then, no name, phone, d
 
 1. Architecture (4A) accepted.
 2. Dependency hardening (4A.1) completed on an owner-approved patched baseline.
-3. Authentication foundation (4B) live with server-validated sessions and protected role claims.
-4. Consent and relationship model (4C) implemented and independently tested for 10–17 (consent + assent) and identity-reuse.
+3. Authentication foundation (4B) live with server-validated sessions and protected role claims. Hosted-project, durable-audit and distributed-lockout prerequisites from the 4B report still apply.
+4. Consent and relationship model (4C) implemented and independently tested for 10–17 (consent + assent) and identity-reuse. Reconstruction R2 is planning only and does **not** satisfy this gate.
 5. Lawful-basis / privacy notice approved for Ghana operations (owner/legal — not invented here).
 6. Safeguarding, privacy and insurance readiness gates already named in `recruitmentClosedStatement` are closed.
 7. Age-specific safeguarding approval if any participant is aged 10–12.
@@ -47,6 +67,8 @@ Adult 18–25 personal data still requires 4A.1, 4B, 4C, privacy notice and rete
 
 | Increment | Must not introduce |
 |-----------|-------------------|
+| R2 | Production UI, migrations, Supabase changes, dashboards, live forms, generated instruction files, or personal-data collection |
+| R2-V | Persistence, pages, env files, or new roles in `lib/auth/roles.ts` |
 | 4A.1 | Product features, authentication, live forms, or a forced `npm audit fix` |
 | 4B | Participant profiles, live forms, enabled admin dashboard |
 | 4C | File storage of evidence or case notes |
@@ -124,6 +146,9 @@ Rules for that pass:
 
 ## Related documents
 
+- `R2_YDG_LONGITUDINAL_JOURNEY.md`
+- `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`
+- `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md`
 - `MVP_TECHNICAL_ARCHITECTURE.md`
 - `MVP_DOMAIN_AND_EVENT_MODEL.md`
 - `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`
