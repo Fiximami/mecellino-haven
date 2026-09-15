@@ -1,7 +1,7 @@
 # R2 — Experience, phases and implementation sequence
 
-**Milestone:** Reconstruction R2 — specification only.  
-**Does not implement** authentication screens, dashboards, forms, APIs or migrations.  
+**Milestone:** Reconstruction R2 — specification only.\
+**Does not implement** authentication screens, dashboards, forms, APIs or migrations.\
 **Preserves** the approved public UI. Authenticated surfaces are future work after the gates in this document and `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`.
 
 Domain and roles: `R2_YDG_LONGITUDINAL_JOURNEY.md`.
