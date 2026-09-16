@@ -61,7 +61,7 @@ All of the following must be true before hosted authentication is treated as ena
 
 1. The connected Supabase project is **positively identified** as Mecellino Haven Production in the MualenTech organisation. If identity cannot be proven, do not connect.
 2. Remote migration history, FORCE RLS, and grants/revocations for `anon`, `authenticated`, `public` and privileged database roles are verified with read-only metadata (no row contents of participants, users, enquiries, tokens or cases).
-3. Distributed lockout **or** approved provider throttling exists. The current in-process map (`LOCKOUT_SCOPE = local_single_process`) is not sufficient.
+3. Application-owned distributed lockout exists and is verified (D8). Provider rate limiting is defence in depth, not a substitute. The current in-process map (`LOCKOUT_SCOPE = local_single_process`) is not sufficient.
 4. Idle and absolute session timeout values are approved (D7). Approving those durations does not enable hosted authentication.
 5. Safeguarding, privacy and insurance readiness gates that permit personal-data processing are closed (including Gate M before any 10–17 personal data). Lawful basis and retention are not invented here.
 
@@ -84,7 +84,15 @@ The privileged class applies when protected claims include any of `programme_ope
 
 Absolute lifetime cannot be extended by activity. Idle refresh cannot pass the absolute deadline.
 
-These values do not enable hosted authentication. Distributed lockout remains unresolved.
+These values do not enable hosted authentication. Distributed lockout remains unimplemented.
+
+### D8 — Distributed lockout is an application-owned store, pending implementation
+
+The process-local map is not a production control. The proposed replacement is specified in `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md`: a `private` table addressed only by a keyed HMAC, RLS and FORCE RLS, no `anon`/`authenticated` grants, atomic updates safe across instances, and fail-closed hosted authentication when the store or pepper is unavailable.
+
+Supabase Auth provider rate limiting remains an independent control. It does not replace the application store.
+
+This decision does **not** implement that store, create a migration, or enable hosted authentication.
 
 ---
 
@@ -94,7 +102,7 @@ These are **not** settled here and must not be guessed in code:
 
 | Item | Notes |
 |------|--------|
-| Lockout mechanism | Application-owned distributed store versus Auth-provider throttling (or both) |
+| Distributed lockout implementation | Architecture proposed in `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md`; thresholds, casefold, unlock role, pooled-role RLS and pepper custody remain owner items there |
 | Lawful basis / privacy notice / Gate M / insurance readiness | Required before personal-data processing |
 | Positive production-project identification | Operational proof, not a value stored in this repository |
 | AdultRelationship physical schema | Table/RLS shape when 4C persistence is separately approved |
