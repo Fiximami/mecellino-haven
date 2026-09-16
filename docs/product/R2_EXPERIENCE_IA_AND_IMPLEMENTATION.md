@@ -1,6 +1,7 @@
 # R2 — Experience, phases and implementation sequence
 
-**Milestone:** Reconstruction R2 — specification only.\
+**Milestone:** Reconstruction R2 — accepted specification.\
+**Status:** Owner-accepted as the planning and architecture baseline. This acceptance does not authorize production implementation, persistence, recruitment or personal-data collection.\
 **Does not implement** authentication screens, dashboards, forms, APIs or migrations.\
 **Preserves** the approved public UI. Authenticated surfaces are future work after the gates in this document and `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`.
 

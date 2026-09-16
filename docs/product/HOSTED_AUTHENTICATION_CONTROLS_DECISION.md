@@ -4,7 +4,7 @@
 **Branch context:** `feat/ydg-authenticated-mvp`.\
 **Does not:** implement Auth, connect a hosted project, apply migrations, collect personal data, or change dependencies.
 
-Cross-reference: `AUTH_PROVIDER_DECISION.md`, `AUTHENTICATION_AND_AUTHORIZATION_SPECIFICATION.md`, `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, `MVP_DOMAIN_AND_EVENT_MODEL.md`, `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`, `MVP_IMPLEMENTATION_ROADMAP.md`.
+Cross-reference: `AUTH_PROVIDER_DECISION.md`, `AUTHENTICATION_AND_AUTHORIZATION_SPECIFICATION.md`, `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, `MVP_DOMAIN_AND_EVENT_MODEL.md`, `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`, `MVP_IMPLEMENTATION_ROADMAP.md`, `MILESTONE_4C_ADULT_RELATIONSHIP_AND_CONSENT_ARCHITECTURE.md`.
 
 ---
 
@@ -105,7 +105,7 @@ These are **not** settled here and must not be guessed in code:
 | Distributed lockout remote verification | Store applied and metadata-verified; dormant sign-in uses it; hosted authentication remains disabled until remaining D5 gates close |
 | Lawful basis / privacy notice / Gate M / insurance readiness | Required before personal-data processing |
 | Positive production-project identification | Operational proof, not a value stored in this repository |
-| AdultRelationship physical schema | Table/RLS shape when 4C persistence is separately approved |
+| AdultRelationship physical schema | Design recorded in `MILESTONE_4C_ADULT_RELATIONSHIP_AND_CONSENT_ARCHITECTURE.md`. Migration, RLS application and `link_adult_relationship` remain unauthorised |
 | Whether a `parent` or `legal_guardian` role grant requires a matching AdultRelationship | Recommended invariant; safeguarding owner confirms before persistence |
 
 ---

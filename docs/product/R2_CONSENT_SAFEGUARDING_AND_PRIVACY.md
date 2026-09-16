@@ -1,6 +1,7 @@
 # R2 — Consent, safeguarding and privacy gates
 
-**Milestone:** Reconstruction R2 — specification only.\
+**Milestone:** Reconstruction R2 — accepted specification.\
+**Status:** Owner-accepted as the planning and architecture baseline. This acceptance does not authorize production implementation, persistence, recruitment or personal-data collection.\
 **Extends:** `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, public `/parents` instruments, 3A P4 (concern channel still unapproved).\
 **Does not:** invent a public safeguarding-reporting route, collect personal data, or implement casework.
 

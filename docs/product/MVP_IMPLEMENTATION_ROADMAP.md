@@ -1,8 +1,8 @@
 # MVP implementation roadmap
 
-Reconstruction Milestone **R1 is complete** (`feat(site): establish reconstructed service architecture`). Reconstruction Milestone **R2 is specification only**: YDG longitudinal journey architecture and experience planning. R2 does not implement dashboards, collect personal data, or open recruitment.
+Reconstruction Milestone **R1 is complete** (`feat(site): establish reconstructed service architecture`). Reconstruction Milestone **R2 is an accepted specification**: YDG longitudinal journey architecture and experience planning. R2 remains documentation and architecture only. Owner acceptance does not authorise migrations, live consent collection, recruitment, onboarding, personal-data processing or closure of Gate M.
 
-Authenticated programme work still follows the gated 4A–4I sequence below. **4A, 4A.1 and 4B are closed.** **4C is the next implementation increment**, and it now depends on R2 as well as the original 4C gates.
+Authenticated programme work still follows the gated 4A–4I sequence below. **4A, 4A.1 and 4B are closed.** **4C remains incomplete and gated.** It is the next implementation increment and still depends on the original 4C gates as well as this accepted R2 baseline.
 
 No API, database, storage, dashboard, onboarding or tracking work starts without the gates below.
 
@@ -13,7 +13,7 @@ No API, database, storage, dashboard, onboarding or tracking work starts without
 | ID | Increment | Status | Outcome | Depends on |
 |----|-----------|--------|---------|------------|
 | **R1** | Reconstructed public service architecture | **Complete** | Capacity Building (including nested YDG), Lifestyle Coaching, Events & Entertainment, Amusement coming soon; canonical routes and redirects | Approved reconstruction |
-| **R2** | YDG longitudinal journey architecture | **This milestone — documents only** | Roles, lifecycle, age vs education stage, journey/engagement concepts, consent/safeguarding gates, dashboard IA, phase boundaries, backend map, acceptance sequence | R1 committed |
+| **R2** | YDG longitudinal journey architecture | **Accepted specification** | Roles, lifecycle, age vs education stage, journey/engagement concepts, consent/safeguarding gates, dashboard IA, phase boundaries, backend map. Remains documentation and architecture only | R1 committed; product owner accepted. Acceptance does not authorise production implementation, persistence, recruitment or personal-data collection |
 | **R3+** | Authenticated journey delivery | Not started | Implements Phase A in `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md` through later 4C–4G slices | R2 accepted; Gate M before minor PII; no live recruitment until named gates close |
 
 R2 documents:
@@ -21,6 +21,8 @@ R2 documents:
 - `R2_YDG_LONGITUDINAL_JOURNEY.md`
 - `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`
 - `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md`
+
+Owner-accepted as the planning and architecture baseline. This acceptance does not authorize production implementation, persistence, recruitment or personal-data collection.
 
 ---
 
@@ -50,7 +52,7 @@ All of the following must be recorded as approved. Until then, no name, phone, d
 1. Architecture (4A) accepted.
 2. Dependency hardening (4A.1) completed on an owner-approved patched baseline.
 3. Authentication foundation (4B) live with server-validated sessions and protected role claims. Hosted-project, durable-audit and distributed-lockout prerequisites from the 4B report still apply.
-4. Consent and relationship model (4C) implemented and independently tested for 10–17 (consent + assent) and identity-reuse. Reconstruction R2 is planning only and does **not** satisfy this gate.
+4. Consent and relationship model (4C) implemented and independently tested for 10–17 (consent + assent) and identity-reuse. Owner-accepted R2 remains planning and architecture only and does **not** satisfy this gate.
 5. Lawful-basis / privacy notice approved for Ghana operations (owner/legal — not invented here).
 6. Safeguarding, privacy and insurance readiness gates already named in `recruitmentClosedStatement` are closed.
 7. Age-specific safeguarding approval if any participant is aged 10–12.
@@ -150,3 +152,4 @@ Never apply service-role keys or enable admin as a “fix” for dependency warn
 - `MILESTONE_3A_DECISIONS.md` (P3 live enquiry, P4 concern channel, P7 education stage, P10 case residency)
 - `HOSTED_AUTHENTICATION_CONTROLS_DECISION.md` (parent vs legal_guardian; hosted Auth enablement gates)
 - `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md` (owner-approved HMAC lockout store; dormant sign-in integration; hosted Auth remains disabled)
+- `MILESTONE_4C_ADULT_RELATIONSHIP_AND_CONSENT_ARCHITECTURE.md` (design-only AdultRelationship, ConsentRecord, ARA workflow, security and retention; persistence and live collection remain blocked)

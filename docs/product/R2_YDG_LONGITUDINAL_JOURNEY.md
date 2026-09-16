@@ -1,7 +1,7 @@
 # R2 — YDG longitudinal journey architecture
 
-**Milestone:** Reconstruction R2 — specification only.\
-**Status:** Implementation-ready planning. No UI, schema, migration, recruitment or personal-data collection.\
+**Milestone:** Reconstruction R2 — accepted specification.\
+**Status:** Owner-accepted as the planning and architecture baseline. This acceptance does not authorize production implementation, persistence, recruitment or personal-data collection.\
 **Programme home:** Youth Discovery Gateway remains a Capacity Building programme. Public routes stay at `/capacity-building/ydg`, `/capacity-building/ydg/how-it-works` and `/capacity-building/ydg/tracks`.
 
 This document is the authoritative R2 source for roles, lifecycle, age/education modelling, and journey concepts. It extends, and does not weaken, `MVP_ROLE_AND_JOURNEY_BOUNDARIES.md`, `MVP_DOMAIN_AND_EVENT_MODEL.md`, `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, and the 4B authentication foundation.
