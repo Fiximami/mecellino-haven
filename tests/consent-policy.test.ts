@@ -127,7 +127,7 @@ describe("consent vocabulary", () => {
     }
   });
 
-  it("keeps adult-relationship kinds distinct without reconciling persistence", () => {
+  it("keeps parent and legal_guardian relationship kinds distinct after the role decision", () => {
     assert.deepEqual([...adultRelationshipKinds], [
       "parent",
       "legal_guardian",
@@ -138,7 +138,11 @@ describe("consent vocabulary", () => {
     }
     assert.match(
       vocabularySource,
-      /Persistence stays blocked: link_adult_relationship is always denied until parent vs legal_guardian is reconciled/,
+      /parent and legal_guardian are intentionally distinct protected roles; that role decision is already resolved/,
+    );
+    assert.match(
+      vocabularySource,
+      /link_adult_relationship remains denied because the AdultRelationship physical schema, RLS\/grants, audit model and independently reviewed migration required by D2–D4 do not yet exist/,
     );
   });
 
@@ -683,7 +687,7 @@ describe("unknown inputs", () => {
 });
 
 describe("persistence and module boundaries", () => {
-  it("keeps AdultRelationship persistence authorization blocked pending parent versus legal_guardian reconciliation", () => {
+  it("keeps AdultRelationship persistence authorization blocked until the schema, RLS and D2–D4 migration exist", () => {
     assert.equal(isAdultRelationshipPersistenceBlocked(), true);
 
     const safeguardingLead = identityFromProtectedClaims({

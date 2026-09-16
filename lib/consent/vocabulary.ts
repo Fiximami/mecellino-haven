@@ -41,7 +41,7 @@ export type ConsentRecordStatus = (typeof consentRecordStatuses)[number];
 
 export const isConsentRecordStatus = createGuard(consentRecordStatuses);
 
-/* AdultRelationship kinds follow the 4A domain model. Persistence stays blocked: link_adult_relationship is always denied until parent vs legal_guardian is reconciled in the protected-role store. */
+/* AdultRelationship kinds follow the 4A domain model. parent and legal_guardian are intentionally distinct protected roles; that role decision is already resolved. Persistence stays blocked: link_adult_relationship remains denied because the AdultRelationship physical schema, RLS/grants, audit model and independently reviewed migration required by D2–D4 do not yet exist. */
 export const adultRelationshipKinds = [
   "parent",
   "legal_guardian",
