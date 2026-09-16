@@ -430,7 +430,14 @@ describe("lockout module boundaries", () => {
   it("keeps the local map only for synthetic use and does not embed secrets", () => {
     assert.equal(LOCKOUT_SCOPE, "local_single_process");
     const credentials = readFileSync(join(import.meta.dirname, "..", "lib", "auth", "credentials.ts"), "utf8");
-    assert.doesNotMatch(credentials, /lockout-distributed|lockout-postgres|lockout-unlock/);
+    assert.match(credentials, /lockout-distributed/);
+    assert.doesNotMatch(credentials, /lockout-postgres|lockout-unlock|createMemoryDistributedLockoutStore/);
+    const actions = readFileSync(join(import.meta.dirname, "..", "app", "auth", "actions.ts"), "utf8");
+    assert.match(actions, /createPostgresDistributedLockoutStore/);
+    assert.match(actions, /readLockoutPepperConfig/);
+    assert.doesNotMatch(actions, /createMemoryDistributedLockoutStore/);
+    assert.doesNotMatch(credentials, /Retry-After/);
+    assert.doesNotMatch(actions, /Retry-After/);
     const identifier = readFileSync(
       join(import.meta.dirname, "..", "lib", "auth", "lockout-identifier.ts"),
       "utf8",

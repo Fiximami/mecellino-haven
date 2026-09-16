@@ -4,12 +4,22 @@ import { redirect } from "next/navigation";
 import { emitNonDurableAuthAudit, emitRequiredAuthAudit } from "@/lib/auth/audit";
 import { createPostgresAuthAuditSink } from "@/lib/auth/audit-postgres";
 import { completePasswordSignIn, completeRecoveryRequest } from "@/lib/auth/credentials";
+import { readLockoutPepperConfig } from "@/lib/auth/lockout-env";
+import { createPostgresDistributedLockoutStore } from "@/lib/auth/lockout-postgres";
 import { revokeServerSession } from "@/lib/auth/revoke-session";
 import { sanitizeReturnPath } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 
 async function unavailableAuthenticator(): Promise<{ ok: false }> {
   return { ok: false };
+}
+
+function serverLockoutOptions() {
+  const peppers = readLockoutPepperConfig();
+  return {
+    peppers: peppers.ok ? peppers.peppers : null,
+    store: createPostgresDistributedLockoutStore(),
+  };
 }
 
 export async function signInAction(formData: FormData) {
@@ -32,6 +42,7 @@ export async function signInAction(formData: FormData) {
     {
       auditSink,
       requireDurableAudit: true,
+      lockout: serverLockoutOptions(),
       revokeAuthenticatedSession: async () => {
         await revokeServerSession(supabase);
       },
@@ -63,6 +74,10 @@ export async function recoverAction(formData: FormData) {
         }
       : null,
     auditSink,
+    {
+      requireDistributedLockout: true,
+      lockout: serverLockoutOptions(),
+    },
   );
 
   redirect("/auth/recovery?sent=1");

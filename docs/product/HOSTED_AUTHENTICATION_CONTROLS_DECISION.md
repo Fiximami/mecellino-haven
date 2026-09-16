@@ -84,11 +84,11 @@ The privileged class applies when protected claims include any of `programme_ope
 
 Absolute lifetime cannot be extended by activity. Idle refresh cannot pass the absolute deadline.
 
-These values do not enable hosted authentication. Distributed lockout remains unimplemented in hosted sign-in.
+These values do not enable hosted authentication. Dormant server sign-in uses the distributed lockout store; hosted authentication stays disabled.
 
 ### D8 — Distributed lockout is an application-owned store
 
-The process-local map is not a production control and must not be a hosted fallback. Owner-approved policy and a local `private.auth_lockouts` foundation are recorded in `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md`. The migration is not applied. Live sign-in still uses the in-memory map.
+The process-local map is not a production control and must not be a hosted fallback. Owner-approved policy is recorded in `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md`. The store is applied and metadata-verified on Mecellino Haven Production. Dormant server sign-in and recovery consult that store. Hosted authentication remains **disabled**.
 
 Supabase Auth provider rate limiting remains an independent control. It does not replace the application store.
 
@@ -102,7 +102,7 @@ These are **not** settled here and must not be guessed in code:
 
 | Item | Notes |
 |------|--------|
-| Distributed lockout remote verification | Local foundation exists; D5.3 remains open until applied and verified on Mecellino Haven Production |
+| Distributed lockout remote verification | Store applied and metadata-verified; dormant sign-in uses it; hosted authentication remains disabled until remaining D5 gates close |
 | Lawful basis / privacy notice / Gate M / insurance readiness | Required before personal-data processing |
 | Positive production-project identification | Operational proof, not a value stored in this repository |
 | AdultRelationship physical schema | Table/RLS shape when 4C persistence is separately approved |

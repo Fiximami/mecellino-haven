@@ -2,8 +2,8 @@
 
 **Architecture decision.**\
 **Branch context:** `feat/ydg-authenticated-mvp`.\
-**Status:** Owner-approved policy. Local foundation implemented. **Not** applied to production. Does **not** enable hosted authentication.\
-**Does not:** apply migrations, connect to Supabase, inspect personal records, collect personal data, wire live sign-in, or change hosted-auth enablement.
+**Status:** Owner-approved policy. Migration applied and metadata-verified on Mecellino Haven Production. Dormant server sign-in and recovery use the distributed store. Hosted authentication remains **disabled**.\
+**Does not:** connect to Supabase from this pass, inspect personal records, collect personal data, enable hosted authentication, or change Git identity.
 
 Cross-reference: `HOSTED_AUTHENTICATION_CONTROLS_DECISION.md` (D5, D7, D8), `AUTHENTICATION_AND_AUTHORIZATION_SPECIFICATION.md`, `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`.
 
@@ -21,7 +21,7 @@ The only permitted future remote target is Mecellino Haven Production in the Mua
 
 Replace the process-local map, for hosted use, with an application-owned table in `private`, addressed only by a server-generated keyed HMAC. Supabase Auth provider rate limiting remains an independent control. Both are required (defence in depth). Provider throttling is **not** a substitute for the application store.
 
-Hosted authentication stays **disabled** until this store is applied to the identified production project, verified with read-only metadata, and the other D5 gates close.
+Hosted authentication stays **disabled** until the remaining D5 gates close. The application-owned store is applied and metadata-verified; dormant server sign-in and recovery consult it. That does not enable hosted authentication.
 
 Session idle and absolute limits (D7) and durable-audit fail-closed rules are unchanged.
 
@@ -201,11 +201,11 @@ A privileged unlock must not record `success` unless at least one lockout row wa
 
 ## What this pass does not do
 
-- Does not apply the migration or connect to Supabase.
-- Does not wire distributed lockout into live sign-in or recovery.
 - Does not enable hosted authentication, `/admin`, invitations, protected-claim writes, `link_adult_relationship`, Realtime, or personal-data intake.
+- Does not connect to Supabase or modify remote schema from the application pass.
 - Does not add pepper values to environment files.
 - Does not inspect personal records.
+- Does not fall back to the in-memory map for hosted or privileged authentication.
 
 ---
 
@@ -213,6 +213,6 @@ A privileged unlock must not record `success` unless at least one lockout row wa
 
 | Item | Notes |
 |------|--------|
-| Remote apply and metadata verification | Required before D5.3 is treated as closed |
+| Remote apply and metadata verification | Recorded as applied and metadata-verified on Mecellino Haven Production; remaining D5 gates still keep hosted authentication disabled |
 | Pooled-role RLS | Whether the durable-audit pooled role bypasses FORCE RLS (as `service_role` does) |
 | Pepper custody | Operational handling; not recorded in this repository |

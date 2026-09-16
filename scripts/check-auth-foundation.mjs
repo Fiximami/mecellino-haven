@@ -88,6 +88,12 @@ if (envExample.includes("NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY")) {
 if (/^SUPABASE_SERVICE_ROLE_KEY\s*=\s*\S+/m.test(envExample)) {
   fail(".env.example contains a service-role value.");
 }
+if (envExample.includes("NEXT_PUBLIC_AUTH_LOCKOUT")) {
+  fail(".env.example exposes a public lockout pepper name.");
+}
+if (/^AUTH_LOCKOUT_PEPPER_(CURRENT|PREVIOUS)(_VERSION)?= *\S+/m.test(envExample)) {
+  fail(".env.example contains lockout pepper material.");
+}
 
 const scopedDocs = [
   join(ROOT, "docs", "product", "MILESTONE_4B_COMPLETION_REPORT.md"),
@@ -116,8 +122,12 @@ if (existsSync(staticDir)) {
   const bundles = walk(staticDir).filter((file) => file.endsWith(".js"));
   for (const file of bundles) {
     const text = readFileSync(file, "utf8");
-    if (text.includes("SUPABASE_SERVICE_ROLE_KEY") || text.includes("service_role")) {
-      fail(`Service-role string found in browser bundle ${file}`);
+    if (
+      text.includes("SUPABASE_SERVICE_ROLE_KEY") ||
+      text.includes("service_role") ||
+      text.includes("AUTH_LOCKOUT_PEPPER")
+    ) {
+      fail(`Server-only secret string found in browser bundle ${file}`);
     }
   }
 }
