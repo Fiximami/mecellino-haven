@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
+import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
 import {
   BoundaryBlock,
   Chip,
@@ -12,13 +13,13 @@ import {
   TrackRow,
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
-import { programmeFacts, recruitmentClosedStatement } from "@/config/site";
+import { publicContactLabel, recruitmentClosedStatement } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
   title: "The four tracks",
   description:
-    "Four age-based Youth Discovery Gateway tracks by cohort start age. Recruitment and applications are not open. Register interest describes future approved functionality only.",
+    "Four Youth Discovery Gateway developmental tracks: early discovery, foundation development, direction building, and execution and progression. Recruitment and applications are not open.",
   path: publicRoutes.tracks,
 });
 
@@ -26,7 +27,7 @@ export default function TracksPage() {
   return (
     <>
       <PageSection tone="paper">
-        <div className="ydg-stack-lg ydg-measure">
+        <div className="ydg-stack-lg">
           <PageBreadcrumb
             items={[
               { href: publicRoutes.home, label: "Home" },
@@ -35,30 +36,37 @@ export default function TracksPage() {
               { label: "Tracks" },
             ]}
           />
-          <PageHero
-            eyebrow="Capacity Building · Tracks"
-            title="Four tracks, by age at cohort start"
-            lede="Age is counted on the official first day of the cohort — not on the day you might register interest when live intake opens. Entry is possible directly at the age-appropriate track."
-          />
-          <StatusBlock
-            label="Recruitment status"
-            title="Recruitment and applications are not open"
-            description={recruitmentClosedStatement}
-          />
-          <Notice icon="!">
-            <b>&quot;Register interest&quot; describes future approved functionality — not a service operating today.</b>{" "}
-            When live intake is approved, interest registration will open through an authenticated process. This page
-            explains tracks only; it does not accept registrations.
-          </Notice>
-          <Notice icon="i">
-            Programme tracks are age-based on cohort first day. <b>Education stage is separate</b> — such as school year
-            or training context — and is recorded independently when intake opens. Age alone does not determine
-            education stage.
-          </Notice>
-          <Notice icon="i">
-            A young person who turns the next track&apos;s age during a cohort may finish that cohort. A participant
-            who turns 26 may complete the active cohort but cannot begin another standard participant cohort.
-          </Notice>
+          <div className="mh-hero-split">
+            <PageHero
+              eyebrow="Capacity Building · Tracks"
+              title="Four developmental tracks"
+              lede="Each track is a developmental stage, not a label a person carries for life. Education stage — such as school year or training context — is recorded separately when intake opens. Entry is possible directly at the stage that fits."
+            />
+            <div className="mh-hero-art text-[var(--mh-terracotta)]">
+              <ServiceArtwork visual="ydg" />
+            </div>
+          </div>
+          <div className="ydg-stack-lg ydg-measure">
+            <StatusBlock
+              label="Recruitment status"
+              title="Recruitment and applications are not open"
+              description={recruitmentClosedStatement}
+            />
+            <Notice icon="!">
+              <b>&quot;Register interest&quot; describes future approved functionality — not a service operating today.</b>{" "}
+              When live intake is approved, interest registration will open through an authenticated process. This page
+              explains tracks only; it does not accept registrations.
+            </Notice>
+            <Notice icon="i">
+              Programme tracks follow developmental stage. <b>Education stage is separate</b> — such as school year or
+              training context — and is recorded independently when intake opens. Stage alone does not determine
+              education stage.
+            </Notice>
+            <Notice icon="i">
+              A participant who moves into the next developmental stage during a cohort may finish that cohort. Completing
+              a later-stage cohort does not open another standard participant cohort automatically.
+            </Notice>
+          </div>
         </div>
       </PageSection>
 
@@ -66,7 +74,8 @@ export default function TracksPage() {
         <div className="ydg-stack-lg">
           <SectionHeading>Each track at a glance</SectionHeading>
           <TrackRow
-            age={`Ages ${programmeFacts.discoveryGateway}`}
+            href={publicRoutes.howYdgWorks}
+            stage="Early discovery"
             title="Discovery Gateway"
             chip={<Chip variant="planned">Not yet scheduled</Chip>}
             description={
@@ -78,7 +87,8 @@ export default function TracksPage() {
             }
           />
           <TrackRow
-            age={`Ages ${programmeFacts.foundation}`}
+            href={publicRoutes.howYdgWorks}
+            stage="Foundation development"
             title="Foundation"
             chip={<Chip variant="pilot">Pilot in preparation</Chip>}
             description={
@@ -90,7 +100,8 @@ export default function TracksPage() {
             }
           />
           <TrackRow
-            age={`Ages ${programmeFacts.direction}`}
+            href={publicRoutes.howYdgWorks}
+            stage="Direction building"
             title="Direction"
             chip={<Chip variant="planned">Not yet scheduled</Chip>}
             description={
@@ -102,7 +113,8 @@ export default function TracksPage() {
             }
           />
           <TrackRow
-            age={`Ages ${programmeFacts.executionProgression}`}
+            href={publicRoutes.howYdgWorks}
+            stage="Execution and progression"
             title="Execution & Progression"
             chip={<Chip variant="planned">Not yet scheduled</Chip>}
             description={
@@ -117,7 +129,7 @@ export default function TracksPage() {
             Finishing one track does not entitle a young person to the next. Progression is evidence-informed,
             discussed with the family, and depends on a cohort being open.
           </BoundaryBlock>
-          <PrimaryButton href={publicRoutes.contact}>Preview programme enquiry form</PrimaryButton>
+          <PrimaryButton href={publicRoutes.contact}>{publicContactLabel}</PrimaryButton>
         </div>
       </PageSection>
     </>

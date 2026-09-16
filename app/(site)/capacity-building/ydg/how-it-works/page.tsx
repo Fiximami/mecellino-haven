@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
+import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
 import {
   ButtonRow,
   Chip,
@@ -13,6 +14,7 @@ import {
   unfoldStepsDetailed,
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
+import { publicContactLabel } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
@@ -34,11 +36,16 @@ export default function HowYdgWorksPage() {
             { label: "How YDG works" },
           ]}
         />
-        <PageHero
-          eyebrow="Capacity Building · How YDG works"
-          title="Seven stages, five days at a time"
-          lede="UNFOLD is the method behind every track. A structured cohort cycle or module runs for at least five working days; individual activities may be shorter."
-        />
+        <div className="mh-hero-split">
+          <PageHero
+            eyebrow="Capacity Building · How YDG works"
+            title="Seven stages, five days at a time"
+            lede="UNFOLD is the method behind every track. A structured cohort cycle or module runs for at least five working days; individual activities may be shorter."
+          />
+          <div className="mh-hero-art text-[var(--mh-terracotta)]">
+            <ServiceArtwork visual="ydg" />
+          </div>
+        </div>
       </PageSection>
 
       <PageSection tone="navy">
@@ -85,12 +92,12 @@ export default function HowYdgWorksPage() {
         <div className="ydg-stack-lg ydg-measure">
           <h2 className="ydg-h2">Next steps on the public site</h2>
           <p className="text-[15px] text-[var(--ink-2)]">
-            See how age-based tracks relate to your situation, or preview how enquiry will look when live intake is
-            approved. Neither link opens applications or registration today.
+            See how the four developmental tracks relate to your situation, or preview how enquiry will look when live
+            intake is approved. Neither link opens applications or registration today.
           </p>
           <ButtonRow>
             <PrimaryButton href={publicRoutes.tracks}>See the four tracks</PrimaryButton>
-            <GhostButton href={publicRoutes.contact}>Preview programme enquiry form</GhostButton>
+            <GhostButton href={publicRoutes.contact}>{publicContactLabel}</GhostButton>
           </ButtonRow>
         </div>
       </PageSection>

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
+import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
 import { EventsIcon, IconBadge } from "@/components/brand/ServiceIcons";
 import { Notice, PageHero, PageSection, PathCard, PrimaryButton, SectionHeading, TickList } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
-import { demoEnquiryNotice } from "@/config/site";
+import { demoEnquiryNotice, publicContactLabel } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
@@ -23,11 +24,16 @@ export default function EventsEntertainmentPage() {
             { label: "Events and Entertainment" },
           ]}
         />
-        <PageHero
-          eyebrow="Events and Entertainment"
-          title="Experiences that bring people together"
-          lede="Mecellino Haven hosts and supports youth and wider-audience events. Some are developmental, some recreational, and some are entertainment. Each event will publish its own age limit."
-        />
+        <div className="mh-hero-split">
+          <PageHero
+            eyebrow="Events and Entertainment"
+            title="Experiences that bring people together"
+            lede="Mecellino Haven hosts and supports youth and wider-audience events. Some are developmental, some recreational, and some are entertainment. Each event will publish its own age limit."
+          />
+          <div className="mh-hero-art text-[var(--mh-terracotta)]">
+            <ServiceArtwork visual="events" />
+          </div>
+        </div>
       </PageSection>
 
       <PageSection>
@@ -70,7 +76,7 @@ export default function EventsEntertainmentPage() {
             public listing, details will appear here. Until then, you can preview how an enquiry will look.
           </p>
           <p className="ydg-fine">{demoEnquiryNotice}</p>
-          <PrimaryButton href={publicRoutes.contact}>Preview an event enquiry</PrimaryButton>
+          <PrimaryButton href={publicRoutes.contact}>{publicContactLabel}</PrimaryButton>
         </div>
       </PageSection>
     </>

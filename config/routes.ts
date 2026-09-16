@@ -54,7 +54,7 @@ export const footerProgrammeLinks: NavLink[] = [
 export const footerAudienceLinks: NavLink[] = [
   { label: "Parents & guardians", href: publicRoutes.parents },
   { label: "Schools & partners", href: publicRoutes.schools },
-  { label: "Enquiry preview", href: publicRoutes.contact },
+  { label: "Contact Us", href: publicRoutes.contact },
 ];
 
 export const footerOrganisationLinks: NavLink[] = [

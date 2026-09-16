@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
+import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
 import { AmusementIcon, IconBadge } from "@/components/brand/ServiceIcons";
 import {
   BoundaryBlock,
@@ -12,7 +13,7 @@ import {
   TickList,
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
-import { amusementDevelopmentStatement, demoEnquiryNotice, publicEnquiryEmail } from "@/config/site";
+import { amusementDevelopmentStatement, demoEnquiryNotice, publicContactLabel, publicEnquiryEmail } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
@@ -32,11 +33,16 @@ export default function AmusementPage() {
             { label: "Amusement" },
           ]}
         />
-        <PageHero
-          eyebrow="Coming soon"
-          title="Amusement is in development"
-          lede={amusementDevelopmentStatement}
-        />
+        <div className="mh-hero-split">
+          <PageHero
+            eyebrow="Coming soon"
+            title="Amusement is in development"
+            lede={amusementDevelopmentStatement}
+          />
+          <div className="mh-hero-art text-[var(--mh-terracotta)]">
+            <ServiceArtwork visual="amusement" />
+          </div>
+        </div>
         <Notice icon="i" className="mt-6">
           Mecellino Haven does not currently operate a permanent amusement site, park, pass system or public opening
           hours.
@@ -86,7 +92,7 @@ export default function AmusementPage() {
             those are operating or verified here.
           </BoundaryBlock>
           <p className="ydg-fine">{demoEnquiryNotice}</p>
-          <PrimaryButton href={publicRoutes.contact}>Preview amusement interest form</PrimaryButton>
+          <PrimaryButton href={publicRoutes.contact}>{publicContactLabel}</PrimaryButton>
         </div>
       </PageSection>
     </>

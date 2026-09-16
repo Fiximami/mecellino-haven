@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
 import { Notice, PageHero, PageSection, PathCard, PrimaryButton, SectionHeading } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
-import { boundaryStatementShort, recruitmentClosedStatement } from "@/config/site";
+import { boundaryStatementShort, publicContactLabel, recruitmentClosedStatement } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
@@ -63,7 +63,7 @@ export default function RetirementLifePreparednessPage() {
           <p className="text-[15px] text-[var(--ink-2)]">
             Preview how an enquiry will look when a monitored channel is approved. Nothing you enter is sent or stored.
           </p>
-          <PrimaryButton href={publicRoutes.contact}>Preview enquiry form</PrimaryButton>
+          <PrimaryButton href={publicRoutes.contact}>{publicContactLabel}</PrimaryButton>
         </div>
       </PageSection>
     </>

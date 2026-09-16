@@ -82,7 +82,7 @@ Case events must **not** appear on mentor, facilitator, parent, institutional, a
 
 | Signal | Goes to | Must not go to |
 |--------|---------|----------------|
-| Immediate danger | Emergency services, as already stated on `/parents` | Public enquiry form, `opheenana@gmail.com`, My Journey chat |
+| Immediate danger | Emergency services, as already stated on `/parents` | Public enquiry form, general enquiry mailbox, My Journey chat |
 | Programme welfare observation | Structured, auditable facilitator/ops note; escalate to SL if it is a concern | Case table, family feed, institutional partner |
 | Safeguarding concern | Approved concern channel **once 3A P4 is decided** | Demo form, general enquiry mailbox, mentor inbox |
 | Case notes | SL / assigned caseworker | Mentors, facilitators, parents, ARAs, institutions, alumni, ordinary ops |

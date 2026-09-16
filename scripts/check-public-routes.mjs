@@ -132,6 +132,65 @@ async function main() {
         if (response.headers.get("x-powered-by")) {
           throw new Error("X-Powered-By should be absent");
         }
+        if (!html.includes("Contact Us")) {
+          throw new Error("home page missing Contact Us destination label");
+        }
+        if (/Enquiry preview/i.test(html)) {
+          throw new Error("home page still uses Enquiry preview as a destination label");
+        }
+        if (/10–25|10-25/.test(html)) {
+          throw new Error("home page published an explicit 10–25 age range");
+        }
+        if (/gmail\.com/i.test(html)) {
+          throw new Error("home page exposed a Gmail address");
+        }
+        if (/YDG-Community/.test(html)) {
+          throw new Error("home page listed YDG-Community as a partner");
+        }
+        if (!html.includes("Safety first, always") || !html.includes("/parents")) {
+          throw new Error("home page Safety first destination is missing");
+        }
+      }
+
+      if (path === "/contact") {
+        if (!html.includes("info@mecellinohaven.com")) {
+          throw new Error("contact page missing professional email");
+        }
+        if (/gmail\.com/i.test(html)) {
+          throw new Error("contact page exposed a Gmail address");
+        }
+      }
+
+      if (
+        path === "/capacity-building" ||
+        path === "/capacity-building/ydg" ||
+        path === "/capacity-building/ydg/how-it-works" ||
+        path === "/capacity-building/ydg/tracks"
+      ) {
+        if (/10–25|10-25/.test(html)) {
+          throw new Error(`${path} published an explicit 10–25 age range`);
+        }
+      }
+
+      if (path === "/capacity-building/ydg/tracks") {
+        if (/10–13|10-13|14–15|14-15|16–17|16-17|18–25|18-25/.test(html)) {
+          throw new Error("/capacity-building/ydg/tracks published an explicit track age range");
+        }
+        if (!html.includes("Early discovery") || !html.includes("Foundation development")) {
+          throw new Error("/capacity-building/ydg/tracks missing developmental-stage wording");
+        }
+        if (!html.includes("Direction building") || !html.includes("Execution and progression")) {
+          throw new Error("/capacity-building/ydg/tracks missing later-stage wording");
+        }
+      }
+
+      if (path === "/schools") {
+        if (/YDG-Community/.test(html)) {
+          throw new Error("schools page listed YDG-Community as a partner");
+        }
+        if (!html.includes("governments") || !html.includes("NGOs")) {
+          throw new Error("schools page missing required partner audiences");
+        }
       }
     }
 

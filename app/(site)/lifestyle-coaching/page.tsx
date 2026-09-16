@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
+import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
 import { IconBadge, LifestyleIcon } from "@/components/brand/ServiceIcons";
 import { Notice, PageHero, PageSection, PathCard, PrimaryButton, SectionHeading } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
-import { demoEnquiryNotice } from "@/config/site";
+import { demoEnquiryNotice, publicContactLabel } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
@@ -54,11 +55,16 @@ export default function LifestyleCoachingPage() {
             { label: "Lifestyle Coaching" },
           ]}
         />
-        <PageHero
-          eyebrow="Lifestyle Coaching"
-          title="Personal growth through life's transitions"
-          lede="Lifestyle Coaching at Mecellino Haven focuses on personal development, confidence, relationships, wellbeing, purpose, family life and general life transitions."
-        />
+        <div className="mh-hero-split">
+          <PageHero
+            eyebrow="Lifestyle Coaching"
+            title="Personal growth through life's transitions"
+            lede="Lifestyle Coaching at Mecellino Haven focuses on personal development, confidence, relationships, wellbeing, purpose, family life and general life transitions."
+          />
+          <div className="mh-hero-art text-[var(--mh-terracotta)]">
+            <ServiceArtwork visual="lifestyle" />
+          </div>
+        </div>
       </PageSection>
 
       <PageSection>
@@ -82,7 +88,7 @@ export default function LifestyleCoachingPage() {
             </IconBadge>
             <SectionHeading>How to ask a question</SectionHeading>
             <p className="text-[15px] text-[var(--ink-2)]">{demoEnquiryNotice}</p>
-            <PrimaryButton href={publicRoutes.contact}>Preview lifestyle enquiry</PrimaryButton>
+            <PrimaryButton href={publicRoutes.contact}>{publicContactLabel}</PrimaryButton>
           </div>
           <Notice icon="i">
             Coaching conversations will not be booked, paid for or confirmed through this website in this milestone.

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
+import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
 import { CapacityIcon, YdgIcon } from "@/components/brand/ServiceIcons";
 import { ServiceJourneyCard } from "@/components/brand/ServiceJourneyCard";
 import { ButtonRow, GhostButton, PageHero, PageSection, PrimaryButton, SectionHeading } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
-import { programmeFacts, recruitmentClosedStatement } from "@/config/site";
+import { recruitmentClosedStatement, publicContactLabel } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
@@ -24,11 +25,16 @@ export default function CapacityBuildingPage() {
             { label: "Capacity Building" },
           ]}
         />
-        <PageHero
-          eyebrow="Capacity Building"
-          title="Practical training for people and institutions"
-          lede="Mecellino Haven builds capability through Youth Discovery Gateway, Retirement Life Preparedness, individual training and institutional training. Live applications are not open."
-        />
+        <div className="mh-hero-split">
+          <PageHero
+            eyebrow="Capacity Building"
+            title="Practical training for people and institutions"
+            lede="Mecellino Haven builds capability through Youth Discovery Gateway, Retirement Life Preparedness, individual training and institutional training. Live applications are not open."
+          />
+          <div className="mh-hero-art text-[var(--mh-terracotta)]">
+            <ServiceArtwork visual="capacity" />
+          </div>
+        </div>
       </PageSection>
 
       <PageSection>
@@ -38,17 +44,15 @@ export default function CapacityBuildingPage() {
             <ServiceJourneyCard
               href={publicRoutes.ydg}
               title="Youth Discovery Gateway"
-              description={`A structured programme for ages ${programmeFacts.ageRange}. Young people test interests, build evidence and write their own next-step plan.`}
-              action="Open the YDG programme →"
+              description="A structured programme for individuals and institutions. Participants test interests, build evidence and write their own next-step plan."
               chip="Flagship programme"
               icon={<YdgIcon />}
-              visual="capacity"
+              visual="ydg"
             />
             <ServiceJourneyCard
               href={publicRoutes.retirementLife}
               title="Retirement Life Preparedness"
               description="Capacity-building preparation for later-life transitions, without income or placement promises."
-              action="Read Retirement Life Preparedness →"
               icon={<CapacityIcon />}
               visual="capacity"
             />
@@ -56,7 +60,6 @@ export default function CapacityBuildingPage() {
               href={publicRoutes.contact}
               title="Individual training"
               description="Practical training for individuals. Dates, eligibility and delivery details will be published when a cohort is approved."
-              action="Preview a training enquiry →"
               chip="Foundation"
               icon={<CapacityIcon />}
               visual="capacity"
@@ -65,7 +68,6 @@ export default function CapacityBuildingPage() {
               href={publicRoutes.contact}
               title="Institutional training"
               description="Training designed with schools, workplaces and community organisations. Dates, eligibility and delivery details will be published when a cohort is approved."
-              action="Preview an institutional enquiry →"
               chip="Foundation"
               icon={<CapacityIcon />}
               visual="capacity"
@@ -84,7 +86,7 @@ export default function CapacityBuildingPage() {
           </p>
           <ButtonRow>
             <PrimaryButton href={publicRoutes.ydg}>Youth Discovery Gateway</PrimaryButton>
-            <GhostButton href={publicRoutes.contact}>Preview enquiry form</GhostButton>
+            <GhostButton href={publicRoutes.contact}>{publicContactLabel}</GhostButton>
           </ButtonRow>
         </div>
       </PageSection>

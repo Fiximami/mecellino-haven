@@ -34,3 +34,10 @@ export {
   type ProgrammeEligibilityInput,
   type SelectedAdultRelationshipResult,
 } from "./policy";
+
+export {
+  onboardingConsentFoundation,
+  onboardingConsentFoundationStatus,
+  onboardingConsentStepsFor,
+  type OnboardingConsentAudience,
+} from "./onboarding-foundation";

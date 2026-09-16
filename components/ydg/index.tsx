@@ -56,8 +56,8 @@ export function PageHero({
     <div className="ydg-stack-lg ydg-measure">
       <div className="ydg-stack">
         <p className={cn("ydg-eyebrow", onNavy && "ydg-eyebrow-on-navy")}>{eyebrow}</p>
-        <Heading className={cn(headingClass[as], onNavy && "text-[var(--mh-dark-text)]")}>{title}</Heading>
-        {lede ? <p className={cn("ydg-lede", onNavy && "text-[var(--mh-dark-muted)]")}>{lede}</p> : null}
+        <Heading className={cn(headingClass[as], onNavy && "text-[var(--mh-navy-section-text)]")}>{title}</Heading>
+        {lede ? <p className={cn("ydg-lede", onNavy && "text-[var(--mh-navy-section-muted)]")}>{lede}</p> : null}
       </div>
       {children}
     </div>
@@ -79,7 +79,7 @@ export function SectionHeading({
 
   return (
     <Heading
-      className={cn(headingClass[as], onNavy && "text-[var(--mh-dark-text)]", className)}
+      className={cn(headingClass[as], onNavy && "text-[var(--mh-navy-section-text)]", className)}
     >
       {children}
     </Heading>
@@ -122,9 +122,14 @@ export function PathCard({
   const className = cn("ydg-pathcard", variant === "ydg" && "ydg-pathcard-ydg");
 
   if (href) {
+    const titleId = `path-card-${title.replace(/\s+/g, "-").toLowerCase()}`;
     return (
-      <Link href={href} className={className}>
-        {body}
+      <Link href={href} className={className} aria-labelledby={titleId}>
+        {chip}
+        <h3 id={titleId} className="ydg-h3">
+          {title}
+        </h3>
+        <div className="text-[15px] text-[var(--ink-2)] [&>p+p]:mt-2">{children}</div>
       </Link>
     );
   }
@@ -264,25 +269,38 @@ export function KeyValueList({ items }: { items: { label: string; value: ReactNo
 }
 
 export function TrackRow({
-  age,
+  stage,
   title,
   description,
   chip,
+  href,
 }: {
-  age: string;
+  stage: string;
   title: ReactNode;
   description: ReactNode;
   chip?: ReactNode;
+  href?: string;
 }) {
-  return (
-    <div className="ydg-trackrow">
-      <span className="ydg-trackrow-age">{age}</span>
+  const titleText = typeof title === "string" ? title : "Programme track";
+  const body = (
+    <>
+      <span className="ydg-trackrow-age">{stage}</span>
       <h3 className="ydg-h3">
         {title} {chip}
       </h3>
       <p>{description}</p>
-    </div>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="ydg-trackrow ydg-trackrow-link" aria-label={titleText}>
+        {body}
+      </Link>
+    );
+  }
+
+  return <div className="ydg-trackrow">{body}</div>;
 }
 
 export function LeaderCard({
@@ -437,7 +455,7 @@ export const unfoldStepsDetailed = [
   },
   {
     label: "Mentor",
-    description: "Guided support. Alumni aged 26+ may apply to mentor, subject to screening and training.",
+    description: "Guided support. Alumni may later apply to mentor, subject to screening and training.",
   },
 ] as const;
 

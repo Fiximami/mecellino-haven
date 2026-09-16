@@ -9,7 +9,7 @@ export const siteConfig: SiteConfig = {
   nav: primaryNav,
   social: [],
   contact: {
-    email: "opheenana@gmail.com",
+    email: "info@mecellinohaven.com",
   },
 };
 
@@ -18,7 +18,18 @@ export const organisationVision =
 
 export const organisationMission = siteConfig.description;
 
-export const publicEnquiryEmail = "opheenana@gmail.com";
+export const publicEnquiryEmail = "info@mecellinohaven.com";
+
+export const publicContactLabel = "Contact Us";
+
+export const ydgPartnerAudiences = [
+  "schools",
+  "institutions",
+  "parents",
+  "entrepreneurs",
+  "governments",
+  "NGOs",
+] as const;
 
 export const programmeFacts = {
   ageRange: "10–25",
@@ -55,7 +66,7 @@ export const demoEnquiryNotice =
   "This contact form is a design demonstration only. Nothing you enter is transmitted, stored or reviewed. Live enquiry handling will open only after a monitored contact channel and privacy controls are approved.";
 
 export const publicEnquiryChannelNotice =
-  `${publicEnquiryEmail} is the approved temporary address for general enquiries and service requests. It can receive those messages. The interactive form remains demonstration-only. This address is not an emergency contact and is not a safeguarding-reporting channel. Organisation concern routes will be published only after they are formally approved.`;
+  `${publicEnquiryEmail} is the public address for general enquiries and service requests. It can receive those messages. The interactive form remains demonstration-only. This address is not an emergency contact and is not a safeguarding-reporting channel. Organisation concern routes will be published only after they are formally approved.`;
 
 export const identitySafeguardStatement =
   "No participant and approver may use the same identity or telephone number unless this is independently verified through an approved accessibility accommodation.";

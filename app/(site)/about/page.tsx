@@ -18,7 +18,6 @@ import {
   organisationMission,
   organisationVision,
   pilotFundingStatement,
-  programmeFacts,
   recruitmentClosedStatement,
   selectionStatement,
 } from "@/config/site";
@@ -69,7 +68,7 @@ export default function AboutPage() {
           <SectionHeading>Four public service areas</SectionHeading>
           <div className="ydg-grid-2">
             <PathCard title="Capacity Building" href={publicRoutes.capacityBuilding} variant="ydg">
-              <p>Training and programmes that help people and institutions grow, including YDG for ages {programmeFacts.ageRange}.</p>
+              <p>Training and programmes that help people and institutions grow, including Youth Discovery Gateway.</p>
             </PathCard>
             <PathCard title="Lifestyle Coaching" href={publicRoutes.lifestyleCoaching}>
               <p>Personal development, confidence, relationships, wellbeing, purpose, family life and general life transitions.</p>
@@ -115,9 +114,9 @@ export default function AboutPage() {
         <div className="ydg-stack-lg ydg-measure">
           <SectionHeading>Youth Discovery Gateway</SectionHeading>
           <p className="text-[15px] text-[var(--ink-2)]">
-            Youth Discovery Gateway is Mecellino Haven&apos;s flagship Capacity Building programme for young people aged{" "}
-            {programmeFacts.ageRange}. YDG helps participants build evidence about their interests, strengths and
-            possible directions. It does not replace school, clinical assessment, counselling or regulated training.
+            Youth Discovery Gateway is Mecellino Haven&apos;s flagship Capacity Building programme for individuals and
+            institutions. YDG helps participants build evidence about their interests, strengths and possible
+            directions. It does not replace school, clinical assessment, counselling or regulated training.
           </p>
           <SectionHeading as="h3">Selection</SectionHeading>
           <p className="text-[15px] text-[var(--ink-2)]">{selectionStatement}</p>
