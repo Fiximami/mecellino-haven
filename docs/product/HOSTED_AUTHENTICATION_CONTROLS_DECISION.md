@@ -62,14 +62,29 @@ All of the following must be true before hosted authentication is treated as ena
 1. The connected Supabase project is **positively identified** as Mecellino Haven Production in the MualenTech organisation. If identity cannot be proven, do not connect.
 2. Remote migration history, FORCE RLS, and grants/revocations for `anon`, `authenticated`, `public` and privileged database roles are verified with read-only metadata (no row contents of participants, users, enquiries, tokens or cases).
 3. Distributed lockout **or** approved provider throttling exists. The current in-process map (`LOCKOUT_SCOPE = local_single_process`) is not sufficient.
-4. Idle and absolute session timeout **values** are owner-approved and then implemented.
+4. Idle and absolute session timeout values are approved (D7). Approving those durations does not enable hosted authentication.
 5. Safeguarding, privacy and insurance readiness gates that permit personal-data processing are closed (including Gate M before any 10–17 personal data). Lawful basis and retention are not invented here.
 
-Until then: public routes stay available; sign-in stays fail-closed without a durable audit sink; `/admin` stays 404; invitation, protected-claim writes and deactivation stay fail-closed stubs.
+Until all remaining gates close: public routes stay available; sign-in stays fail-closed without a durable audit sink; `/admin` stays 404; invitation, protected-claim writes and deactivation stay fail-closed stubs. Hosted authentication remains **disabled**.
 
 ### D6 — Preserve dormant booking infrastructure and keep Realtime off
 
 Do not reuse `booking_inquiries` for YDG, consent or casework. Realtime stays disabled (no `.channel(` / subscribe). Transitive `ws` presence is not permission to open Realtime.
+
+### D7 — Session idle and absolute lifetimes are approved
+
+Owner-approved values:
+
+| Class | Idle timeout | Absolute lifetime |
+|-------|--------------|-------------------|
+| Standard | 30 minutes | 12 hours |
+| Privileged | 15 minutes | 4 hours |
+
+The privileged class applies when protected claims include any of `programme_operations`, `safeguarding_lead`, `restricted_caseworker`, `system_administrator` or `auditor`. Mixed roles use the privileged class.
+
+Absolute lifetime cannot be extended by activity. Idle refresh cannot pass the absolute deadline.
+
+These values do not enable hosted authentication. Distributed lockout remains unresolved.
 
 ---
 
@@ -79,8 +94,6 @@ These are **not** settled here and must not be guessed in code:
 
 | Item | Notes |
 |------|--------|
-| Idle session timeout | Duration and sliding vs fixed window |
-| Absolute session timeout | Maximum session lifetime |
 | Lockout mechanism | Application-owned distributed store versus Auth-provider throttling (or both) |
 | Lawful basis / privacy notice / Gate M / insurance readiness | Required before personal-data processing |
 | Positive production-project identification | Operational proof, not a value stored in this repository |
