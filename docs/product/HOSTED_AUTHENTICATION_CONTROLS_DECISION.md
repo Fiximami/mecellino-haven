@@ -84,15 +84,15 @@ The privileged class applies when protected claims include any of `programme_ope
 
 Absolute lifetime cannot be extended by activity. Idle refresh cannot pass the absolute deadline.
 
-These values do not enable hosted authentication. Distributed lockout remains unimplemented.
+These values do not enable hosted authentication. Distributed lockout remains unimplemented in hosted sign-in.
 
-### D8 — Distributed lockout is an application-owned store, pending implementation
+### D8 — Distributed lockout is an application-owned store
 
-The process-local map is not a production control. The proposed replacement is specified in `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md`: a `private` table addressed only by a keyed HMAC, RLS and FORCE RLS, no `anon`/`authenticated` grants, atomic updates safe across instances, and fail-closed hosted authentication when the store or pepper is unavailable.
+The process-local map is not a production control and must not be a hosted fallback. Owner-approved policy and a local `private.auth_lockouts` foundation are recorded in `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md`. The migration is not applied. Live sign-in still uses the in-memory map.
 
 Supabase Auth provider rate limiting remains an independent control. It does not replace the application store.
 
-This decision does **not** implement that store, create a migration, or enable hosted authentication.
+This decision does **not** enable hosted authentication.
 
 ---
 
@@ -102,7 +102,7 @@ These are **not** settled here and must not be guessed in code:
 
 | Item | Notes |
 |------|--------|
-| Distributed lockout implementation | Architecture proposed in `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md`; thresholds, casefold, unlock role, pooled-role RLS and pepper custody remain owner items there |
+| Distributed lockout remote verification | Local foundation exists; D5.3 remains open until applied and verified on Mecellino Haven Production |
 | Lawful basis / privacy notice / Gate M / insurance readiness | Required before personal-data processing |
 | Positive production-project identification | Operational proof, not a value stored in this repository |
 | AdultRelationship physical schema | Table/RLS shape when 4C persistence is separately approved |

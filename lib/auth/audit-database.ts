@@ -3,7 +3,7 @@ import type { AuthAuditEvent, AuthAuditSink } from "./audit";
 export type AuthAuditInsert = {
   event_class: AuthAuditEvent["class"];
   result: AuthAuditEvent["result"];
-  action: AuthAuditEvent["class"];
+  action: string;
 };
 
 /**
@@ -23,7 +23,7 @@ export function createDatabaseAuthAuditSink(writer: AuthAuditDatabaseWriter): Au
       await writer.insert({
         event_class: event.class,
         result: event.result,
-        action: event.class,
+        action: event.action ?? event.class,
       });
     },
   };

@@ -189,4 +189,22 @@ describe("authorization foundation", () => {
       assert.equal(result.reason, "expired_idle");
     }
   });
+
+  it("allows a system administrator to unlock lockouts and denies other roles", () => {
+    const allowed = authorize({
+      identity: SYNTHETIC_ADMINISTRATOR,
+      action: "unlock_auth_lockout",
+      fresh: true,
+      session: syntheticSessionTimestamps(),
+    });
+    assert.equal(allowed.allowed, true);
+
+    const denied = authorize({
+      identity: SYNTHETIC_OPERATIONS,
+      action: "unlock_auth_lockout",
+      fresh: true,
+      session: syntheticSessionTimestamps(),
+    });
+    assert.equal(denied.allowed, false);
+  });
 });

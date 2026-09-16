@@ -1,8 +1,8 @@
 /**
  * Local, single-process lockout only. The map lives in this Node process
  * and is lost on restart, and it is not shared across instances.
- * Durable distributed throttling or a provider-supported equivalent is
- * required before production authentication.
+ * Use this store only for synthetic and local flows. It is never a fallback
+ * for hosted or privileged authentication.
  */
 import { createHash } from "node:crypto";
 

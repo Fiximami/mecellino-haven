@@ -30,6 +30,7 @@ const ROLE_FOR_ACTION: Partial<Record<PrivilegedAction, readonly ProgrammeRole[]
   revoke_protected_role: ["system_administrator"],
   deactivate_account: ["system_administrator"],
   manage_integration_secrets: ["system_administrator"],
+  unlock_auth_lockout: ["system_administrator"],
 };
 
 export type AuthorizeInput = {

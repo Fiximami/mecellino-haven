@@ -154,4 +154,4 @@ Rules for that pass:
 - `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`
 - `MILESTONE_3A_DECISIONS.md` (P3 live enquiry, P4 concern channel, P7 education stage, P10 case residency)
 - `HOSTED_AUTHENTICATION_CONTROLS_DECISION.md` (parent vs legal_guardian; hosted Auth enablement gates)
-- `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md` (proposed HMAC lockout store; pending implementation; hosted Auth remains disabled)
+- `DISTRIBUTED_AUTHENTICATION_LOCKOUT_DECISION.md` (owner-approved HMAC lockout store; local foundation; hosted Auth remains disabled)

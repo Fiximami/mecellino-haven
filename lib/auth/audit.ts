@@ -8,6 +8,7 @@ export const auditEventClasses = [
   "link_attempt",
   "service_role_refused",
   "session_refresh",
+  "lockout",
 ] as const;
 
 export type AuditEventClass = (typeof auditEventClasses)[number];
@@ -18,6 +19,7 @@ export type AuthAuditEvent = {
   class: AuditEventClass;
   result: AuditResult;
   at: string;
+  action?: string;
 };
 
 export interface AuthAuditSink {
@@ -28,7 +30,8 @@ export type RequiredAuditResult =
   | { persisted: true; event: AuthAuditEvent }
   | { persisted: false; reason: "audit_unavailable" };
 
-const SENSITIVE_KEY = /(password|token|secret|authorization|cookie|email|phone|name|dob|birth|school)/i;
+const SENSITIVE_KEY =
+  /(password|token|secret|authorization|cookie|email|phone|name|dob|birth|school|hmac|pepper|identifier|user-?agent|\bip\b)/i;
 
 export function redactAuditDetails(value: unknown): unknown {
   if (value == null) {
@@ -59,6 +62,7 @@ export function buildAuthAuditEvent(event: Omit<AuthAuditEvent, "at">): AuthAudi
     class: event.class,
     result: event.result,
     at: new Date().toISOString(),
+    ...(event.action ? { action: event.action } : {}),
   };
 }
 
