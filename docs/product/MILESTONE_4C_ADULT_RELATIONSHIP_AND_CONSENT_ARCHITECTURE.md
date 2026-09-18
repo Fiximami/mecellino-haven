@@ -1,6 +1,6 @@
 # Milestone 4C — AdultRelationship and ConsentRecord architecture
 
-**Status:** Design only. **4C is not complete.**  
+**Status:** Design only. **4C is not complete.**\
 **Does not:** create or apply migrations, connect to Supabase, implement APIs or UI, enable `link_adult_relationship`, collect personal data, or mount the dormant consent component.
 
 Cross-reference: `MVP_DOMAIN_AND_EVENT_MODEL.md`, `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`, `HOSTED_AUTHENTICATION_CONTROLS_DECISION.md`, `MVP_IMPLEMENTATION_ROADMAP.md`, synthetic rules in `lib/consent/`.
@@ -55,7 +55,7 @@ Do **not** store safeguarding case narratives, third-party reports, medical deta
 
 ### Status lifecycle
 
-`proposed` → `pending_review` → `active` → `superseded` \| `revoked`  
+`proposed` → `pending_review` → `active` → `superseded` \| `revoked`\
 `pending_review` → `refused` (ARA path)
 
 | Status | Meaning |
