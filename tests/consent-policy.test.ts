@@ -46,7 +46,7 @@ const nonCurrentStatuses = consentRecordStatuses.filter((status) => !isInstrumen
 
 function minorInput(overrides: Partial<ProgrammeEligibilityInput> = {}): ProgrammeEligibilityInput {
   return {
-    ageBand: "10_17",
+    ageBand: "13_17",
     programmeConsent: "granted",
     assent: "granted",
     legalConsent: "requested",
@@ -78,7 +78,7 @@ function adultInput(overrides: Partial<ProgrammeEligibilityInput> = {}): Program
 
 describe("consent vocabulary", () => {
   it("accepts the approved age bands, instrument kinds and record statuses", () => {
-    assert.deepEqual([...consentAgeBands], ["10_17", "18_25"]);
+    assert.deepEqual([...consentAgeBands], ["13_17", "18_25"]);
     assert.deepEqual([...consentInstrumentKinds], [
       "programme_consent",
       "participant_assent",
@@ -201,7 +201,7 @@ describe("consent vocabulary", () => {
   });
 });
 
-describe("ages 10-17 programme eligibility", () => {
+describe("ages 13-17 programme eligibility", () => {
   it("requires current programme consent and current participant assent for parent or legal guardian", () => {
     for (const consentingAdultKind of ["parent", "legal_guardian"] as const) {
       assert.deepEqual(
@@ -374,7 +374,7 @@ describe("ages 18-25 programme eligibility", () => {
     );
   });
 
-  it("ignores leftover 10-17 instruments when adult instruments are current", () => {
+  it("ignores leftover 13-17 instruments when adult instruments are current", () => {
     assert.deepEqual(
       evaluateProgrammeEligibility(
         adultInput({

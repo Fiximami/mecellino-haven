@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
-import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
+import { EditorialPhoto } from "@/components/brand/EditorialPhoto";
+import { FlipCardGroup } from "@/components/motion/FlipCard";
 import { AmusementIcon, IconBadge } from "@/components/brand/ServiceIcons";
 import {
   BoundaryBlock,
@@ -19,7 +19,7 @@ import { publicPageMetadata } from "@/lib/public-metadata";
 export const metadata: Metadata = publicPageMetadata({
   title: "Amusement",
   description:
-    "Mecellino Haven amusement is coming soon. Permanent and mobile amusement remain in development. No permanent amusement site currently exists. Register interest or request mobile-amusement information.",
+    "Current mobile-amusement operations use temporary event stands. Mecellino Haven does not operate a permanent amusement park, fixed public venue, admission passes or regular opening hours.",
   path: publicRoutes.amusement,
 });
 
@@ -27,25 +27,18 @@ export default function AmusementPage() {
   return (
     <>
       <PageSection tone="paper">
-        <PageBreadcrumb
-          items={[
-            { href: publicRoutes.home, label: "Home" },
-            { label: "Amusement" },
-          ]}
-        />
         <div className="mh-hero-split">
           <PageHero
-            eyebrow="Coming soon"
-            title="Amusement is in development"
+            title="Mobile amusement at temporary event stands"
             lede={amusementDevelopmentStatement}
           />
-          <div className="mh-hero-art text-[var(--mh-terracotta)]">
-            <ServiceArtwork visual="amusement" />
+          <div className="mh-hero-art">
+            <EditorialPhoto imageId="amusement-hero" priority />
           </div>
         </div>
         <Notice icon="i" className="mt-6">
-          Mecellino Haven does not currently operate a permanent amusement site, park, pass system or public opening
-          hours.
+          Current operations use temporary event stands only. Mecellino Haven does not operate a permanent amusement
+          park, fixed public venue, admission passes or regular opening hours.
         </Notice>
       </PageSection>
 
@@ -58,9 +51,9 @@ export default function AmusementPage() {
             <SectionHeading>What you can do today</SectionHeading>
             <TickList
               items={[
-                "Register interest in future amusement experiences.",
-                "Request information about mobile amusement once it is approved for public offering.",
-                "Read safeguarding information if you are a parent or guardian.",
+                "Send a general enquiry about current mobile-amusement event stands.",
+                "A permanent park, fixed venue, admission passes or regular opening hours would be an unconfirmed aspiration — not a current offering.",
+                "This address is not an emergency contact.",
               ]}
             />
             <p className="text-[15px] text-[var(--ink-2)]">
@@ -68,20 +61,41 @@ export default function AmusementPage() {
               <a className="mh-email" href={`mailto:${publicEnquiryEmail}`}>
                 {publicEnquiryEmail}
               </a>
-              . That address is not an emergency contact and is not a safeguarding-reporting channel.
+              . That address is not an emergency contact and is not an emergency or incident-reporting channel.
             </p>
           </div>
+          <FlipCardGroup>
           <div className="ydg-stack">
-            <PathCard title="Permanent amusement">
-              <p>In development. No claim is made that a site exists today.</p>
-            </PathCard>
-            <PathCard title="Mobile amusement">
+            <PathCard
+              title="Permanent amusement"
+              details={
+                <p>
+                  A later permanent site would be an unconfirmed aspiration. Nothing on this page lists dates, tickets or
+                  opening hours for a park.
+                </p>
+              }
+            >
               <p>
-                Also in development. When information can be shared, it will appear here. You may request to be told
-                when that happens.
+                Not a current operation. Any later permanent site would be an unconfirmed aspiration and is not offered
+                today.
+              </p>
+            </PathCard>
+            <PathCard
+              title="Mobile amusement"
+              details={
+                <p>
+                  Temporary stands appear only at events where they are booked. This page does not sell tickets or
+                  confirm attendance.
+                </p>
+              }
+            >
+              <p>
+                Current operations use temporary event stands. This page does not sell tickets, list dates or imply a
+                permanent venue.
               </p>
             </PathCard>
           </div>
+          </FlipCardGroup>
         </div>
       </PageSection>
 

@@ -1,13 +1,15 @@
 "use client";
 
-import { useId, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
+import { ThemeCycleIcon } from "@/components/brand/ServiceIcons";
 import {
   colorSchemeForTheme,
   DEFAULT_THEME,
+  nextThemeId,
   parseStoredTheme,
   THEME_STORAGE_KEY,
-  themeChoices,
-  themeSelectorLabel,
+  themeChoiceLabel,
+  themeCycleLabel,
   type ThemeId,
 } from "@/lib/theme/appearance";
 import { cn } from "@/lib/utils";
@@ -43,77 +45,20 @@ function getServerThemeSnapshot(): ThemeId {
 }
 
 export function ThemeSelector({ compact = false }: { compact?: boolean }) {
-  const labelId = useId();
-  const helpId = useId();
   const theme = useSyncExternalStore(subscribe, getThemeSnapshot, getServerThemeSnapshot);
-
-  const selectTheme = (next: ThemeId) => {
-    applyTheme(next);
-  };
-
-  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const index = themeChoices.findIndex((choice) => choice.id === theme);
-    if (index < 0) {
-      return;
-    }
-
-    let nextIndex = index;
-    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-      nextIndex = (index + 1) % themeChoices.length;
-    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-      nextIndex = (index - 1 + themeChoices.length) % themeChoices.length;
-    } else if (event.key === "Home") {
-      nextIndex = 0;
-    } else if (event.key === "End") {
-      nextIndex = themeChoices.length - 1;
-    } else {
-      return;
-    }
-
-    event.preventDefault();
-    const next = themeChoices[nextIndex];
-    if (next) {
-      selectTheme(next.id);
-      const target = event.currentTarget.querySelector<HTMLButtonElement>(`[data-theme-id="${next.id}"]`);
-      target?.focus();
-    }
-  };
+  const next = nextThemeId(theme);
+  const label = themeCycleLabel(theme);
 
   return (
-    <div className={cn("mh-theme-selector", compact && "mh-theme-selector-compact")}>
-      <p id={labelId} className={cn("mh-theme-selector-label", compact && "sr-only")}>
-        Appearance
-      </p>
-      <p id={helpId} className={compact ? "sr-only" : "mh-theme-selector-help"}>
-        You can change how the site looks.
-      </p>
-      <div
-        role="radiogroup"
-        aria-labelledby={labelId}
-        aria-describedby={helpId}
-        aria-label={themeSelectorLabel}
-        className="mh-theme-options"
-        onKeyDown={onKeyDown}
-      >
-        {themeChoices.map((choice) => {
-          const selected = theme === choice.id;
-          return (
-            <button
-              key={choice.id}
-              type="button"
-              role="radio"
-              data-theme-id={choice.id}
-              aria-checked={selected}
-              aria-label={choice.label}
-              tabIndex={selected ? 0 : -1}
-              className={cn("mh-theme-option", selected && "is-selected")}
-              onClick={() => selectTheme(choice.id)}
-            >
-              {choice.label}
-            </button>
-          );
-        })}
-      </div>
-    </div>
+    <button
+      type="button"
+      className={cn("mh-theme-button", compact && "mh-theme-button-compact")}
+      aria-label={label}
+      title={label}
+      onClick={() => applyTheme(next)}
+    >
+      <ThemeCycleIcon theme={theme} />
+      <span className="mh-theme-button-label">{themeChoiceLabel(theme)}</span>
+    </button>
   );
 }

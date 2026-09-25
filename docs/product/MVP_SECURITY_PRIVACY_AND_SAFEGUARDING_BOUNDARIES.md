@@ -8,13 +8,13 @@ Public-site limits remain: no live organisational reporting channel; emergency s
 
 ## Canonical consent rules
 
-1. **Ages 10–17:** parent or legal guardian gives programme consent **and** the participant gives separate assent. The participant may decline or withdraw assent without penalty.
+1. **Ages 13–17:** parent or legal guardian gives programme consent **and** the participant gives separate assent. The participant may decline or withdraw assent without penalty.
 2. **Ages 18–25:** the participant gives their own legal consent **and** a parent, guardian or approved responsible adult gives a separate acknowledgement/approval as an organisational eligibility condition.
 3. **Adult acknowledgement never overrides** an 18–25 participant’s consent or withdrawal.
 4. **Alternative responsible adult:** where involving a parent would be impossible, unsafe or inappropriate, the Safeguarding Lead may approve an alternative adult through a **documented exception** before participation, once required safeguarding governance exists. Do not invent a public contact route for this.
 5. **Media consent** is a separate, optional instrument. Refusal or withdrawal does not affect place. Withdrawal of media consent starts an approved restriction/removal workflow for photo, audio or video evidence; it does not by itself erase the rest of the programme record.
 6. **Identity / telephone reuse:** participant and approver must not share the same identity or phone number unless an independently verified accessibility accommodation is recorded.
-7. **Ages 10–12:** sit in Discovery Gateway (10–13). Age-specific safeguarding approval is required before any recruitment of 10–12 year olds (`PHASE1_LIMITATIONS.md`).
+7. **Ages 10–12:** not currently eligible for YDG. They must not appear in recruitment, eligibility, consent or participant-facing programme bands (`PHASE1_LIMITATIONS.md`).
 8. **No personal information from minors** is collected until the roadmap gates in `MVP_IMPLEMENTATION_ROADMAP.md` are closed.
 
 Required non-media instruments follow the public `/parents` list (taking part, first aid, supervised trips, transport when used, code of conduct).
@@ -50,8 +50,8 @@ Roles: **Pt** participant · **Gd** parent/legal guardian · **ARA** approved re
 | View linked participant (redacted) | N | L | P | N | A | A | Y | N | N | N |
 | Submit live enquiry (after gate) | Y | Y | Y | Y | Y | Y | Y | N | N | N |
 | Submit referral | N | N | N | Y | N | N | Y | N | N | N |
-| Record 10–17 programme consent | N | L | E | N | N | N | N | E | N | N |
-| Record 10–17 assent | Y | N | N | N | N | N | N | N | N | N |
+| Record 13–17 programme consent | N | L | E | N | N | N | N | E | N | N |
+| Record 13–17 assent | Y | N | N | N | N | N | N | N | N | N |
 | Record 18–25 legal consent | Y | N | N | N | N | N | N | N | N | N |
 | Record 18–25 acknowledgement | N | L | L | N | N | N | N | E | N | N |
 | Approve alternative responsible adult | N | N | N | N | N | N | N | Y | N | N |
@@ -114,7 +114,7 @@ File-based programme evidence must not be implemented until all of the following
 | Case files | Safeguarding-case files live in the casework store, never beside programme evidence |
 | Media | Photo, audio or video require separate, current media consent |
 | Withdrawal | Media-consent withdrawal starts an approved restriction/removal workflow |
-| Minors | No uploads by or of a person aged 10–17 until Gate M **and** file-handling approval close |
+| Minors | No uploads by or of a person aged 13–17 until Gate M **and** file-handling approval close |
 
 Structured text evidence may proceed in later programme increments without file storage. Mentors and facilitators still write only within assigned scope.
 

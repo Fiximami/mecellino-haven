@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { EditorialPhoto } from "@/components/brand/EditorialPhoto";
 import {
   ButtonRow,
-  GhostButton,
   LeaderCard,
   Notice,
   PageHero,
@@ -34,11 +34,19 @@ export default function AboutPage() {
   return (
     <>
       <PageSection tone="paper">
-        <PageHero
-          eyebrow="About"
-          title="Mecellino Haven"
-          lede="A Ghanaian organisation working with individuals, families and institutions through Capacity Building, Lifestyle Coaching, Events and Entertainment, and amusement experiences that are still in development."
-        />
+        <div className="mh-hero-split">
+          <PageHero
+            title="Mecellino Haven"
+            lede="A Ghanaian organisation working with individuals, families and institutions through Capacity Building, Lifestyle Coaching, Events and Entertainment, and current mobile amusement through temporary event stands."
+          />
+          <div className="mh-hero-art">
+            <EditorialPhoto imageId="about-hero" priority />
+            <p className="mh-art-caption">
+              Independence Square, Accra. Photo: George Appiah, Wikimedia Commons, CC BY 2.0. Not a Mecellino Haven
+              facility photograph.
+            </p>
+          </div>
+        </div>
       </PageSection>
 
       <PageSection>
@@ -56,7 +64,7 @@ export default function AboutPage() {
                 "Capacity Building includes Youth Discovery Gateway, Retirement Life Preparedness, individual training and institutional training.",
                 "Lifestyle Coaching supports personal development, confidence, relationships, wellbeing, purpose, family life and general life transitions.",
                 "Events and Entertainment serve youth and wider audiences, with event-specific age limits and guardian consent for minors.",
-                "Permanent and mobile amusement remain in development and are presented only as coming soon.",
+                "Current mobile-amusement operations use temporary event stands. Mecellino Haven does not operate a permanent amusement park, fixed public venue, admission passes or regular opening hours.",
               ]}
             />
           </div>
@@ -77,7 +85,7 @@ export default function AboutPage() {
               <p>Developmental, recreational and entertainment experiences for youth and wider audiences.</p>
             </PathCard>
             <PathCard title="Amusement" href={publicRoutes.amusement}>
-              <p>Coming soon. No permanent amusement site currently exists.</p>
+              <p>Current mobile operations use temporary event stands. There is no permanent amusement park.</p>
             </PathCard>
           </div>
         </div>
@@ -95,7 +103,7 @@ export default function AboutPage() {
             <SectionHeading>How we decide, and how we report</SectionHeading>
             <TickList
               items={[
-                "Material changes to programme name, age rules, consent, the gender commitment, safeguarding, pilot scope or outcome claims require written approval by the Programme Director and are recorded in a decision log.",
+                "Material changes to programme name, age rules, consent, the gender commitment, programme and operational readiness, pilot scope or outcome claims require written approval by the Programme Director and are recorded in a decision log.",
                 "We separate intended outcomes, pilot targets, delivered activities and verified results — and publish denominators, time periods and evidence sources.",
                 "We do not imply national scale, employment impact or established success before evidence exists.",
               ]}
@@ -128,7 +136,6 @@ export default function AboutPage() {
           </Notice>
           <ButtonRow>
             <PrimaryButton href={publicRoutes.ydg}>Youth Discovery Gateway programme</PrimaryButton>
-            <GhostButton href={publicRoutes.parents}>Safeguarding information</GhostButton>
           </ButtonRow>
         </div>
       </PageSection>

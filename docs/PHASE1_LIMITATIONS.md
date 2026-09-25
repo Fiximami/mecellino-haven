@@ -27,7 +27,7 @@ Safeguarding programme information is published on `/parents`. **Live reporting 
 
 ## Ages 10–12
 
-The approved programme age range is **10–25**, with Discovery Gateway at **10–13**. Supervision ratios and operational safeguarding provisions for participants aged **10–12** are not published here. **Age-specific safeguarding approval is required before recruitment of participants aged 10–12.** Live recruitment and application intake remain unavailable.
+Youth aged **10–12 are not currently eligible** for Youth Discovery Gateway. Eligible ages are **13–25**, calculated at the official cohort start date. Ages 10–12 must not appear in active YDG recruitment, eligibility, consent or participant-facing programme bands. Live recruitment and application intake remain unavailable.
 
 ## Recruitment and applications
 

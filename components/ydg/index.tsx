@@ -1,6 +1,13 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { FlipCard } from "@/components/motion/FlipCard";
+import {
+  programmeDirectorName,
+  programmeLeadName,
+  technologyOperationsName,
+} from "@/config/site";
 import { cn } from "@/lib/utils";
+import { UnfoldExplorer } from "./UnfoldExplorer";
 
 type SectionTone = "default" | "navy" | "cream2" | "paper";
 
@@ -43,7 +50,7 @@ export function PageHero({
   as = "h1",
   children,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   lede?: string;
   onNavy?: boolean;
@@ -55,7 +62,7 @@ export function PageHero({
   return (
     <div className="ydg-stack-lg ydg-measure">
       <div className="ydg-stack">
-        <p className={cn("ydg-eyebrow", onNavy && "ydg-eyebrow-on-navy")}>{eyebrow}</p>
+        {eyebrow ? <p className={cn("ydg-eyebrow", onNavy && "ydg-eyebrow-on-navy")}>{eyebrow}</p> : null}
         <Heading className={cn(headingClass[as], onNavy && "text-[var(--mh-navy-section-text)]")}>{title}</Heading>
         {lede ? <p className={cn("ydg-lede", onNavy && "text-[var(--mh-navy-section-muted)]")}>{lede}</p> : null}
       </div>
@@ -104,13 +111,48 @@ export function PathCard({
   variant = "default",
   href,
   chip,
+  details,
 }: {
   title: string;
   children: ReactNode;
   variant?: "default" | "ydg";
   href?: string;
   chip?: ReactNode;
+  details?: ReactNode;
 }) {
+  const className = cn("ydg-pathcard mh-reveal-item", variant === "ydg" && "ydg-pathcard-ydg");
+  const titleId = `path-card-${title.replace(/\s+/g, "-").toLowerCase()}`;
+
+  if (details) {
+    return (
+      <FlipCard
+        id={titleId}
+        title={title}
+        className={className}
+        front={
+          <>
+            {chip}
+            <h3 id={titleId} className="ydg-h3">
+              {title}
+            </h3>
+            <div className="text-[15px] text-[var(--ink-2)] [&>p+p]:mt-2">{children}</div>
+          </>
+        }
+        back={
+          <>
+            <h3 className="ydg-h3">{title}</h3>
+            <div className="text-[15px] text-[var(--ink-2)] [&>p+p]:mt-2">{details}</div>
+            {href ? (
+              <Link href={href} className="ydg-linkarrow">
+                Open full page
+              </Link>
+            ) : null}
+          </>
+        }
+      />
+    );
+  }
+
   const body = (
     <>
       {chip}
@@ -119,10 +161,7 @@ export function PathCard({
     </>
   );
 
-  const className = cn("ydg-pathcard", variant === "ydg" && "ydg-pathcard-ydg");
-
   if (href) {
-    const titleId = `path-card-${title.replace(/\s+/g, "-").toLowerCase()}`;
     return (
       <Link href={href} className={className} aria-labelledby={titleId}>
         {chip}
@@ -327,22 +366,12 @@ export function LeaderCard({
 
 export function UnfoldSequence({
   steps,
+  compact = false,
 }: {
   steps: { label: string; description: string }[];
+  compact?: boolean;
 }) {
-  return (
-    <div className="ydg-unfold">
-      {steps.map((step, index) => (
-        <div className="ydg-ustep" key={step.label}>
-          <span className="ydg-ustep-n">{String(index + 1).padStart(2, "0")}</span>
-          <div>
-            <b>{step.label}</b>
-            <p>{step.description}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+  return <UnfoldExplorer steps={steps} compact={compact} />;
 }
 
 export function FaqAccordion({
@@ -431,7 +460,8 @@ export const unfoldSteps = [
 export const unfoldStepsDetailed = [
   {
     label: "Play",
-    description: "Safe, low-pressure engagement. Often where a family first meets us — at an event stand.",
+    description:
+      "Safe, low-pressure engagement. Often where a family first meets us — at a temporary mobile-amusement event stand.",
   },
   {
     label: "Discover",
@@ -462,17 +492,17 @@ export const unfoldStepsDetailed = [
 export const leadershipTeam = [
   {
     initials: "RBN",
-    name: "Rev. Bennet Nyansah",
+    name: programmeLeadName,
     role: "Programme Lead — delivery, facilitators, schedule and learning quality",
   },
   {
     initials: "ONS",
-    name: "Mrs. Ophelia Nana Ama Sarsah",
-    role: "Programme Director & Safeguarding Lead — governance, safeguarding decisions, escalation",
+    name: programmeDirectorName,
+    role: "Programme Director — governance and programme decisions",
   },
   {
     initials: "MJB",
-    name: "Mualen Jerry Baada",
-    role: "Technology & Operations Head, Deputy Safeguarding Focal Person",
+    name: technologyOperationsName,
+    role: "Programme Support",
   },
 ] as const;

@@ -16,7 +16,7 @@ Each instrument is its own `ConsentRecord`: band, text version shown, timestamp,
 
 ### Who records what
 
-| Instrument | 10–17 | 18–25 | Required for participation |
+| Instrument | 13–17 | 18–25 | Required for participation |
 |------------|-------|-------|----------------------------|
 | Programme consent | Parent or legal guardian, or SL-approved alternative adult | — | Yes |
 | Participant assent | Participant | — | Yes |
@@ -28,7 +28,7 @@ Each instrument is its own `ConsentRecord`: band, text version shown, timestamp,
 | Code of conduct | Per `/parents` | Per `/parents` | Yes |
 | Media (photo, audio, video) | Guardian or approved alternative; optional | Participant; optional | **No** |
 
-Assent (10–17) and legal consent (18–25) may be declined or withdrawn without penalty. Withdrawal of a required instrument ends the current episode; it does not erase history.
+Assent (13–17) and legal consent (18–25) may be declined or withdrawn without penalty. Withdrawal of a required instrument ends the current episode; it does not erase history.
 
 ### Record status
 
@@ -36,12 +36,12 @@ Assent (10–17) and legal consent (18–25) may be declined or withdrawn withou
 
 ### Lifecycle rules
 
-1. **10–17:** no `enrolled` or `active` episode without current programme consent **and** current assent. Return from `deferred` to `enrolled` requires those instruments still to be valid.
+1. **13–17:** no `enrolled` or `active` episode without current programme consent **and** current assent. Return from `deferred` to `enrolled` requires those instruments still to be valid.
 2. **18–25:** no `enrolled` or `active` episode without current legal consent **and** current adult acknowledgement. Acknowledgement is eligibility, not a veto after the participant has withdrawn consent. Return from `deferred` to `enrolled` requires both still to be valid.
 3. **Media** is a separate optional instrument. Refusal or withdrawal does not affect place. Withdrawal starts an approved restriction/removal workflow for photo, audio or video evidence only; it does not erase the rest of the programme record.
 4. **Identity / telephone reuse:** participant and approver must not share the same identity or phone unless an independently verified accessibility accommodation is recorded.
 5. **Alternative responsible adult:** only the Safeguarding Lead may approve a documented exception before participation. Do not publish a public contact route for this.
-6. **Ages 10–12:** Discovery Gateway remains 10–13. Age-specific safeguarding approval is required before any recruitment of 10–12 year olds.
+6. **Ages 10–12:** not currently eligible for YDG. They must not appear in recruitment, eligibility, consent or participant-facing programme bands.
 7. **No minor personal information** is stored until Gate M in `MVP_IMPLEMENTATION_ROADMAP.md` is closed.
 8. **R2 itself stores nothing.** Demonstration enquiry and the temporary public enquiry address remain as R1 defined them. They are not consent capture and not a safeguarding channel.
 9. **Episode withdrawal vs instrument withdrawal.** Consent-record status `withdrawn` on a required instrument ends the **current participation episode** as `withdrawn`. That episode status is terminal. Re-entry is a new linked episode with **current** instruments; it does not revive the old episode or delete historical consent, attendance, audit or safeguarding records. See `R2_YDG_LONGITUDINAL_JOURNEY.md`.
@@ -144,8 +144,8 @@ Durable audit storage with fail-closed sink failure is already a **hosted-auth p
 |------|-----------------|
 | Lawful basis / privacy notice for Ghana operations (Act 843 and children’s data — owner/legal) | Any personal data |
 | Data residency / cross-border transfer decision | Hosted project holding PII |
-| Gate M | Any 10–17 personal data |
-| Ages 10–12 safeguarding approval | Recruitment of that band |
+| Gate M | Any 13–17 personal data |
+| Ages 10–12 not eligible | Do not recruit, collect or consent this band |
 | File-handling approval | Any upload by or of a participant |
 | 3A P4 concern-channel decision | Any in-product concern submission |
 | Volunteer/alumni screening policy | Mentor, facilitator or alumni grants |

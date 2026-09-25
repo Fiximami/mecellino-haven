@@ -121,7 +121,7 @@
 
 | Block | Message |
 |-------|---------|
-| Programme intro | YDG purpose, ages 10–25 |
+| Programme intro | YDG purpose, ages 13–25 |
 | Who are you? path cards | Young person, parent, school/referrer |
 | UNFOLD preview | Four phases summary |
 | Tracks summary | Four age bands |
@@ -144,7 +144,7 @@
 
 ### Content notes
 
-- “A young person” path does not split 10–17 vs 18–25 or education stage.
+- “A young person” path does not split 13–17 vs 18–25 or education stage.
 
 ---
 
@@ -179,7 +179,7 @@
 | Block | Message |
 |-------|---------|
 | Lede | Cohort first-day age rule; mentions “register interest” (**future intake language**) |
-| Track cards | 10–13, 14–15, 16–17, 18–25 |
+| Track cards | Developmental stages; eligibility 13–25 |
 | Execute phase | Programme completion framing |
 
 ### CTAs
@@ -203,7 +203,7 @@
 | Block | Message |
 |-------|---------|
 | Safeguarding overview | Ratios, authorised adults |
-| Consent | Ages 10–17 minor band; 18–25 adult band; Safeguarding Lead exception |
+| Consent | Ages 13–17 minor band; 18–25 adult band; Safeguarding Lead exception |
 | Supervision rules | Including “under-18s” wording |
 | Emergency | Emergency services — no org hotline |
 | FAQ | Fees, media, disability, school need, selection, withdrawal |
@@ -225,7 +225,7 @@
 
 ### Terminology flag
 
-- Supervision: “under-18s” vs consent: “ages 10–17” — see decisions doc.
+- Supervision: “under-18s” vs consent: “ages 13–17” — see decisions doc.
 
 ---
 
@@ -305,7 +305,7 @@
 |-------|---------|---------------|
 | Audience | Routing preview | Client-only; not sent |
 | Name, phone, email | Contact preview | Client-only; not sent |
-| Under 18? / Guardian | Safeguarding UX preview | Client-only; “under 18” ≠ consent band 10–17 |
+| Under 18? / Guardian | Safeguarding UX preview | Client-only; “under 18” ≠ consent band 13–17 |
 | Message | Free text | Client-only; not sent |
 | Demonstration acknowledgement | Required consent to demo | Client-only |
 
@@ -344,10 +344,10 @@ Post-submit copy confirms demonstration-only.
 |-------|---------|----------|
 | Programme name | YDG used consistently; no FDG/IGNITE on public routes | OK |
 | UNFOLD sequence | Canonical seven stages (Play → Discover → Explore → Experience → Prepare → Execute → Mentor) match public site copy | OK |
-| Age range | 10–25 on programme facts and tracks | OK |
-| Consent bands | 10–17 and 18–25 on `/parents` | OK |
-| Supervision wording | “under-18s” on `/parents` supervision vs “10–17” consent | Minor inconsistency — product decision |
-| Enquiry form | “under 18?” vs consent bands 10–17 / 18–25 | UX modelling gap — product decision |
+| Age range | 13–25 on programme facts and tracks | OK |
+| Consent bands | 13–17 and 18–25 on `/parents` | OK |
+| Supervision wording | “under-18s” on `/parents` supervision vs “13–17” consent | Minor inconsistency — product decision |
+| Enquiry form | “under 18?” vs consent bands 13–17 / 18–25 | UX modelling gap — product decision |
 | Register interest | `/tracks` lede + form hint reference future intake | OK with recruitment closed gates |
 | Guarantees | Anti-guarantee copy on `/parents`; no employment promises | OK |
 | Enquiry transmission | None — demo only | OK |

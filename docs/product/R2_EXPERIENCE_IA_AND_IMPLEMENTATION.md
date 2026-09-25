@@ -17,7 +17,7 @@ Shared chrome for authenticated users (when built): organisation mark, role labe
 
 | Role | Primary home | May see | Must not see |
 |------|--------------|---------|--------------|
-| Participant 10–17 | My Journey | Own stage, assigned activities, own evidence, family-visible items, approved showcases | Other participants’ private work, rankings, cases, staff notes beyond structured reviews written to them |
+| Participant 13–17 | My Journey | Own stage, assigned activities, own evidence, family-visible items, approved showcases | Other participants’ private work, rankings, cases, staff notes beyond structured reviews written to them |
 | Participant 18–25 | My Journey | As above, plus own legal-consent status and adult-acknowledgement status | Same exclusions; guardian tools; other adults’ acknowledgement documents in full |
 | Parent / legal guardian | Linked young person (redacted) | Enrolment/track/cohort, attendance summary, family-visible evidence, consent instrument status, next session facts | Private reflections, case notes, other families, unrestricted mentor chat |
 | Approved responsible adult | Scoped task list | Only the authorities granted (consent, acknowledgement, collection/pickup) | Full guardian dashboard unless policy says so |
@@ -109,7 +109,7 @@ Realtime stays disabled. Service-role secrets stay off the browser. File-backed 
 | ID | Criterion |
 |----|-----------|
 | A1 | Role/permission matrix, lifecycle (including `deferred` and terminal `withdrawn`), age/education split, and journey concepts are written and internally consistent with 4A/4B |
-| A2 | Consent and safeguarding segregation preserve 10–17 consent+assent, 18–25 consent+acknowledgement, optional media, and case isolation |
+| A2 | Consent and safeguarding segregation preserve 13–17 consent+assent, 18–25 consent+acknowledgement, optional media, and case isolation |
 | A3 | First authenticated release is defined without DMs, feeds, ranking, matching, placements or guarantees |
 | A4 | Backend boundaries fit Next.js + Supabase without requiring a migration in R2 |
 | A5 | Roadmap shows R2’s position and dependencies |
@@ -128,10 +128,10 @@ Each slice needs its existing gate. None start from this document alone.
 
 | Slice | Outcome | Depends on | Must not include |
 |-------|---------|------------|------------------|
-| **4C** | Consent instruments + `AdultRelationship` on synthetic adult identities; 10–17/18–25 rules testable without live collection | R2 accepted; legal review of instruments; durable audit for privileged writes | Minor PII; UI for families |
+| **4C** | Consent instruments + `AdultRelationship` on synthetic adult identities; 13–17/18–25 rules testable without live collection | R2 accepted; legal review of instruments; durable audit for privileged writes | Minor PII; UI for families |
 | **R2-V** | Types-only journey vocabulary in code (`EducationStage` as the 4A set plus pending `tvet` comment, `TransitionGoal`, `UnfoldStage`, `ParticipationStatus`, evidence visibility classes, enrolment-event names) with tests, **no persistence** | R2 accepted | Migrations, pages, env; treating `tvet` education-stage as approved |
 | **4D** | Authenticated enquiry / register-interest for approved audiences | Privacy notice; monitored channel; recruitment may stay closed | Automatic enrolment |
-| **4E** | Onboarding: education stage captured separately from age using the 4A set; track/cohort assignment; `EnrolmentCreated` | **Gate M** if any 10–17 data; 10–12 approval if that band is in scope | Guarantees; inferred stage from age; silent `tvet` enum |
+| **4E** | Onboarding: education stage captured separately from age using the 4A set; track/cohort assignment; `EnrolmentCreated` | **Gate M** if any 13–17 data; 10–12 approval if that band is in scope | Guarantees; inferred stage from age; silent `tvet` enum |
 | **4F-A** | My Journey read model + assignments + structured reviews (text evidence); `TransitionReviewCompleted` at boundaries | 4E; delivery safeguarding ratios | Files; DMs; rankings; automatic progression |
 | **4F-E** | `EnrolmentEnded` / `EnrolmentTransferred` with historical preservation and consent revalidation | 4E; transition review | In-place overwrite; `withdrawn` → `enrolled` |
 | **4G** | Mentor/facilitator assignment UI within scope | Volunteer screening policy | Marketplace; unassigned roster access |

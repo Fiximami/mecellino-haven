@@ -49,10 +49,10 @@ R2 does not collect new personal information, open applications, or activate liv
 
 | Topic | Canonical source |
 |-------|------------------|
-| Ages 10–25; tracks 10–13 / 14–15 / 16–17 / 18–25 | Public tracks page; `programmeFacts` |
+| Ages 13–25 at official cohort start; tracks are developmental stages | Public tracks page; `programmeFacts` |
 | UNFOLD: Play → Discover → Explore → Experience → Prepare → **Execute** → Mentor | `/capacity-building/ydg/how-it-works` |
-| Consent 10–17 vs 18–25; media optional; identity-reuse rule | `/parents`; 4A security spec |
-| Ages 10–12 extra safeguarding approval | `PHASE1_LIMITATIONS.md` |
+| Consent 13–17 vs 18–25; media optional; identity-reuse rule | `/parents`; 4A security spec |
+| Ages 10–12 not currently eligible | `PHASE1_LIMITATIONS.md`; `ineligibleUnder13Statement` |
 | Anti-guarantee copy | `boundaryStatement` |
 | Auth: protected claims, fail-closed, `/admin` 404 | 4B foundation; `lib/auth/roles.ts` |
 | Recruitment closed | `recruitmentClosedStatement` |
@@ -67,7 +67,7 @@ Participant age bands are **permission templates on the same Participant entity*
 
 | Role | Intent | Account | 4B code token |
 |------|--------|---------|---------------|
-| Participant 10–17 | Assent, My Journey, assigned activities | Optional; usually after Gate M and a verified adult relationship | `participant` + minor consent band |
+| Participant 13–17 | Assent, My Journey, assigned activities | Optional; usually after Gate M and a verified adult relationship | `participant` + minor consent band |
 | Participant 18–25 | Legal consent, My Journey, assigned activities | Expected after 4C/4E | `participant` + adult consent band |
 | Parent or legal guardian | Programme consent for linked minor; scoped visibility | Expected when linked | `parent` / `legal_guardian` |
 | Approved responsible adult | Scoped consent, acknowledgement or pickup where formally approved | Expected when approved | `approved_responsible_adult` |
@@ -93,8 +93,8 @@ Restricted safeguarding caseworker, system administrator and read-only auditor r
 | View own My Journey | Y | Y | N | N | N | N | N | N | N | N |
 | View linked-minor progress (redacted, no private reflections) | N | N | L | P | N | N | Y | N | N | N |
 | View nominated referral status only | N | N | N | N | N | N | Y | N | A | N |
-| Record 10–17 programme consent | N | N | L | E | N | N | N | E | N | N |
-| Record 10–17 assent | Y | N | N | N | N | N | N | N | N | N |
+| Record 13–17 programme consent | N | N | L | E | N | N | N | E | N | N |
+| Record 13–17 assent | Y | N | N | N | N | N | N | N | N | N |
 | Record 18–25 legal consent | N | Y | N | N | N | N | N | N | N | N |
 | Record 18–25 adult acknowledgement | N | N | L | L | N | N | N | E | N | N |
 | Record or withdraw media consent | L* | Y | L | P | N | N | N | N | N | S |
@@ -116,7 +116,7 @@ Restricted safeguarding caseworker, system administrator and read-only auditor r
 | Open or read safeguarding case | N | N | N | N | N | N | N | Y | N | N |
 | Grant alumni contributor role | N | N | N | N | N | N | Y | P | N | N |
 
-\*Media consent for 10–17 is recorded by the guardian (or approved alternative adult), with optional participant view of the current state. Refusal never affects place.
+\*Media consent for 13–17 is recorded by the guardian (or approved alternative adult), with optional participant view of the current state. Refusal never affects place.
 
 **Hard rules**
 
@@ -237,7 +237,7 @@ Entry to an episode is recorded, never assumed:
 | Entry UNFOLD stage | Assigned. Later-track entrants may start at Explore, Experience or Prepare |
 | Entry education stage | Captured independently at intake |
 
-Withdrawal of required programme consent (10–17), assent (10–17) or legal consent (18–25) ends the **current episode** as `withdrawn`. Media refusal does not.
+Withdrawal of required programme consent (13–17), assent (13–17) or legal consent (18–25) ends the **current episode** as `withdrawn`. Media refusal does not.
 
 ---
 
@@ -249,10 +249,10 @@ These dimensions must never be inferred from one another.
 
 | Concept | Rule |
 |---------|------|
-| Programme eligibility | 10–25 |
+| Programme eligibility | 13–25 |
 | Age for track assignment | Counted on the official first day of the cohort |
-| Consent band | 10–17 minor · 18–25 adult participant |
-| Extra safeguarding band | 10–12 inside Discovery Gateway; recruitment of this band needs age-specific approval |
+| Consent band | 13–17 minor · 18–25 adult participant |
+| Extra safeguarding band | Ages 10–12 are not currently eligible |
 | Age 26 | May finish the active cohort; cannot begin another standard participant cohort |
 
 Date of birth is **not collected in R2**. When later collected under Gate M / adult privacy notice, age-at-cohort-start is derived; the consent band is derived; education stage is still entered explicitly.
@@ -284,16 +284,18 @@ Independent of education stage and never stored as a promised result:
 
 Work and entrepreneurship are **transition goals**, not education stages and not placements. The transition-goal label `tvet` names an exploratory destination; it does **not** approve `tvet` as an education-stage enum. Separately approved placements, if they ever exist, are operational records with no guarantee language.
 
-### Track (age-based, unchanged)
+### Track (developmental stage, not automatic age selection)
 
-| Track | Cohort-start ages |
-|-------|-------------------|
-| Discovery Gateway | 10–13 |
-| Foundation | 14–15 |
-| Direction | 16–17 |
-| Execution & Progression | 18–25 |
+Eligible ages are **13–25** at the official cohort start date. Tracks remain developmental stages. Age is used for eligibility and consent bands only — not for aptitude scoring, ranking or automatic track selection.
 
-Track is an enrolment attribute. It is not computed from school year.
+| Track | Role |
+|-------|------|
+| Discovery Gateway | Early discovery |
+| Foundation | Foundation development (approved Foundation pilot describes 14–15 delivery) |
+| Direction | Direction building |
+| Execution & Progression | Execution and progression |
+
+Track is an enrolment attribute. It is not computed from school year. Youth aged 10–12 are not eligible.
 
 ---
 
@@ -319,7 +321,7 @@ Track is an enrolment attribute. It is not computed from school year.
 |-------|-----------------|
 | `private_reflection` | Owning participant only |
 | `activity_evidence` | Owner, assigned mentor/facilitator, programme operations |
-| `family_visible` | Owner plus linked guardian (10–17) or explicit 18–25 share |
+| `family_visible` | Owner plus linked guardian (13–17) or explicit 18–25 share |
 | `showcase_candidate` | Owner plus ops/facilitator reviewers |
 | `showcase_approved` | Audience named on the approval (cohort, family, or later public page) |
 

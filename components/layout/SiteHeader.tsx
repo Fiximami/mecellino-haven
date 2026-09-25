@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { focusMainContent, setMobileNavFocusPending } from "@/components/layout/MainContentFocus";
 import { ThemeSelector } from "@/components/theme/ThemeSelector";
-import { drawerNav, primaryNav, publicRoutes } from "@/config/routes";
+import { drawerNav, isPrimaryNavCurrent, primaryNav, publicRoutes } from "@/config/routes";
 import { publicContactLabel } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -22,8 +22,7 @@ export function SiteHeader() {
     }
   }, []);
 
-  const isCurrent = (href: string) =>
-    href === publicRoutes.home ? pathname === href : pathname.startsWith(href);
+  const isCurrent = (href: string) => isPrimaryNavCurrent(pathname, href);
 
   const handleDrawerLinkClick = useCallback(
     (href: string, event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -54,7 +53,7 @@ export function SiteHeader() {
   }, [drawerOpen, setDrawer]);
 
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 768px)");
+    const media = window.matchMedia("(min-width: 1024px)");
     const onChange = () => {
       if (media.matches) setDrawer(false);
     };
@@ -73,14 +72,14 @@ export function SiteHeader() {
           <BrandLogo />
         </Link>
 
-        <ul className="hidden list-none items-center gap-0.5 md:flex lg:gap-1">
+        <ul className="hidden list-none items-center gap-0 lg:flex">
           {primaryNav.map((item) => (
-            <li key={item.href}>
+            <li key={item.href + item.label}>
               <Link
                 href={item.href}
                 aria-current={isCurrent(item.href) ? "page" : undefined}
                 className={cn(
-                  "flex min-h-11 items-center rounded-full px-2.5 text-[13px] font-medium text-[var(--mh-chrome-muted)] no-underline transition-colors lg:px-3.5 lg:text-[15px]",
+                  "flex min-h-11 items-center rounded-full px-2 text-[12.5px] font-medium text-[var(--mh-chrome-muted)] no-underline transition-colors xl:px-3 xl:text-[15px]",
                   isCurrent(item.href)
                     ? "bg-white/8 font-semibold text-[var(--mh-chrome-text)]"
                     : "hover:text-[var(--mh-chrome-text)]"
@@ -92,13 +91,11 @@ export function SiteHeader() {
           ))}
         </ul>
 
-        <div className="hidden md:block">
-          <ThemeSelector compact />
-        </div>
+        <ThemeSelector compact />
 
         <Link
           href={publicRoutes.contact}
-          className="mh-btn mh-btn-primary mh-contact-cta hidden text-sm md:inline-flex"
+          className="mh-btn mh-btn-primary mh-contact-cta hidden text-sm lg:inline-flex"
         >
           {publicContactLabel}
         </Link>
@@ -106,7 +103,7 @@ export function SiteHeader() {
         <button
           ref={burgerRef}
           type="button"
-          className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[var(--mh-chrome-border)] bg-[var(--mh-chrome-surface)] md:hidden"
+          className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[var(--mh-chrome-border)] bg-[var(--mh-chrome-surface)] lg:hidden"
           aria-expanded={drawerOpen}
           aria-controls="mobile-drawer"
           aria-label={drawerOpen ? "Close menu" : "Open menu"}
@@ -119,7 +116,7 @@ export function SiteHeader() {
       <div
         id="mobile-drawer"
         className={cn(
-          "border-b border-[var(--mh-chrome-border)] bg-[var(--mh-chrome-surface)] px-[18px] pb-[18px] pt-1.5 md:hidden",
+          "border-b border-[var(--mh-chrome-border)] bg-[var(--mh-chrome-surface)] px-[18px] pb-[18px] pt-1.5 lg:hidden",
           !drawerOpen && "hidden"
         )}
       >

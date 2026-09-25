@@ -49,7 +49,7 @@ Visual tone should reinforce journey intent without stereotyping education stage
 
 | Audience | Visual tone | Primary routes |
 |----------|-------------|----------------|
-| Young people 10–17 | Energetic, clear, non-school-institutional; diverse Ghanaian youth in **non-identifiable** illustration | `/`, `/ydg`, `/how-ydg-works`, `/tracks` |
+| Young people 13–17 | Energetic, clear, non-school-institutional; diverse Ghanaian youth in **non-identifiable** illustration | `/`, `/ydg`, `/how-ydg-works`, `/tracks` |
 | Young adults 18–25 | Forward-looking, practical; young adults in group learning/workshop **illustration** | `/tracks`, `/ydg`, `/how-ydg-works` |
 | Parents/guardians/ARA | Calm, trust-forward; adults with young people at respectful distance — **illustration preferred** | `/parents`, `/` safety band |
 | Schools/referrers | Professional, structured; school/community settings in Ghana — **diagram + illustration** | `/schools` |
@@ -221,7 +221,7 @@ Logo + “About Mecellino Haven” + subtle Ghana outline — no headshots until
 
 ### Visual concept
 
-**“Discovery gateway — ages 10–25, tracks not labels.”** Forward motion through UNFOLD without classroom clichés.
+**“Discovery gateway — ages 13–25, tracks not labels.”** Forward motion through UNFOLD without classroom clichés.
 
 ### Media type
 
@@ -275,12 +275,12 @@ Optional UNFOLD step highlight on scroll — show all steps statically when redu
 | Field | Proposed value |
 |-------|----------------|
 | Title | Youth Discovery Gateway \| Mecellino Haven |
-| Description | Youth Discovery Gateway helps young people aged 10–25 build evidence about interests, strengths and possible directions. |
+| Description | Youth Discovery Gateway helps young people aged 13–25 build evidence about interests, strengths and possible directions. |
 | Internal linking | Primary programme landing; routes to `/how-ydg-works`, `/tracks`, audience paths |
 
 ### OG image concept
 
-Gateway illustration + “Youth Discovery Gateway (YDG)” + age range 10–25.
+Gateway illustration + “Youth Discovery Gateway (YDG)” + age range 13–25.
 
 **Approval required:** UNFOLD diagram naming alignment with `/how-ydg-works`.
 
@@ -363,7 +363,7 @@ UNFOLD step diagram on dark background — readable at thumbnail size.
 
 ### Media type
 
-- **Illustration strip:** four track colours/icons (10–13, 14–15, 16–17, 18–25).
+- **Illustration strip:** four developmental track colours/icons (Discovery Gateway, Foundation, Direction, Execution & Progression).
 - **Diagram:** cohort first-day age rule timeline.
 - **No** photos of children in track cards.
 
@@ -434,7 +434,7 @@ Four colour-coded track bands with cohort-day calendar icon.
 
 - **No hero image of children.**
 - **Icons:** consent document, supervision (two adults), emergency (generic alert — not alarmist).
-- Optional **diagram:** consent band flow 10–17 vs 18–25.
+- Optional **diagram:** consent band flow 13–17 vs 18–25.
 
 ### Must communicate
 

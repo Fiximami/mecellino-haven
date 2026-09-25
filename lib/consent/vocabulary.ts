@@ -5,7 +5,7 @@ function createGuard<T extends string>(
   return (value: unknown): value is T => typeof value === "string" && set.has(value);
 }
 
-export const consentAgeBands = ["10_17", "18_25"] as const;
+export const consentAgeBands = ["13_17", "18_25"] as const;
 
 export type ConsentAgeBand = (typeof consentAgeBands)[number];
 

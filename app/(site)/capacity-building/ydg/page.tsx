@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
-import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
+import { EditorialPhoto } from "@/components/brand/EditorialPhoto";
+import { FlipCardGroup } from "@/components/motion/FlipCard";
+import { LivingGateway } from "@/components/motion/LivingGateway";
+import { RevealGroup } from "@/components/motion/RevealGroup";
 import {
   BoundaryBlock,
   ButtonRow,
@@ -13,9 +15,18 @@ import {
   SectionHeading,
   StatusBlock,
   TickList,
+  UnfoldSequence,
+  unfoldSteps,
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
-import { boundaryStatementShort, identitySafeguardStatement, publicContactLabel } from "@/config/site";
+import {
+  boundaryStatementShort,
+  eligibilityAgeStatement,
+  identitySafeguardStatement,
+  ineligibleUnder13Statement,
+  publicContactLabel,
+  transportResponsibilityStatement,
+} from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
@@ -30,29 +41,29 @@ export default function YdgOverviewPage() {
     <>
       <PageSection tone="navy">
         <div className="ydg-stack-lg">
-          <PageBreadcrumb
-            items={[
-              { href: publicRoutes.home, label: "Home" },
-              { href: publicRoutes.capacityBuilding, label: "Capacity Building" },
-              { label: "Youth Discovery Gateway" },
-            ]}
-          />
-          <div className="mh-hero-split">
+          <div className="mh-hero-split mh-hero-ydg">
+            <LivingGateway variant="ydg" />
             <PageHero
-              eyebrow="Capacity Building · Youth Discovery Gateway"
               title="Youth Discovery Gateway"
               lede="An early interest is a hypothesis to test — not a label a person carries for life. YDG gives individuals and institutions structured ways to test theirs."
               onNavy
             />
-            <div className="mh-hero-art text-[var(--mh-navy-cyan)]">
-              <ServiceArtwork visual="ydg" />
+            <div className="mh-hero-art">
+              <EditorialPhoto imageId="ydg-hero" priority onNavy />
             </div>
           </div>
           <StatusBlock
             label="Current status"
             title="Applications are not open"
-            description="One Foundation pilot is approved and in preparation for one Accra delivery area. We will publish dates when the safeguarding readiness checklist is closed."
+            description="One Foundation pilot is approved and in preparation for one Accra delivery area. We will publish dates when the programme and operational readiness checklist is closed. This page does not collect applications, guardian data or participant data."
           />
+          <p className="text-[15px] text-[var(--mh-navy-section-muted)]">{eligibilityAgeStatement}</p>
+          <p className="text-[15px] text-[var(--mh-navy-section-muted)]">{ineligibleUnder13Statement}</p>
+          <p className="text-[15px] text-[var(--mh-navy-section-muted)]">{transportResponsibilityStatement}</p>
+          <UnfoldSequence steps={[...unfoldSteps]} compact />
+          <LinkArrow href={publicRoutes.howYdgWorks} variant="ydg">
+            Open the full UNFOLD method
+          </LinkArrow>
           <div className="ydg-grid-2">
             <div className="ydg-stack">
               <SectionHeading onNavy>What YDG does</SectionHeading>
@@ -76,23 +87,46 @@ export default function YdgOverviewPage() {
       <PageSection>
         <div className="ydg-stack-lg">
           <PageHero as="h2" eyebrow="Choose your way in" title="Who are you?" />
-          <div className="ydg-grid-2">
-            <PathCard title="A parent or guardian" variant="ydg" href={publicRoutes.parents}>
-              <p>Safety, consent, cost and collection — answered plainly.</p>
+          <FlipCardGroup>
+          <RevealGroup className="ydg-grid-2">
+            <PathCard
+              title="A parent or guardian"
+              variant="ydg"
+              href={publicRoutes.contact}
+              details={
+                <p>
+                  Ask about consent, cost and collection when a monitored enquiry channel is approved. Eligibility and
+                  consent rules stay on this page — they are not hidden behind this card.
+                </p>
+              }
+            >
+              <p>Consent, cost and collection questions can be asked through Contact Us when intake is approved.</p>
             </PathCard>
-            <PathCard title="A school or partner" variant="ydg" href={publicRoutes.schools}>
+            <PathCard
+              title="A school or partner"
+              variant="ydg"
+              href={publicRoutes.schools}
+              details={
+                <p>
+                  Partner pages explain what a school or organisation would be agreeing to, and what it would not. Named
+                  organisations appear only when a relationship is verified.
+                </p>
+              }
+            >
               <p>What you would be agreeing to, and what you would not.</p>
             </PathCard>
-          </div>
+          </RevealGroup>
+          </FlipCardGroup>
 
           <div className="ydg-stack">
             <SectionHeading as="h3">If you are a participant</SectionHeading>
             <p className="text-[15px] text-[var(--ink-2)]">
-              Programme tracks are organised by cohort start, with education stage recorded separately. Consent rules
-              depend on whether a parent or legal guardian is legally responsible, or whether you give your own legal
-              consent.
+              Eligible ages are 13–25 at the official cohort start date. Programme tracks are organised by
+              developmental stage, with education stage recorded separately. Consent rules depend on the age band:
+              13–17 require guardian consent plus participant assent; 18–25 require the participant’s own consent plus
+              parent or guardian approval that never replaces that consent.
             </p>
-            <div className="ydg-grid-2">
+            <RevealGroup className="ydg-grid-2">
               <PathCard title="Where a parent or legal guardian is responsible" variant="ydg" href={publicRoutes.tracks}>
                 <p>
                   Early discovery, foundation development or direction building may apply, depending on the cohort first
@@ -106,7 +140,7 @@ export default function YdgOverviewPage() {
                   withdraw.
                 </p>
               </PathCard>
-            </div>
+            </RevealGroup>
             <LinkArrow href={publicRoutes.howYdgWorks} variant="ydg">
               How YDG works
             </LinkArrow>
@@ -122,20 +156,34 @@ export default function YdgOverviewPage() {
             title="Four capabilities run through every track"
             lede="Stage-appropriate delivery, with recognition of learning a young person already has. Baseline checks guide personalisation — they are not punitive selection gates."
           />
-          <div className="ydg-grid-4">
-            <PathCard title="Digital safety">
+            <FlipCardGroup>
+            <RevealGroup className="ydg-grid-4">
+            <PathCard
+              title="Digital safety"
+              details={<p>Stage-appropriate online habits, privacy awareness and asking for help when something feels wrong.</p>}
+            >
               <p>Staying safe and in control online.</p>
             </PathCard>
-            <PathCard title="Financial capability">
+            <PathCard
+              title="Financial capability"
+              details={<p>Everyday money language, planning and making choices that fit a young person’s current stage.</p>}
+            >
               <p>Basic money skills that apply now.</p>
             </PathCard>
-            <PathCard title="Communication">
+            <PathCard
+              title="Communication"
+              details={<p>Speaking clearly, listening well and working with others in supervised group settings.</p>}
+            >
               <p>Being understood, and listening well.</p>
             </PathCard>
-            <PathCard title="Self-management">
+            <PathCard
+              title="Self-management"
+              details={<p>Time, follow-through and knowing when to ask for help — practised in programme activities, not as a test.</p>}
+            >
               <p>Time, follow-through, asking for help.</p>
             </PathCard>
-          </div>
+          </RevealGroup>
+            </FlipCardGroup>
         </div>
       </PageSection>
 
@@ -159,7 +207,9 @@ export default function YdgOverviewPage() {
                 <>{identitySafeguardStatement}</>,
               ]}
             />
-            <LinkArrow href={publicRoutes.parents}>Safety, supervision and consent in full</LinkArrow>
+            <LinkArrow href={publicRoutes.howYdgWorks} variant="ydg">
+              How supervision and consent sit in UNFOLD
+            </LinkArrow>
           </div>
           <div className="ydg-stack">
             <BoundaryBlock>{boundaryStatementShort}</BoundaryBlock>

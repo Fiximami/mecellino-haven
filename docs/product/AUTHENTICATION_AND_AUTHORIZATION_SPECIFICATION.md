@@ -12,7 +12,7 @@
 |-------|---------------|------------------------------|
 | Synthetic staff / operations test identity | Allowed | Becomes real staff by invitation |
 | System administrator (synthetic) | Allowed for tests | Required |
-| Participant 10–17 | **None** | Optional; guardian usually holds the adult account |
+| Participant 13–17 | **None** | Optional; guardian usually holds the adult account |
 | Participant 18–25 | **None** | Expected |
 | Parent, guardian, ARA, referrer, mentor, facilitator | **None** | Invitation after relationship or screening exists |
 | Safeguarding Lead / caseworker | **None** in 4B | Separate grants; no default admin inheritance |
@@ -35,7 +35,7 @@ All session work is **server-validated**. Cookies: httpOnly, Secure once HTTPS i
 | **Lockout** | Repeated failures lock the account or throttle the identifier and source. Unlock is a privileged, audited action. |
 | **Deactivation** | Soft-disable: session revoke, invitation blocked, roles remain in history. Deactivation is audited. Hard delete follows a later retention decision, not 4B. |
 
-Minors are not invited in 4B. Later, a 10–17 participant account (if any) is created only after Gate M and a verified adult relationship.
+Minors are not invited in 4B. Later, a 13–17 participant account (if any) is created only after Gate M and a verified adult relationship.
 
 ---
 
@@ -139,7 +139,7 @@ Legacy `booking_inquiries` is not migrated, queried or used as a policy template
 
 - Enabling the dormant admin dashboard.
 - Reusing `booking_inquiries` RLS.
-- Collecting 10–17 PII “just for a demo.”
+- Collecting 13–17 PII “just for a demo.”
 - Trusting a browser Supabase client for authorization.
 
 ---

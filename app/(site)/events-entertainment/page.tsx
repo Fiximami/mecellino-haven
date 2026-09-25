@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
-import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
+import { EditorialPhoto } from "@/components/brand/EditorialPhoto";
 import { EventsIcon, IconBadge } from "@/components/brand/ServiceIcons";
 import { Notice, PageHero, PageSection, PathCard, PrimaryButton, SectionHeading, TickList } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
@@ -18,20 +17,13 @@ export default function EventsEntertainmentPage() {
   return (
     <>
       <PageSection tone="paper">
-        <PageBreadcrumb
-          items={[
-            { href: publicRoutes.home, label: "Home" },
-            { label: "Events and Entertainment" },
-          ]}
-        />
         <div className="mh-hero-split">
           <PageHero
-            eyebrow="Events and Entertainment"
             title="Experiences that bring people together"
             lede="Mecellino Haven hosts and supports youth and wider-audience events. Some are developmental, some recreational, and some are entertainment. Each event will publish its own age limit."
           />
-          <div className="mh-hero-art text-[var(--mh-terracotta)]">
-            <ServiceArtwork visual="events" />
+          <div className="mh-hero-art">
+            <EditorialPhoto imageId="events-hero" priority />
           </div>
         </div>
       </PageSection>
@@ -53,7 +45,7 @@ export default function EventsEntertainmentPage() {
             />
           </div>
           <div className="ydg-stack">
-            <SectionHeading>Safeguarding at events</SectionHeading>
+            <SectionHeading>Age limits and adult responsibility</SectionHeading>
             <PathCard title="Event-specific age limits">
               <p>
                 Age limits are set per event, not as a single house rule. If a minor is welcome, a parent or legal

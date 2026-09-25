@@ -9,6 +9,8 @@ import {
 } from "@/config/routes";
 import { amusementDevelopmentStatement } from "@/config/site";
 
+const copyrightYear = new Date().getFullYear();
+
 function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
@@ -40,13 +42,10 @@ export function SiteFooter() {
             <BrandLogo />
           </Link>
           <p className="max-w-[38ch] text-[14.5px] leading-relaxed">
-            Capacity Building, Lifestyle Coaching, Events and Entertainment, and amusement in development — including
-            Youth Discovery Gateway for individuals and institutions.
+            Capacity Building, Lifestyle Coaching, Events and Entertainment, and current mobile amusement through
+            temporary event stands — including Youth Discovery Gateway for individuals and institutions.
           </p>
           <p className="mt-3 max-w-[38ch] text-[13.5px] leading-relaxed">{amusementDevelopmentStatement}</p>
-          <Link href={publicRoutes.parents} className="mh-link mt-3 min-h-11">
-            Safety &amp; safeguarding →
-          </Link>
         </div>
         <FooterColumn title="Services" links={footerServiceLinks} />
         <FooterColumn title="Programmes" links={footerProgrammeLinks} />
@@ -55,9 +54,11 @@ export function SiteFooter() {
           <FooterColumn title="Organisation" links={footerOrganisationLinks} />
         </div>
       </div>
-      <div className="mx-auto mt-6 flex max-w-[1180px] flex-wrap gap-x-[18px] gap-y-1.5 border-t border-[var(--mh-chrome-border)] pt-4 text-[12.5px]">
-        <span>Page last reviewed: September 2026</span>
-        <span>Programme baseline: Definition v1.0 · Safeguarding manual v0.9 (draft)</span>
+      <div className="mx-auto mt-6 flex max-w-[1180px] flex-col gap-1 border-t border-[var(--mh-chrome-border)] pt-4 text-[12.5px]">
+        <p className="m-0">© {copyrightYear} Mecellino Haven. All rights reserved.</p>
+        <p className="m-0 text-[12px] text-[var(--mh-chrome-muted)] opacity-80">
+          Designed and developed by MualenTech Ltd.
+        </p>
       </div>
     </footer>
   );

@@ -135,7 +135,7 @@ Read-only aggregates and config snapshots. **No write.** Access to safeguarding 
 
 | Band | Consent driver | Data boundary |
 |------|----------------|---------------|
-| 10–17 | Parent/guardian or approved responsible adult | Participant UI may be limited; guardian visibilities |
+| 13–17 | Parent/guardian or approved responsible adult | Participant UI may be limited; guardian visibilities |
 | 18–25 | Participant self-consent (+ policy exceptions) | Direct participant messaging; reduced guardian visibility |
 
 Same **Participant** entity type; different **permission templates** — not separate products.

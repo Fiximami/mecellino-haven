@@ -2,6 +2,7 @@ export const designTokens = {
   colors: {
     terracotta: "#C45836",
     terracottaDark: "#9E4227",
+    terracottaText: "#9E4227",
     cream: "#FBF6F0",
     cream2: "#F4EBE1",
     paper: "#FFFFFF",
@@ -13,6 +14,9 @@ export const designTokens = {
     navy3: "#26385C",
     gold: "#B8860B",
     goldLight: "#D9A72B",
+    goldOnNavy: "#D9A72B",
+    focusOnLight: "#1B2A4A",
+    focusOnNavy: "#22D3EE",
     slate: "#5A6472",
     warmMuted: "#5A4A3C",
     line: "#E3D9CD",
@@ -69,10 +73,26 @@ export const designTokens = {
     sectionDesktop: "64px 56px",
     contentMax: "1180px",
   },
+  radius: {
+    control: "10px",
+    card: "20px",
+    panel: "28px",
+  },
+  shadow: {
+    lift: "0 12px 28px rgba(23, 19, 16, 0.1)",
+  },
   motion: {
     durationFast: "200ms",
     durationNormal: "300ms",
     easeOutExpo: "cubic-bezier(0.16, 1, 0.3, 1)",
+  },
+  roles: {
+    brandFill: "#C45836",
+    textBrandOnLight: "#9E4227",
+    goldIdentity: "#B8860B",
+    textOnNavyAccent: "#D9A72B",
+    focusOnLight: "#1B2A4A",
+    focusOnNavy: "#22D3EE",
   },
 } as const;
 

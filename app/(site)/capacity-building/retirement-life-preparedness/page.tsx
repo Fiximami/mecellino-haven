@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
 import { Notice, PageHero, PageSection, PathCard, PrimaryButton, SectionHeading } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
 import { boundaryStatementShort, publicContactLabel, recruitmentClosedStatement } from "@/config/site";
@@ -16,15 +15,7 @@ export default function RetirementLifePreparednessPage() {
   return (
     <>
       <PageSection tone="paper">
-        <PageBreadcrumb
-          items={[
-            { href: publicRoutes.home, label: "Home" },
-            { href: publicRoutes.capacityBuilding, label: "Capacity Building" },
-            { label: "Retirement Life Preparedness" },
-          ]}
-        />
         <PageHero
-          eyebrow="Capacity Building"
           title="Retirement Life Preparedness"
           lede="A Capacity Building pathway that helps adults prepare for later-life transitions through practical learning. It is not an investment scheme or a promise of income."
         />

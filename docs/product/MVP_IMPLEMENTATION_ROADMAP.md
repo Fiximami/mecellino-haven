@@ -12,7 +12,7 @@ No API, database, storage, dashboard, onboarding or tracking work starts without
 
 | ID | Increment | Status | Outcome | Depends on |
 |----|-----------|--------|---------|------------|
-| **R1** | Reconstructed public service architecture | **Complete** | Capacity Building (including nested YDG), Lifestyle Coaching, Events & Entertainment, Amusement coming soon; canonical routes and redirects | Approved reconstruction |
+| **R1** | Reconstructed public service architecture | **Complete** | Capacity Building (including nested YDG), Lifestyle Coaching, Events & Entertainment, current mobile amusement through temporary event stands; canonical routes and redirects | Approved reconstruction |
 | **R2** | YDG longitudinal journey architecture | **Accepted specification** | Roles, lifecycle, age vs education stage, journey/engagement concepts, consent/safeguarding gates, dashboard IA, phase boundaries, backend map. Remains documentation and architecture only | R1 committed; product owner accepted. Acceptance does not authorise production implementation, persistence, recruitment or personal-data collection |
 | **R3+** | Authenticated journey delivery | Not started | Implements Phase A in `R2_EXPERIENCE_IA_AND_IMPLEMENTATION.md` through later 4C–4G slices | R2 accepted; Gate M before minor PII; no live recruitment until named gates close |
 
@@ -33,9 +33,9 @@ Owner-accepted as the planning and architecture baseline. This acceptance does n
 | **4A** | Architecture approval | **Closed** | Five 4A documents accepted | Product owner + safeguarding owner sign-off on roles, consent and isolation |
 | **4A.1** | Dependency hardening | **Closed** | Patched Next.js 16.3.3 baseline | Owner-approved implementation pass. **Must complete before 4B.** Separate from product-feature work. See below. |
 | **4B** | Authentication foundation | **Closed (dormant, fail-closed)** | Server-validated sessions; protected role claims; `/admin` remains 404 until RBAC is proven | **4A.1 closed.** Provider decision recorded. Hosted project, durable audit and distributed lockout remain prerequisites before live Auth. **No minor PII.** |
-| **4C** | Consent and relationship model | Next gated implementation increment | Instruments, adult relationships, identity-reuse rule, exception workflow (no public SL contact invented). Synthetic eligibility is testable without live collection. **Not complete.** Persistence and live collection remain blocked pending legal/privacy, retention, AdultRelationship-schema and safeguarding approvals. | **R2 accepted.** Legal/privacy review of instruments. 10–17 and 18–25 rules testable without live collection. AdultRelationship physical schema, RLS/grants, audit model and independently reviewed D2–D4 migration required before linking. |
+| **4C** | Consent and relationship model | Next gated implementation increment | Instruments, adult relationships, identity-reuse rule, exception workflow (no public SL contact invented). Synthetic eligibility is testable without live collection. **Not complete.** Persistence and live collection remain blocked pending legal/privacy, retention, AdultRelationship-schema and safeguarding approvals. | **R2 accepted.** Legal/privacy review of instruments. 13–17 and 18–25 rules testable without live collection. AdultRelationship physical schema, RLS/grants, audit model and independently reviewed D2–D4 migration required before linking. |
 | **4D** | Enquiry / register-interest service | Not started | Replaces demonstration form for approved audiences only; audit + retention class | Monitored channel + privacy notice. Recruitment may remain closed. **Still no minor intake unless Gate M is closed** |
-| **4E** | Participant onboarding | Not started | Enrolment, education stage captured separately from age, track/cohort assignment | **Gate M (minors)** plus ages 10–12 approval if that band is in scope. Use 4A stages `upper_primary \| jhs \| shs \| tertiary \| other`. **`tvet` as an education-stage value remains an open owner decision** — do not encode TVET as `other` and do not treat it as approved |
+| **4E** | Participant onboarding | Not started | Enrolment, education stage captured separately from age, track/cohort assignment | **Gate M (minors)**. Youth aged 10–12 are not currently eligible. Use 4A stages `upper_primary \| jhs \| shs \| tertiary \| other`. **`tvet` as an education-stage value remains an open owner decision** — do not encode TVET as `other` and do not treat it as approved |
 | **4F** | Programme progression | Not started | My Journey, UNFOLD stage (**Execute** preserved), milestones, structured evidence, attendance, `TransitionReviewCompleted`, `EnrolmentEnded` / `EnrolmentTransferred` | R2 Phase A engagement model. Delivery safeguarding ratios and session policy approved. **File-backed evidence** additionally requires the upload principles and a closed file-handling approval. No scores, rankings, DMs, silent enrolment moves or automatic progression |
 | **4G** | Mentor / facilitator workflows | Not started | Screening status, assignments, limited write; structured mentor interaction only | Volunteer screening policy; roles remain planned until that policy exists. No mentorship marketplace |
 | **4H** | Reporting | Not started | Role-scoped aggregates; girls’ enrolment commitment reporting when data exist | No case-body fields in any general report |
@@ -47,15 +47,15 @@ The reconstructed public site (R1 canonical routes), closed recruitment messagin
 
 ## Gate M — before collecting personal information from minors
 
-All of the following must be recorded as approved. Until then, no name, phone, date of birth, school, image or other personal data of a person aged 10–17 is stored.
+All of the following must be recorded as approved. Until then, no name, phone, date of birth, school, image or other personal data of a person aged 13–17 is stored.
 
 1. Architecture (4A) accepted.
 2. Dependency hardening (4A.1) completed on an owner-approved patched baseline.
 3. Authentication foundation (4B) live with server-validated sessions and protected role claims. Hosted-project, durable-audit and distributed-lockout prerequisites from the 4B report still apply.
-4. Consent and relationship model (4C) implemented and independently tested for 10–17 (consent + assent) and identity-reuse. Owner-accepted R2 remains planning and architecture only and does **not** satisfy this gate.
+4. Consent and relationship model (4C) implemented and independently tested for 13–17 (consent + assent) and identity-reuse. Owner-accepted R2 remains planning and architecture only and does **not** satisfy this gate.
 5. Lawful-basis / privacy notice approved for Ghana operations (owner/legal — not invented here).
 6. Safeguarding, privacy and insurance readiness gates already named in `recruitmentClosedStatement` are closed.
-7. Age-specific safeguarding approval if any participant is aged 10–12.
+7. Youth aged 10–12 remain outside YDG eligibility; do not collect their programme data.
 8. Live enquiry/onboarding UI states that applications remain closed until intake is explicitly opened.
 9. Retention class for minor records is set.
 10. No organisational concern workflow is implied unless 4I’s channel is approved.

@@ -24,7 +24,6 @@ export default function SchoolsPage() {
     <>
       <PageSection tone="paper">
         <PageHero
-          eyebrow="Schools, institutions, parents and partners"
           title="What working with us actually involves"
           lede="YDG partners with schools, institutions, parents, entrepreneurs, governments and NGOs. These are audience relationships, not a list of signed organisations. Youth Discovery Gateway sits under Capacity Building. None of these relationships involve unsupervised contact with young people."
         />
@@ -45,8 +44,8 @@ export default function SchoolsPage() {
               timetable, confirm the transport arrangement.
             </p>
             <p>
-              <b>You do not:</b> screen students for suitability, hold our safeguarding responsibility, or send us
-              files of student data.
+              <b>You do not:</b> screen students for suitability, hold our participant-protection responsibility, or
+              send us files of student data.
             </p>
           </PathCard>
           <PathCard title="Companies and sponsors" href={publicRoutes.contact}>
@@ -81,7 +80,7 @@ export default function SchoolsPage() {
           </p>
           <TickList
             items={[
-              "Screening, safeguarding training and recorded vetting are required before any access to programme delivery.",
+              "Screening, participant-protection training and recorded vetting are required before any access to programme delivery.",
               "Role definition and written approval come before assignment to a cohort or session.",
               "Expressing interest through the demonstration enquiry form does not create a volunteer record or offer.",
             ]}

@@ -222,7 +222,7 @@ export function evaluateProgrammeEligibility(
   }
 
   switch (input.ageBand) {
-    case "10_17":
+    case "13_17":
       return evaluateMinorEligibility({
         programmeConsent: input.programmeConsent,
         assent: input.assent,

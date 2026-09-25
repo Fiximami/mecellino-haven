@@ -14,6 +14,19 @@ export const themeChoices = [
 
 export const themeSelectorLabel = "Appearance. You can change how the site looks.";
 
+export function nextThemeId(theme: ThemeId): ThemeId {
+  const index = themeIds.indexOf(theme);
+  return themeIds[(index + 1) % themeIds.length] ?? DEFAULT_THEME;
+}
+
+export function themeChoiceLabel(theme: ThemeId): string {
+  return themeChoices.find((choice) => choice.id === theme)?.label ?? "Light";
+}
+
+export function themeCycleLabel(theme: ThemeId): string {
+  return `Current theme: ${themeChoiceLabel(theme)}. Activate to use ${themeChoiceLabel(nextThemeId(theme))} theme`;
+}
+
 export function isThemeId(value: unknown): value is ThemeId {
   return value === "light" || value === "warm" || value === "dark";
 }

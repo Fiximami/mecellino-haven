@@ -3,6 +3,7 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, it } from "node:test";
 import { isAdminPath } from "../lib/auth/admin-gate.ts";
+import { isPublicSafeguardingPath } from "../lib/public/safeguarding-gate.ts";
 import { buildAuthAuditEvent, redactAuditDetails } from "../lib/auth/audit.ts";
 import { isAuthCookieName, sessionCookieOptions } from "../lib/auth/cookies.ts";
 import { LOCKOUT_SCOPE } from "../lib/auth/lockout.ts";
@@ -32,6 +33,21 @@ describe("security controls", () => {
     assert.equal(isAdminPath("/admin/bookings"), true);
     assert.equal(isAdminPath("/auth/sign-in"), false);
     assert.equal(isAdminPath("/"), false);
+  });
+
+  it("always 404s the public /parents route and has no environment bypass", () => {
+    assert.equal(isPublicSafeguardingPath("/parents"), true);
+    assert.equal(isPublicSafeguardingPath("/parents/manual"), true);
+    assert.equal(isPublicSafeguardingPath("/contact"), false);
+    const proxy = readFileSync(join(ROOT, "proxy.ts"), "utf8");
+    const gate = readFileSync(join(ROOT, "lib/public/safeguarding-gate.ts"), "utf8");
+    const parents = readFileSync(join(ROOT, "app/(site)/parents/page.tsx"), "utf8");
+    assert.match(proxy, /isPublicSafeguardingPath\(pathname\)/);
+    assert.doesNotMatch(proxy, /shouldPublishPublicSafeguarding|YDG_PUBLIC_SAFEGUARDING/);
+    assert.doesNotMatch(gate, /shouldPublishPublicSafeguarding|YDG_PUBLIC_SAFEGUARDING|process\.env/);
+    assert.match(parents, /notFound\(\)/);
+    assert.doesNotMatch(parents, /shouldPublishPublicSafeguarding|YDG_PUBLIC_SAFEGUARDING/);
+    assert.doesNotMatch(proxy, /fake|password|sign-in.*parents/i);
   });
 
   it("sets httpOnly, SameSite=Lax and Secure-in-production cookies", () => {

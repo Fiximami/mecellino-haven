@@ -1,9 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { isAdminPath } from "@/lib/auth/admin-gate";
+import { isPublicSafeguardingPath } from "@/lib/public/safeguarding-gate";
 import { refreshAuthSession } from "@/lib/supabase/proxy";
 
 export async function proxy(request: NextRequest) {
-  if (isAdminPath(request.nextUrl.pathname)) {
+  const { pathname } = request.nextUrl;
+
+  if (isAdminPath(pathname) || isPublicSafeguardingPath(pathname)) {
     return new NextResponse(null, { status: 404 });
   }
 

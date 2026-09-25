@@ -13,7 +13,6 @@ const PUBLIC_ROUTES = [
   "/lifestyle-coaching",
   "/events-entertainment",
   "/amusement",
-  "/parents",
   "/schools",
   "/contact",
 ];
@@ -114,6 +113,12 @@ async function main() {
       if (countHeading(html, "h1") !== 1) {
         throw new Error(`${path} did not contain exactly one h1`);
       }
+      if (/safeguard/i.test(html)) {
+        throw new Error(`${path} still publishes a safeguarding label`);
+      }
+      if (html.includes('href="/parents"')) {
+        throw new Error(`${path} still links to /parents`);
+      }
       if (path === "/capacity-building/ydg/tracks") {
         if (!html.includes("Youth Discovery Gateway") && !html.includes("tracks")) {
           throw new Error("/capacity-building/ydg/tracks missing expected metadata markers");
@@ -147,8 +152,8 @@ async function main() {
         if (/YDG-Community/.test(html)) {
           throw new Error("home page listed YDG-Community as a partner");
         }
-        if (!html.includes("Safety first, always") || !html.includes("/parents")) {
-          throw new Error("home page Safety first destination is missing");
+        if (html.includes("Safety first, always") || html.includes("Safety &amp; safeguarding")) {
+          throw new Error("home page still publishes a public safeguarding surface");
         }
       }
 
@@ -158,6 +163,12 @@ async function main() {
         }
         if (/gmail\.com/i.test(html)) {
           throw new Error("contact page exposed a Gmail address");
+        }
+        if (!html.includes("emergency or incident-reporting channel")) {
+          throw new Error("contact page lost the emergency and incident-reporting warning");
+        }
+        if (!/emergency services first/i.test(html)) {
+          throw new Error("contact page lost the emergency-services instruction");
         }
       }
 
@@ -169,6 +180,12 @@ async function main() {
       ) {
         if (/10–25|10-25/.test(html)) {
           throw new Error(`${path} published an explicit 10–25 age range`);
+        }
+      }
+
+      if (path === "/capacity-building/ydg") {
+        if (!html.includes("guardian consent") || !html.includes("parent or guardian approval")) {
+          throw new Error("YDG page lost parental or guardian approval requirements");
         }
       }
 
@@ -202,7 +219,7 @@ async function main() {
       await assertRedirect(origin, from, to, [307, 308]);
     }
 
-    for (const path of ["/admin", "/admin/bookings", "/does-not-exist"]) {
+    for (const path of ["/admin", "/admin/bookings", "/parents", "/does-not-exist"]) {
       const response = await fetch(`${origin}${path}`, { redirect: "manual" });
       if (response.status !== 404) {
         throw new Error(`${path} returned ${response.status}, expected 404`);

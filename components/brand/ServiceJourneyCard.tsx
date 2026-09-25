@@ -1,41 +1,55 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
-import { cn } from "@/lib/utils";
+import { EditorialPhoto, type EditorialImageId } from "@/components/brand/EditorialPhoto";
+import { FlipCard } from "@/components/motion/FlipCard";
 
 type ServiceJourneyCardProps = {
   href: string;
   title: string;
   description: string;
+  details: string;
   chip?: string;
   icon: ReactNode;
-  visual: "capacity" | "lifestyle" | "events" | "amusement" | "ydg";
+  imageId: EditorialImageId;
 };
 
 export function ServiceJourneyCard({
   href,
   title,
   description,
+  details,
   chip,
   icon,
-  visual,
+  imageId,
 }: ServiceJourneyCardProps) {
   const titleId = `service-card-${title.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
-    <Link
-      href={href}
-      className={cn("mh-card mh-journey mh-card-link", `mh-journey-${visual}`)}
-      aria-labelledby={titleId}
-    >
-      <IconWrap>{icon}</IconWrap>
-      {chip ? <span className={chip === "Coming soon" ? "mh-chip mh-chip-soon" : "mh-chip mh-chip-pilot"}>{chip}</span> : null}
-      <h3 id={titleId} className="text-lg font-semibold">
-        {title}
-      </h3>
-      <p className="text-[15px] leading-relaxed text-[var(--mh-dark-muted)]">{description}</p>
-      <ServiceArtwork visual={visual} />
-    </Link>
+    <FlipCard
+      id={titleId}
+      title={title}
+      className="mh-card mh-journey"
+      front={
+        <>
+          <EditorialPhoto imageId={imageId} />
+          <IconWrap>{icon}</IconWrap>
+          {chip ? <span className="mh-chip mh-chip-pilot">{chip}</span> : null}
+          <h3 id={titleId} className="text-lg font-semibold">
+            {title}
+          </h3>
+          <p className="text-[15px] leading-relaxed text-[var(--mh-dark-muted)]">{description}</p>
+        </>
+      }
+      back={
+        <>
+          <h3 className="text-lg font-semibold">{title}</h3>
+          <p className="text-[15px] leading-relaxed text-[var(--mh-dark-muted)]">{details}</p>
+          <Link href={href} className="mh-link">
+            Open {title}
+          </Link>
+        </>
+      }
+    />
   );
 }
 

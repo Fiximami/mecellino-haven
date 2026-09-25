@@ -29,6 +29,6 @@ No licensed photography is in the repository. Public pages currently use origina
 | Youth Discovery Gateway | Owned photograph or commissioned illustration | Discovery, direction, evidence-building and long-term progression. No numeric age-range captions. |
 | Lifestyle Coaching | Owned photograph | Wellbeing, confidence and personal growth in an everyday setting. Not clinical or therapy imagery. |
 | Events and Entertainment | Owned event photograph | Safe, energetic community experience with visible adult supervision. |
-| Amusement | Owned concept still or commissioned illustration | Future-facing mobile recreation, clearly marked coming soon. No park that does not exist. |
+| Amusement | Owned concept still or commissioned illustration | Current mobile amusement through temporary event stands. No permanent park, opening hours, admission passes or fixed venue. |
 
 Deployment environment variables that must be present in the production host (values held outside the repository): `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_PROJECT_REF`, `SUPABASE_DATABASE_URL`, and the lockout pepper names above when hosted authentication is prepared.

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { PageBreadcrumb } from "@/components/brand/PageBreadcrumb";
-import { ServiceArtwork } from "@/components/brand/ServiceArtwork";
+import { EditorialPhoto } from "@/components/brand/EditorialPhoto";
 import {
   ButtonRow,
   Chip,
@@ -28,22 +27,13 @@ export default function HowYdgWorksPage() {
   return (
     <>
       <PageSection tone="paper">
-        <PageBreadcrumb
-          items={[
-            { href: publicRoutes.home, label: "Home" },
-            { href: publicRoutes.capacityBuilding, label: "Capacity Building" },
-            { href: publicRoutes.ydg, label: "Youth Discovery Gateway" },
-            { label: "How YDG works" },
-          ]}
-        />
         <div className="mh-hero-split">
           <PageHero
-            eyebrow="Capacity Building · How YDG works"
             title="Seven stages, five days at a time"
             lede="UNFOLD is the method behind every track. A structured cohort cycle or module runs for at least five working days; individual activities may be shorter."
           />
-          <div className="mh-hero-art text-[var(--mh-terracotta)]">
-            <ServiceArtwork visual="ydg" />
+          <div className="mh-hero-art">
+            <EditorialPhoto imageId="ydg-how-it-works" priority />
           </div>
         </div>
       </PageSection>

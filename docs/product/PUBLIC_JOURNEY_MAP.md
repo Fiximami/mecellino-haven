@@ -13,7 +13,7 @@ This document maps the current public website experience for six audience groups
 | `/about` | Organisation identity, leadership, selection model, pilot funding, recruitment status |
 | `/ydg` | YDG programme overview, audience routing, UNFOLD preview, tracks summary |
 | `/how-ydg-works` | UNFOLD model and five-day delivery cycle |
-| `/tracks` | Four age-based programme tracks (10–13, 14–15, 16–17, 18–25) |
+| `/tracks` | Four developmental programme tracks; eligibility 13–25 at cohort start |
 | `/parents` | Safeguarding, consent, supervision, complaints pointer, FAQ |
 | `/mobile-amusement` | Mobile stand offering — no permanent park |
 | `/schools` | School, sponsor, and mentor/facilitator relationships |
@@ -29,13 +29,13 @@ These are **related but separate**. The site must not be read as implying:
 - Every person in a given education stage belongs to one programme track.
 - Age alone determines readiness, placement, or consent pathway.
 
-**Age** is used for track eligibility (counted on cohort first day) and consent bands (10–17 minor band; 18–25 adult participant band on the site).
+**Age** is used for track eligibility (counted on cohort first day) and consent bands (13–17 minor band; 18–25 adult participant band on the site).
 **Education stage** is not collected on the public site; schools may refer young people at different stages within the same age band.
-**Programme track** is age-based on the site (four tracks) but operational placement may consider additional factors not modelled publicly.
+**Programme track** is a developmental stage. Age is used for 13–25 eligibility and consent bands only, not for automatic track selection.
 
 ---
 
-## Audience 1 — Young people aged 10–17
+## Audience 1 — Young people aged 13–17
 
 ### 1. Likely entry route
 
@@ -52,7 +52,7 @@ There is **no dedicated young-person landing page**. The closest “start here�
 - What YDG is in plain language (not school-like, not a guarantee of a place).
 - That mobile amusement and YDG are separate offerings.
 - Age-appropriate track exists for them (see `/tracks`).
-- Safeguarding basics: authorised adults, no one-to-one alone, who consents on their behalf (10–17 band).
+- Safeguarding basics: authorised adults, no one-to-one alone, who consents on their behalf (13–17 band).
 - That applications are **not open** and enquiry is **demonstration-only**.
 
 ### 3. Questions the current site answers
@@ -72,7 +72,7 @@ There is **no dedicated young-person landing page**. The closest “start here�
 
 **Missing**
 
-- First-person “start here for ages 10–17” page or section with reading level guidance.
+- First-person “start here for ages 13–17” page or section with reading level guidance.
 - Explicit separation of **school year / education stage** from track age bands on `/tracks` and `/ydg` path cards.
 - Live safeguarding reporting route (site states no operational reporting channel on public web).
 - Young-person-safe exit copy on every route (partially on `/parents` only).
@@ -103,11 +103,11 @@ All enquiry CTAs lead to a **demonstration-only** form (`EnquiryForm` — no tra
 ### 7. Safeguarding and consent messages relevant
 
 - Homepage: authorised adults, no one adult alone with under-18s, consent before participation.
-- `/parents`: full consent model (10–17 minor band; 18–25 adult band); exception naming Safeguarding Lead role (no public contact route); emergency services guidance; supervision ratios; conduct expectations.
-- `/contact`: demonstration acknowledgement required; guardian fields when “under 18” selected on form (form wording, not identical to site consent band 10–17).
+- `/parents`: full consent model (13–17 minor band; 18–25 adult band); exception naming Safeguarding Lead role (no public contact route); emergency services guidance; supervision ratios; conduct expectations.
+- `/contact`: demonstration acknowledgement required; guardian fields when “under 18” selected on form (form wording, not identical to site consent band 13–17).
 - `/schools`: conduct and safeguarding expectations for referrals.
 
-**Product note:** Supervision copy on `/parents` uses “under-18s”; consent section uses “ages 10–17”. Both are accurate in context but terminology differs — see `MILESTONE_3A_DECISIONS.md`.
+**Product note:** Supervision copy on `/parents` uses “under-18s”; consent section uses “ages 13–17”. Both are accurate in context but terminology differs — see `MILESTONE_3A_DECISIONS.md`.
 
 ### 8. Safe exit or escalation route
 
@@ -158,7 +158,7 @@ Until then: read `/parents` and `/tracks` with a trusted adult; use demonstratio
 
 **Missing**
 
-- Explicit “young adult” pathway card ( `/ydg` lumps “A young person” as 10–25 without stage distinction).
+- Explicit “young adult” pathway card ( `/ydg` lumps “A young person” as 13–25 without stage distinction).
 - Clarification that education stage (e.g. university, NEET, apprentice) does not map 1:1 to Track 18–25.
 
 **Duplicated**

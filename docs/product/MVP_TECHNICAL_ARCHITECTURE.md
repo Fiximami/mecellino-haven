@@ -49,8 +49,8 @@ Add separate runtimes only when isolation, residency or rate-of-change evidence 
 
 | Actor | Account expectation | Primary future surface |
 |-------|---------------------|------------------------|
-| Participant aged 10–25 | Optional for 10–17; expected for 18–25 | Own profile, assent or consent, evidence, withdrawal |
-| Parent or legal guardian | Expected when linked to a 10–17 participant | Consent, collection list, linked-minor visibility |
+| Participant aged 13–25 | Optional for 13–17; expected for 18–25 | Own profile, assent or consent, evidence, withdrawal |
+| Parent or legal guardian | Expected when linked to a 13–17 participant | Consent, collection list, linked-minor visibility |
 | Approved responsible adult | Expected when formally approved | Scoped consent or pickup; not automatic guardian rights |
 | School or community referrer | Expected for live referral | Nomination / referral only |
 | Mentor | Expected after screening | Assigned participants and attendance; no case notes |
@@ -72,7 +72,7 @@ A person does not have to enter at Play, Discovery Gateway, or any single starti
 
 | Dimension | Rule |
 |-----------|------|
-| Age | Counted on official cohort first day; consent bands are 10–17 and 18–25 |
+| Age | Counted on official cohort first day; eligibility 13–25; consent bands are 13–17 and 18–25 |
 | Education stage | `upper_primary` \| `jhs` \| `shs` \| `tertiary` \| `other` — never inferred from age |
 | YDG track | Discovery Gateway (10–13), Foundation (14–15), Direction (16–17), Execution & Progression (18–25) |
 | Cohort | Time-bounded delivery group; amusement events are a separate offering |
