@@ -1,18 +1,35 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
 import { DEFAULT_RETURN_PATH, isSafeReturnPath, sanitizeReturnPath } from "../lib/auth/return-path.ts";
 
 describe("return path allowlist", () => {
   it("accepts canonical public relative paths", () => {
-    assert.equal(isSafeReturnPath("/parents"), true);
+    assert.equal(isSafeReturnPath("/contact"), true);
+    assert.equal(sanitizeReturnPath("/"), DEFAULT_RETURN_PATH);
+    assert.equal(sanitizeReturnPath("/about"), "/about");
     assert.equal(sanitizeReturnPath("/contact"), "/contact");
+    assert.equal(sanitizeReturnPath("/capacity-building"), "/capacity-building");
     assert.equal(sanitizeReturnPath("/capacity-building/ydg"), "/capacity-building/ydg");
     assert.equal(
       sanitizeReturnPath("/capacity-building/ydg/how-it-works"),
       "/capacity-building/ydg/how-it-works",
     );
+    assert.equal(sanitizeReturnPath("/capacity-building/ydg/tracks"), "/capacity-building/ydg/tracks");
     assert.equal(sanitizeReturnPath("/lifestyle-coaching"), "/lifestyle-coaching");
+    assert.equal(sanitizeReturnPath("/events-entertainment"), "/events-entertainment");
     assert.equal(sanitizeReturnPath("/amusement"), "/amusement");
+    assert.equal(sanitizeReturnPath("/schools"), "/schools");
+    assert.equal(sanitizeReturnPath("/auth/sign-in"), "/auth/sign-in");
+  });
+
+  it("does not accept /parents as an authentication return destination", () => {
+    assert.equal(isSafeReturnPath("/parents"), false);
+    assert.equal(isSafeReturnPath("/parents/manual"), false);
+    assert.equal(sanitizeReturnPath("/parents"), DEFAULT_RETURN_PATH);
+    assert.equal(sanitizeReturnPath("/parents/manual"), DEFAULT_RETURN_PATH);
+    assert.equal(DEFAULT_RETURN_PATH, "/");
+    assert.doesNotMatch(readFileSync("lib/auth/return-path.ts", "utf8"), /"\/parents"/);
   });
 
   it("rejects obsolete standalone programme paths", () => {

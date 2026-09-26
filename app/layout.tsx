@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Libre_Franklin, Source_Serif_4 } from "next/font/google";
+import { THEME_BOOTSTRAP_SCRIPT } from "@/lib/theme/appearance";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -48,7 +49,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP_SCRIPT }} />
+      </head>
       <body
         className={`${sourceSerif.variable} ${libreFranklin.variable} ${ibmPlexMono.variable} flex min-h-screen flex-col antialiased`}
       >

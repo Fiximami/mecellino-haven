@@ -56,8 +56,8 @@ Each instrument is its own **ConsentRecord**:
 
 | Instrument | Who records | Required for participation |
 |------------|-------------|----------------------------|
-| Programme consent (10–17) | Parent or legal guardian, or approved alternative adult | Yes |
-| Participant assent (10–17) | Participant | Yes |
+| Programme consent (13–17) | Parent or legal guardian, or approved alternative adult | Yes |
+| Participant assent (13–17) | Participant | Yes |
 | Participant legal consent (18–25) | Participant | Yes |
 | Adult acknowledgement (18–25) | Parent, guardian or approved responsible adult | Yes (eligibility condition) |
 | Media | Separate, optional | No |
@@ -123,7 +123,7 @@ Before any file-based evidence is implemented, the principle-level controls in `
 | Access | Bound to the owning participant and cohort; no cross-participant or cross-cohort read |
 | Media | Photo, audio or video require separate, current media consent |
 | Withdrawal | `MediaConsentWithdrawn` starts an approved restriction/removal workflow; it does not delete programme history silently |
-| Minors | No file from a person aged 10–17 until Gate M **and** file-handling approval close |
+| Minors | No file from a person aged 13–17 until Gate M **and** file-handling approval close |
 
 Lifecycle events (when file evidence exists): `EvidenceAttached`, `EvidenceAccessed`, `EvidenceReplaced`, `EvidenceDeleted`.
 

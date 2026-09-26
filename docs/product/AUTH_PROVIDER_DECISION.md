@@ -1,3 +1,4 @@
+> **Superseded age policy.** Approved YDG eligibility is now **13–25** at the official cohort start date. Consent bands are **13–17** (guardian consent + participant assent) and **18–25** (participant consent + parent/guardian acknowledgement). Youth aged **10–12 are not eligible**. Historical 10–25 / 10–17 / 10–13 / 10–12-in-scope wording below is archival and must not be used as an active source of truth.
 # Authentication provider decision
 
 **Milestone 4B0 â€” decision and specification only.** No hosted project is connected, no users are created, no schemas or migrations are added, and `/admin` remains 404.

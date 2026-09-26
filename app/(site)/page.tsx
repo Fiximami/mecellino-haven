@@ -6,7 +6,7 @@ import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
   title: "Home",
-  description: `${siteConfig.description} Enquiry is a demonstration only; recruitment is not open. Amusement is in development.`,
+  description: `${siteConfig.description} Enquiry is a demonstration only; recruitment is not open.`,
   path: publicRoutes.home,
 });
 

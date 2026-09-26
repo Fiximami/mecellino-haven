@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import {
   BoundaryBlock,
-  LinkArrow,
   Notice,
   PageHero,
   PageSection,
@@ -10,12 +9,13 @@ import {
   TickList,
 } from "@/components/ydg";
 import { publicRoutes } from "@/config/routes";
+import { ydgPartnerAudiences } from "@/config/site";
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
   title: "Schools & partners",
   description:
-    "How schools, sponsors, mentors and facilitators may work with Mecellino Haven. Mentor participation is planned but not publicly open. No live referral portal.",
+    "How schools, institutions, parents, entrepreneurs, governments and NGOs may work with Mecellino Haven. Mentor participation is planned but not publicly open. No live referral portal.",
   path: publicRoutes.schools,
 });
 
@@ -24,28 +24,31 @@ export default function SchoolsPage() {
     <>
       <PageSection tone="paper">
         <PageHero
-          eyebrow="Schools, partners and mentors"
           title="What working with us actually involves"
-          lede="Three different relationships, three different sets of controls. Youth Discovery Gateway sits under Capacity Building. None of these relationships involve unsupervised contact with young people."
+          lede="YDG partners with schools, institutions, parents, entrepreneurs, governments and NGOs. These are audience relationships, not a list of signed organisations. Youth Discovery Gateway sits under Capacity Building. None of these relationships involve unsupervised contact with young people."
         />
       </PageSection>
 
       <PageSection>
         <div className="ydg-stack-lg">
+          <SectionHeading>Who we work with</SectionHeading>
+          <p className="text-[15px] text-[var(--ink-2)]">
+            Partner audiences are {ydgPartnerAudiences.join(", ")}. Named organisations appear only when a relationship
+            is verified and approved. None are listed in this milestone.
+          </p>
           <SectionHeading>Three relationships</SectionHeading>
           <div className="ydg-grid-3">
-          <PathCard title="Schools">
+          <PathCard title="Schools" href={publicRoutes.contact}>
             <p>
               <b>You do:</b> nominate students, provide an observable room for the discovery interview, release
               timetable, confirm the transport arrangement.
             </p>
             <p>
-              <b>You do not:</b> screen students for suitability, hold our safeguarding responsibility, or send us
-              files of student data.
+              <b>You do not:</b> screen students for suitability, hold our participant-protection responsibility, or
+              send us files of student data.
             </p>
-            <LinkArrow href={publicRoutes.contact}>Preview school enquiry form →</LinkArrow>
           </PathCard>
-          <PathCard title="Companies and sponsors">
+          <PathCard title="Companies and sponsors" href={publicRoutes.contact}>
             <p>
               <b>Honest scale:</b> one approved pilot in preparation, 20–30 participants, one Accra delivery area,
               intended to be free to families subject to confirmed sponsorship.
@@ -54,15 +57,13 @@ export default function SchoolsPage() {
               <b>Visibility</b> is tied to approved, verified delivery, and is designed around non-identifying
               evidence — because participant media consent is optional and is never pressured.
             </p>
-            <LinkArrow href={publicRoutes.contact}>Preview sponsorship enquiry form →</LinkArrow>
           </PathCard>
-          <PathCard title="Mentors and facilitators">
+          <PathCard title="Mentors and facilitators" href={publicRoutes.contact}>
             <p>
               <b>Before anything else,</b> read the conduct rules. Expressing interest is not an offer and gives no
               access to young people.
             </p>
             <p>Screening, training and recorded vetting come first, always.</p>
-            <LinkArrow href={publicRoutes.contact}>Preview mentor enquiry form →</LinkArrow>
           </PathCard>
           </div>
         </div>
@@ -79,7 +80,7 @@ export default function SchoolsPage() {
           </p>
           <TickList
             items={[
-              "Screening, safeguarding training and recorded vetting are required before any access to programme delivery.",
+              "Screening, participant-protection training and recorded vetting are required before any access to programme delivery.",
               "Role definition and written approval come before assignment to a cohort or session.",
               "Expressing interest through the demonstration enquiry form does not create a volunteer record or offer.",
             ]}

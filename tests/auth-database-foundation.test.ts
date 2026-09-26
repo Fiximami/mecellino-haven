@@ -1,28 +1,75 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, it } from "node:test";
+import { ALWAYS_DENIED_ACTIONS } from "../lib/auth/roles.ts";
+
+const MIGRATIONS_DIR = join(import.meta.dirname, "..", "supabase", "migrations");
+const ALIGNED_ROLES = [
+  "participant",
+  "legal_guardian",
+  "approved_responsible_adult",
+  "referrer",
+  "mentor",
+  "facilitator",
+  "programme_operations",
+  "safeguarding_lead",
+  "restricted_caseworker",
+  "system_administrator",
+  "auditor",
+] as const;
+const PERMITTED_ROLES_AFTER_PARENT = [
+  "participant",
+  "parent",
+  "legal_guardian",
+  "approved_responsible_adult",
+  "referrer",
+  "mentor",
+  "facilitator",
+  "programme_operations",
+  "safeguarding_lead",
+  "restricted_caseworker",
+  "system_administrator",
+  "auditor",
+] as const;
 
 const draft = readFileSync(
-  join(
-    import.meta.dirname,
-    "..",
-    "supabase",
-    "migrations",
-    "20260912134813_auth_rbac_audit_foundation.sql",
-  ),
+  join(MIGRATIONS_DIR, "20260912134813_auth_rbac_audit_foundation.sql"),
   "utf8",
 );
 const alignment = readFileSync(
-  join(
-    import.meta.dirname,
-    "..",
-    "supabase",
-    "migrations",
-    "20260912155902_align_legal_guardian_role.sql",
-  ),
+  join(MIGRATIONS_DIR, "20260912155902_align_legal_guardian_role.sql"),
   "utf8",
 );
+const parentRoleMigrationName = readdirSync(MIGRATIONS_DIR)
+  .filter((name) => name.endsWith("_permit_parent_role.sql"))
+  .sort()
+  .at(-1);
+const parentRole = parentRoleMigrationName
+  ? readFileSync(join(MIGRATIONS_DIR, parentRoleMigrationName), "utf8")
+  : "";
+
+function quotedRoles(inner: string): string[] {
+  return [...inner.matchAll(/'([a-z_]+)'/g)].map((item) => item[1]);
+}
+
+function namedRoleCheck(sql: string): string[] | null {
+  const match = sql.match(
+    /add constraint role_assignments_role_check check \(\s*role in \(([\s\S]*?)\)\s*\)/i,
+  );
+  return match ? quotedRoles(match[1]) : null;
+}
+
+function effectiveRoleCheck(files: string[]): string[] | null {
+  let current: string[] | null = null;
+  for (const name of files) {
+    const extracted = namedRoleCheck(readFileSync(join(MIGRATIONS_DIR, name), "utf8"));
+    if (extracted) {
+      current = extracted;
+    }
+  }
+  return current;
+}
 
 describe("authentication database foundation migration", () => {
   it("records its reviewed staging scope", () => {
@@ -87,5 +134,60 @@ describe("authentication database foundation migration", () => {
     assert.match(alignment, /disable trigger role_assignments_preserve_history/i);
     assert.match(alignment, /enable trigger role_assignments_preserve_history/i);
     assert.doesNotMatch(alignment, /grant|create table|create policy/i);
+  });
+});
+
+describe("parent role permission migration", () => {
+  it("is a later local migration after the legal_guardian alignment", () => {
+    assert.equal(typeof parentRoleMigrationName, "string");
+    assert.match(parentRoleMigrationName ?? "", /^\d{14}_permit_parent_role\.sql$/);
+    assert.ok((parentRoleMigrationName ?? "") > "20260912155902_align_legal_guardian_role.sql");
+  });
+
+  it("fails closed unless the expected table and constraint are present", () => {
+    assert.match(parentRole, /private\.role_assignments is absent/);
+    assert.match(parentRole, /role_assignments_role_check is absent/);
+    assert.match(parentRole, /drop constraint role_assignments_role_check/);
+    assert.match(parentRole, /add constraint role_assignments_role_check/);
+    assert.match(parentRole, /relrowsecurity/);
+    assert.match(parentRole, /relforcerowsecurity/);
+    assert.match(parentRole, /must keep RLS and FORCE RLS/);
+  });
+
+  it("permits parent and legal_guardian as distinct values without dropping existing roles", () => {
+    const aligned = namedRoleCheck(alignment);
+    const next = namedRoleCheck(parentRole);
+    const effective = effectiveRoleCheck(
+      readdirSync(MIGRATIONS_DIR).filter((name) => name.endsWith(".sql")).sort(),
+    );
+
+    assert.deepEqual(aligned, [...ALIGNED_ROLES]);
+    assert.deepEqual(next, [...PERMITTED_ROLES_AFTER_PARENT]);
+    assert.deepEqual(effective, [...PERMITTED_ROLES_AFTER_PARENT]);
+    assert.ok(next?.includes("parent"));
+    assert.ok(next?.includes("legal_guardian"));
+    assert.notEqual(next?.indexOf("parent"), next?.indexOf("legal_guardian"));
+    for (const role of ALIGNED_ROLES) {
+      assert.ok(next?.includes(role), `missing retained role ${role}`);
+    }
+  });
+
+  it("does not introduce policies, grants, tables, or unrelated subsystems", () => {
+    assert.doesNotMatch(parentRole, /\bgrant\b/i);
+    assert.doesNotMatch(parentRole, /create policy/i);
+    assert.doesNotMatch(parentRole, /create table/i);
+    assert.doesNotMatch(parentRole, /create publication|replica identity/i);
+    assert.doesNotMatch(parentRole, /storage\.objects|booking_inquiries/i);
+    assert.doesNotMatch(parentRole, /create schema|drop schema/i);
+    assert.doesNotMatch(parentRole, /disable row level security|no force row level security/i);
+    assert.doesNotMatch(parentRole, /to anon|to authenticated/i);
+    assert.doesNotMatch(parentRole, /with check \(true\)|using \(true\)/i);
+  });
+
+  it("does not enable link_adult_relationship", () => {
+    assert.equal(
+      (ALWAYS_DENIED_ACTIONS as readonly string[]).includes("link_adult_relationship"),
+      true,
+    );
   });
 });

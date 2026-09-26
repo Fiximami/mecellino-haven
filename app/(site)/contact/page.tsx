@@ -10,9 +10,9 @@ import {
 import { publicPageMetadata } from "@/lib/public-metadata";
 
 export const metadata: Metadata = publicPageMetadata({
-  title: "Contact",
+  title: "Contact Us",
   description:
-    "Temporary address for general enquiries and service requests, plus a design preview of the Mecellino Haven enquiry form. The form is demonstration-only. This is not an emergency or safeguarding-reporting channel.",
+    "Public address for general enquiries and service requests, plus a design preview of the Mecellino Haven enquiry form. The form is demonstration-only. This is not an emergency or incident-reporting channel.",
   path: publicRoutes.contact,
 });
 
@@ -21,9 +21,8 @@ export default function ContactPage() {
     <>
       <PageSection tone="paper">
         <PageHero
-          eyebrow="Contact"
           title="General enquiries and service requests"
-          lede={`${publicEnquiryEmail} is the approved temporary address for general enquiries and service requests. It can receive those messages. The interactive form below remains a demonstration only.`}
+          lede={`${publicEnquiryEmail} is the public address for general enquiries and service requests. It can receive those messages. The interactive form below remains a demonstration only.`}
         />
         <p className="mt-6 text-[15px] text-[var(--ink-2)]">
           Write to{" "}
@@ -36,8 +35,8 @@ export default function ContactPage() {
           {publicEnquiryChannelNotice}
         </Notice>
         <Notice icon="!" variant="divert" className="mt-6">
-          {demoEnquiryNotice} This is not a ticket desk, payment page, application portal, emergency contact or
-          safeguarding-reporting channel.
+          {demoEnquiryNotice} This is not a ticket desk, payment page or application portal. This is not an emergency
+          or incident-reporting channel.
         </Notice>
       </PageSection>
       <PageSection>

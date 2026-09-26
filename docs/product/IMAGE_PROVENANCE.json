@@ -1,0 +1,284 @@
+{
+  "registerVersion": "3",
+  "generatedAt": "2026-09-24",
+  "downloadDate": "2026-09-24",
+  "notes": "Owner-correction register. Every production image is a local photograph. Search-results pages are not provenance. Stock subjects are not Mecellino Haven participants. Semantic fit is required in addition to licence and authenticity.",
+  "licences": {
+    "Pexels License": {
+      "url": "https://www.pexels.com/license/",
+      "attributionRequired": false,
+      "notes": "Free to use; attribution appreciated; do not imply endorsement."
+    },
+    "CC BY 2.0": {
+      "url": "https://creativecommons.org/licenses/by/2.0/",
+      "attributionRequired": true,
+      "notes": "Visible credit is shown on the About page."
+    }
+  },
+  "images": [
+    {
+      "localFilename": "home-hero-guided-learning.jpg",
+      "routesAndSections": ["home / hero"],
+      "sourceUrl": "https://www.pexels.com/photo/women-soaking-their-hands-on-blue-plastic-basin-while-having-a-conversation-13020784/",
+      "platform": "Pexels",
+      "photographer": "King Zubby",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: King Zubby, via Pexels.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Three young African women sit together and talk around a small basin. Stock photograph, not Mecellino Haven participants.",
+      "recognizablePersonRisk": "Three identifiable women. Copy does not present them as participants.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "Young adults; none reasonably appear younger than 13.",
+      "whyAppropriate": "Community conversation supports the home welcome without school, shop, price or partner cues."
+    },
+    {
+      "localFilename": "ydg-tracks-collaboration.jpg",
+      "routesAndSections": [
+        "home / YDG pathway",
+        "capacity-building / Youth Discovery Gateway card",
+        "ydg / hero",
+        "ydg/tracks / hero"
+      ],
+      "sourceUrl": "https://www.pexels.com/photo/group-of-focused-black-coworkers-discussing-project-9429549/",
+      "platform": "Pexels",
+      "photographer": "Monstera Production",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: Monstera Production, via Pexels.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Four young adults gather around a table to review a document. Stock photograph of collaborative discovery, not a YDG cohort.",
+      "recognizablePersonRisk": "Four identifiable young adults. Copy states not a YDG group.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "Clearly young adults within or adjacent to 13–25.",
+      "whyAppropriate": "Teamwork around a shared task matches YDG guided discovery better than a solitary park-reading portrait."
+    },
+    {
+      "localFilename": "individual-guided-discussion.jpg",
+      "routesAndSections": [
+        "capacity-building / Individual training card",
+        "ydg/how-it-works / hero"
+      ],
+      "sourceUrl": "https://www.pexels.com/photo/african-women-engaging-in-conversation-indoors-30690397/",
+      "platform": "Pexels",
+      "photographer": "Ninthgrid",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: Ninthgrid, via Pexels. Location on source page: Lagos, Nigeria.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Two women talk together on a sofa. Stock photograph of a mentoring conversation, not YDG participants.",
+      "recognizablePersonRisk": "Two identifiable women. Not presented as clients.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "Clearly adult women.",
+      "whyAppropriate": "Mentoring conversation supports How YDG works and individual training without generic laptop or park-reading staging."
+    },
+    {
+      "localFilename": "institutional-document-review.jpg",
+      "routesAndSections": [
+        "home / Capacity Building service card",
+        "capacity-building / hero",
+        "capacity-building / Institutional training card"
+      ],
+      "sourceUrl": "https://www.pexels.com/photo/attentive-multiethnic-colleagues-reading-contract-in-workspace-5668832/",
+      "platform": "Pexels",
+      "photographer": "Sora Shimazaki",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: Sora Shimazaki, via Pexels.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Two adults review a document together. Stock photograph of facilitated professional training, not a Mecellino Haven class.",
+      "recognizablePersonRisk": "Two identifiable adults.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "Clearly adult professionals.",
+      "whyAppropriate": "Facilitated professional review is a Capacity Building training scene and is not the YDG group photograph."
+    },
+    {
+      "localFilename": "retirement-professional-planning.jpg",
+      "routesAndSections": ["capacity-building / Retirement Life Preparedness card"],
+      "sourceUrl": "https://www.pexels.com/photo/thoughtful-black-businessman-analyzing-documents-on-street-5647564/",
+      "platform": "Pexels",
+      "photographer": "Ono Kosuki",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: Ono Kosuki, via Pexels.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "A mature professional in a suit reviews documents. Stock photograph of later-life planning, not a coaching client.",
+      "recognizablePersonRisk": "One identifiable mature professional.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "Mature working-age adult appropriate to institutional retirement transition.",
+      "whyAppropriate": "Dignity and document planning match Retirement Life Preparedness better than a market-trader portrait."
+    },
+    {
+      "localFilename": "lifestyle-guided-session.jpg",
+      "routesAndSections": [
+        "home / Lifestyle Coaching service card",
+        "lifestyle-coaching / hero"
+      ],
+      "sourceUrl": "https://www.pexels.com/photo/a-man-in-black-polo-shirt-sitting-on-the-couch-9064335/",
+      "platform": "Pexels",
+      "photographer": "RDNE Stock project",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: RDNE Stock project, via Pexels.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Two adults sit in a guided conversation. Stock photograph, not a coaching client or medical setting.",
+      "recognizablePersonRisk": "Two identifiable adults.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "Clearly adults.",
+      "whyAppropriate": "Guided conversation with attention and listening, not a generic smiling portrait and not presented as clinical therapy."
+    },
+    {
+      "localFilename": "events-traditional-gathering.jpg",
+      "routesAndSections": [
+        "home / Events and Entertainment service card",
+        "events-entertainment / hero"
+      ],
+      "sourceUrl": "https://www.pexels.com/photo/vibrant-traditional-celebration-in-onitsha-nigeria-31854192/",
+      "platform": "Pexels",
+      "photographer": "Chukwuemeka Joel",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: Chukwuemeka Joel, via Pexels. Location on source page: Onitsha, Nigeria.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Adults in traditional attire sit together at a celebration. Stock photograph, not a Mecellino Haven event listing.",
+      "recognizablePersonRisk": "Many identifiable adults.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "Visible subjects are adults.",
+      "whyAppropriate": "Organised cultural gathering matches Events without ticket prices or CBO lettering."
+    },
+    {
+      "localFilename": "amusement-portable-ringtoss.jpg",
+      "routesAndSections": [
+        "home / Mobile amusement pathway",
+        "home / Amusement service card",
+        "amusement / hero"
+      ],
+      "sourceUrl": "https://www.pexels.com/photo/group-of-people-playing-ring-toss-on-green-grass-7551315/",
+      "platform": "Pexels",
+      "photographer": "RDNE Stock project",
+      "licenceName": "Pexels License",
+      "licenceUrl": "https://www.pexels.com/license/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": false,
+      "attributionText": "Photo: RDNE Stock project, via Pexels.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Adults play a portable ring-toss game on grass. Stock photograph of temporary recreation, not a Mecellino Haven venue.",
+      "recognizablePersonRisk": "Identifiable adults at a distance.",
+      "logoOrEndorsementRisk": "None visible. No prices, odds or ranking boards.",
+      "ageSuitability": "Adults; no children in the focal frame.",
+      "whyAppropriate": "Portable family-friendly game stand without betting, prize-ranking or permanent-park imagery."
+    },
+    {
+      "localFilename": "about-independence-square.jpg",
+      "routesAndSections": ["about / hero"],
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Independence_Square_-_Accra,_Ghana.jpg",
+      "platform": "Wikimedia Commons",
+      "photographer": "George Appiah",
+      "licenceName": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "downloadDate": "2026-09-24",
+      "dateAccessed": "2026-09-24",
+      "attributionRequired": true,
+      "attributionText": "Independence Square, Accra. Photo: George Appiah, Wikimedia Commons, CC BY 2.0. Not a Mecellino Haven facility photograph.",
+      "isPhotograph": true,
+      "generatedArtwork": false,
+      "intendedAlt": "Independence Square in Accra, with the arch and open parade ground. Place-based photograph, not a Mecellino Haven facility.",
+      "recognizablePersonRisk": "Distant figures only.",
+      "logoOrEndorsementRisk": "None visible.",
+      "ageSuitability": "No identifiable children.",
+      "whyAppropriate": "Ghanaian civic place for geographic context. Caption states it is not a Mecellino Haven facility."
+    }
+  ],
+  "rejected": [
+    {
+      "candidate": "ydg-young-adult-study.jpg / Pexels 29558446 A.K. Bissue",
+      "reason": "Authentic but semantically wrong for YDG: solitary park-reading, not guided discovery."
+    },
+    {
+      "candidate": "retirement-guided-conversation.jpg / Pexels 28112436 Kayode Adedeji",
+      "reason": "Local-trader market portrait; does not match institutional retirement transition."
+    },
+    {
+      "candidate": "amusement-portable-game.jpg / Pexels 37261198 DΛVΞ GΛRCIΛ",
+      "reason": "WIN / PLACE / SHOW prize-ranking and betting associations."
+    },
+    {
+      "candidate": "lifestyle-adult-conversation.jpg / Pexels 9705753 Greta Hoffman",
+      "reason": "Generic smiling portrait with no coaching or planning context."
+    },
+    {
+      "candidate": "Pexels 36703064 Abuja youth reading",
+      "reason": "Subject appears younger than 13; religious-school context."
+    },
+    {
+      "candidate": "Pexels 30487814 tailors workshop",
+      "reason": "Documentary boom microphone; not a clean facilitator-led training scene."
+    },
+    {
+      "candidate": "Pexels 34690061 Abuja office",
+      "reason": "Subject is a younger professional, not approaching retirement."
+    },
+    {
+      "candidate": "Pexels 3783585 handshake",
+      "reason": "Not African/Ghanaian context."
+    },
+    {
+      "candidate": "Pexels 39006403 interactive workshop",
+      "reason": "Western conference geography."
+    },
+    {
+      "candidate": "Pexels 33372805 plush booth",
+      "reason": "Commercial amusement-company branding and digital scoreboards."
+    },
+    {
+      "candidate": "Pexels 33107901 Kaduna meeting",
+      "reason": "TEAM KAKA organisation lettering on vests."
+    },
+    {
+      "candidate": "Pexels 30677717 Lagos pair",
+      "reason": "Visible Apple logo."
+    },
+    {
+      "candidate": "Pexels 6238033 / 6140678 student groups",
+      "reason": "Generic foreign studio/cafe laptop staging."
+    },
+    {
+      "candidate": "Pexels 32828999 Accra mechanic",
+      "reason": "Solitary portrait; not guided discovery or training."
+    },
+    {
+      "candidate": "Pexels 5234577 sofa notes",
+      "reason": "Clinical-distress staging that would imply therapy."
+    }
+  ]
+}

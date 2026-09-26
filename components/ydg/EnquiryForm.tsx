@@ -7,7 +7,7 @@ import { demoEnquiryNotice } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 type Audience = "family" | "school" | "help" | "sponsor" | "mentor" | "event" | "lifestyle" | "amusement";
-type ConsentBand = "10-17" | "18-25";
+type ConsentBand = "13-17" | "18-25";
 type FieldKey = "audience" | "name" | "phone" | "consentBand" | "guardian" | "message" | "consent";
 
 const audienceOptions: { value: Audience; title: string; hint: string }[] = [
@@ -121,7 +121,7 @@ export function EnquiryForm() {
   const consentRef = useRef<HTMLInputElement>(null);
 
   const showConsentBand = audience === "family" || audience === "help";
-  const showGuardian = showConsentBand && consentBand === "10-17";
+  const showGuardian = showConsentBand && consentBand === "13-17";
 
   const focusFieldControl = (field: FieldKey) => {
     const scrollTargetId = fieldMeta[field].anchor;
@@ -253,12 +253,8 @@ export function EnquiryForm() {
         <div className="ydg-notice ydg-notice-divert mb-[18px]">
           <span className="ydg-notice-ic">!</span>
           <div>
-            <b>If a child is in immediate danger, contact emergency services first.</b> Organisation safeguarding
-            reporting routes are not open in this milestone. Read programme safeguarding information on the{" "}
-            <Link href={publicRoutes.parents} className="font-semibold text-[var(--mh-cyan)]">
-              parents and safeguarding page
-            </Link>
-            .
+            <b>If a child is in immediate danger, contact emergency services first.</b> This is not an emergency or
+            incident-reporting channel. Organisation reporting routes are not open in this milestone.
           </div>
         </div>
 
@@ -408,17 +404,17 @@ export function EnquiryForm() {
               }
               aria-invalid={isInvalid("consentBand") || undefined}
             >
-              <label className={cn("ydg-choice", consentBand === "10-17" && "sel")}>
+              <label className={cn("ydg-choice", consentBand === "13-17" && "sel")}>
                 <input
                   ref={consentBandFirstRef}
                   type="radio"
                   name="consentBand"
-                  value="10-17"
-                  checked={consentBand === "10-17"}
-                  onChange={() => setConsentBand("10-17")}
+                  value="13-17"
+                  checked={consentBand === "13-17"}
+                  onChange={() => setConsentBand("13-17")}
                 />
                 <span>
-                  <b>Ages 10–17</b>
+                  <b>Ages 13–17</b>
                   <span>
                     A parent or legal guardian gives programme consent, and the young person gives their own separate
                     assent. They may withdraw at any time.
@@ -447,8 +443,8 @@ export function EnquiryForm() {
               <div className="ydg-notice mt-2">
                 <span className="ydg-notice-ic">i</span>
                 <div>
-                  Where a Safeguarding Lead has approved an exception, an approved responsible adult may act in place of
-                  a parent or guardian. Photography and video permission stays separate and optional.
+                  Where the Programme Director has approved an exception, an approved responsible adult may act in place
+                  of a parent or guardian. Photography and video permission stays separate and optional.
                 </div>
               </div>
             ) : null}
@@ -466,7 +462,7 @@ export function EnquiryForm() {
               Parent or legal guardian&apos;s name and phone <span className="ydg-req">Required</span>
             </label>
             <p className="hint" id="enq-guardian-hint">
-              Ages 10–17 cannot take part without an adult who is legally responsible for them.
+              Ages 13–17 cannot take part without an adult who is legally responsible for them.
             </p>
             <input
               ref={guardianRef}

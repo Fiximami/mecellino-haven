@@ -14,3 +14,18 @@ export const SYNTHETIC_ADMINISTRATOR: ProtectedIdentity = identityFromProtectedC
   appMetadata: { roles: ["system_administrator"] },
   userMetadata: { role: "restricted_caseworker" },
 });
+
+export const SYNTHETIC_SESSION_NOW = 1_700_000_000_000;
+
+export function syntheticSessionTimestamps(overrides: {
+  now?: number;
+  startedAt?: number;
+  lastActiveAt?: number;
+} = {}) {
+  const now = overrides.now ?? SYNTHETIC_SESSION_NOW;
+  return {
+    now,
+    startedAt: overrides.startedAt ?? now,
+    lastActiveAt: overrides.lastActiveAt ?? now,
+  };
+}

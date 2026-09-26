@@ -1,5 +1,6 @@
 import { ALWAYS_DENIED_ACTIONS, type PrivilegedAction, type ProgrammeRole } from "./roles";
 import { hasProtectedGrant, type AuthIdentity } from "./identity";
+import { evaluateSessionLifetime } from "./session-lifetime";
 
 export type AuthorizationDecision = {
   allowed: false;
@@ -10,6 +11,9 @@ export type AuthorizationDecision = {
     | "safeguarding_isolated"
     | "stale_identity"
     | "client_supplied_claims_ignored"
+    | "invalid_session_lifetime"
+    | "expired_idle"
+    | "expired_absolute"
     | "fail_closed";
 };
 
@@ -26,6 +30,7 @@ const ROLE_FOR_ACTION: Partial<Record<PrivilegedAction, readonly ProgrammeRole[]
   revoke_protected_role: ["system_administrator"],
   deactivate_account: ["system_administrator"],
   manage_integration_secrets: ["system_administrator"],
+  unlock_auth_lockout: ["system_administrator"],
 };
 
 export type AuthorizeInput = {
@@ -35,6 +40,14 @@ export type AuthorizeInput = {
   clientRole?: unknown;
   clientScope?: unknown;
   userMetadata?: unknown;
+  session?: {
+    now?: unknown;
+    startedAt?: unknown;
+    lastActiveAt?: unknown;
+    clientRole?: unknown;
+    roles?: unknown;
+    userMetadata?: unknown;
+  };
 };
 
 /**
@@ -48,12 +61,16 @@ export type AuthorizeInput = {
  *
  * Privileged actions require `fresh: true` (Auth `getUser()`, not cookie
  * `getSession()` and not an unverified browser session). Role and scope data
- * are loaded from the protected server-side assignment store.
+ * are loaded from the protected server-side assignment store. Session idle
+ * and absolute lifetime use server timestamps and protected roles only.
  */
 export function authorize(input: AuthorizeInput): AuthorizationResult {
   void input.clientRole;
   void input.clientScope;
   void input.userMetadata;
+  void input.session?.clientRole;
+  void input.session?.roles;
+  void input.session?.userMetadata;
 
   if (!input.fresh) {
     return { allowed: false, reason: "stale_identity" };
@@ -69,6 +86,16 @@ export function authorize(input: AuthorizeInput): AuthorizationResult {
 
   if (!hasProtectedGrant(input.identity)) {
     return { allowed: false, reason: "missing_protected_grant" };
+  }
+
+  const lifetime = evaluateSessionLifetime({
+    now: input.session?.now,
+    startedAt: input.session?.startedAt,
+    lastActiveAt: input.session?.lastActiveAt,
+    roles: input.identity.roles,
+  });
+  if (!lifetime.ok) {
+    return { allowed: false, reason: lifetime.reason };
   }
 
   const permitted = ROLE_FOR_ACTION[input.action];

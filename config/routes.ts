@@ -19,6 +19,7 @@ export const publicRoutes = {
 export const primaryNav: NavLink[] = [
   { label: "Home", href: publicRoutes.home },
   { label: "Capacity Building", href: publicRoutes.capacityBuilding },
+  { label: "YDG", href: publicRoutes.ydg },
   { label: "Lifestyle Coaching", href: publicRoutes.lifestyleCoaching },
   { label: "Events", href: publicRoutes.eventsEntertainment },
   { label: "Amusement", href: publicRoutes.amusement },
@@ -28,14 +29,31 @@ export const primaryNav: NavLink[] = [
 export const drawerNav: NavLink[] = [
   { label: "Home", href: publicRoutes.home },
   { label: "Capacity Building", href: publicRoutes.capacityBuilding },
-  { label: "Youth Discovery Gateway", href: publicRoutes.ydg },
+  { label: "YDG", href: publicRoutes.ydg },
   { label: "Lifestyle Coaching", href: publicRoutes.lifestyleCoaching },
   { label: "Events and Entertainment", href: publicRoutes.eventsEntertainment },
   { label: "Amusement", href: publicRoutes.amusement },
   { label: "Schools & partners", href: publicRoutes.schools },
   { label: "About", href: publicRoutes.about },
-  { label: "Safety & safeguarding", href: publicRoutes.parents },
 ];
+
+export function isPrimaryNavCurrent(pathname: string, href: string) {
+  if (href === publicRoutes.home) {
+    return pathname === href;
+  }
+
+  const onYdg = pathname === publicRoutes.ydg || pathname.startsWith(`${publicRoutes.ydg}/`);
+
+  if (href === publicRoutes.ydg) {
+    return onYdg;
+  }
+
+  if (href === publicRoutes.capacityBuilding) {
+    return !onYdg && (pathname === href || pathname.startsWith(`${href}/`));
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export const footerServiceLinks: NavLink[] = [
   { label: "Capacity Building", href: publicRoutes.capacityBuilding },
@@ -52,12 +70,10 @@ export const footerProgrammeLinks: NavLink[] = [
 ];
 
 export const footerAudienceLinks: NavLink[] = [
-  { label: "Parents & guardians", href: publicRoutes.parents },
   { label: "Schools & partners", href: publicRoutes.schools },
-  { label: "Enquiry preview", href: publicRoutes.contact },
+  { label: "Contact Us", href: publicRoutes.contact },
 ];
 
 export const footerOrganisationLinks: NavLink[] = [
   { label: "About us", href: publicRoutes.about },
-  { label: "Safeguarding information", href: publicRoutes.parents },
 ];

@@ -9,7 +9,6 @@ const PUBLIC_RETURN_PATHS = new Set([
   "/lifestyle-coaching",
   "/events-entertainment",
   "/amusement",
-  "/parents",
   "/schools",
   "/contact",
   "/auth/sign-in",

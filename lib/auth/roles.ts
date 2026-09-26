@@ -27,6 +27,7 @@ export const privilegedActions = [
   "break_glass_case_access",
   "link_adult_relationship",
   "link_delivery_assignment",
+  "unlock_auth_lockout",
 ] as const;
 
 export type PrivilegedAction = (typeof privilegedActions)[number];
