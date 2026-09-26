@@ -1,8 +1,8 @@
 # Hosted authentication controls
 
-**Architecture decision — documentation only.**\
+**Architecture decision.**\
 **Branch context:** `feat/ydg-authenticated-mvp`.\
-**Does not:** implement Auth, connect a hosted project, apply migrations, collect personal data, or change dependencies.
+**Status:** Hosted authentication remains **disabled**. Dormant authentication code and repository SQL now exist in this repository. This document does **not** authorise migration application, participant-data collection or Gate M activation.
 
 Cross-reference: `AUTH_PROVIDER_DECISION.md`, `AUTHENTICATION_AND_AUTHORIZATION_SPECIFICATION.md`, `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, `MVP_DOMAIN_AND_EVENT_MODEL.md`, `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`, `MVP_IMPLEMENTATION_ROADMAP.md`, `MILESTONE_4C_ADULT_RELATIONSHIP_AND_CONSENT_ARCHITECTURE.md`.
 
@@ -26,11 +26,11 @@ Do not merge, alias or replace these labels. They remain separate in:
 - AdultRelationship kinds (`parent` \| `legal_guardian` \| `approved_responsible_adult`);
 - consent eligibility (either kind may satisfy the adult instrument when the rest of the policy holds).
 
-The current protected-role store check after the alignment migration accepts `legal_guardian` and does **not** accept `parent`. That mismatch is recorded, not resolved in application code.
+Repository SQL exists to permit `parent` as a distinct protected role alongside `legal_guardian`, and to create authentication lockout foundations. That repository capability is **not** proof that the hosted role store has been migrated. Those migrations have not been confirmed as applied to the hosted production project. Hosted authentication remains disabled.
 
-### D2 — Role-store alignment is a reviewed migration, not a code shortcut
+### D2 — Role-store alignment is a reviewed production apply, not a code shortcut
 
-A future, independently reviewed SQL migration must extend `private.role_assignments` so its role check accepts **both** `parent` and `legal_guardian` (and the rest of the existing programme roles). Until that migration is reviewed, applied to the identified production project, and verified, `link_adult_relationship` stays denied.
+Repository SQL to extend `private.role_assignments` so its role check accepts **both** `parent` and `legal_guardian` (and the rest of the existing programme roles) exists in this repository. Until that migration is independently reviewed, applied to the identified production project, and verified, `link_adult_relationship` stays denied. Local SQL is not a hosted apply.
 
 The alignment migration that relabelled `guardian` → `legal_guardian` must not be rewritten in place as a substitute for that review.
 
@@ -49,7 +49,9 @@ Do **not** treat a role grant as proof that an adult is linked to a participant,
 - AdultRelationship of kind `parent` does not assign programme-operations powers.
 - `approved_responsible_adult` remains an exception path: relationship plus Safeguarding Lead approval, not a self-asserted role.
 
-**Implementation direction:** keep both labels in the role check so invited parent and legal-guardian accounts can be granted. Persist links only in AdultRelationship (kinds, participant scope, alternative-adult exception status). `link_adult_relationship` writes the relationship structure, not a role row. Enabling it requires D2 **and** a reviewed relationship schema with RLS; D2 alone is not enough.
+**Confirmed owner policy (not Ghana-qualified legal approval):** whenever a `parent` or `legal_guardian` protected role is granted, a matching verified and **active** AdultRelationship of that kind must exist. This is especially important for minors. The grant still does not create the relationship row.
+
+**Implementation direction:** keep both labels in the role check so invited parent and legal-guardian accounts can be granted. Persist links only in AdultRelationship (kinds, participant scope, alternative-adult exception status). `link_adult_relationship` writes the relationship structure, not a role row. Enabling it requires D2 **and** a reviewed relationship schema with RLS; D2 alone is not enough. Live collection, migrations and Gate M remain closed.
 
 ### D4 — `link_adult_relationship` stays fail-closed
 
@@ -63,7 +65,7 @@ All of the following must be true before hosted authentication is treated as ena
 2. Remote migration history, FORCE RLS, and grants/revocations for `anon`, `authenticated`, `public` and privileged database roles are verified with read-only metadata (no row contents of participants, users, enquiries, tokens or cases).
 3. Application-owned distributed lockout exists and is verified (D8). Provider rate limiting is defence in depth, not a substitute. The current in-process map (`LOCKOUT_SCOPE = local_single_process`) is not sufficient.
 4. Idle and absolute session timeout values are approved (D7). Approving those durations does not enable hosted authentication.
-5. Safeguarding, privacy and insurance readiness gates that permit personal-data processing are closed (including Gate M before any 10–17 personal data). Lawful basis and retention are not invented here.
+5. Safeguarding, privacy and insurance readiness gates that permit personal-data processing are closed (including Gate M before any 13–17 personal data). Lawful basis and retention are not invented here.
 
 Until all remaining gates close: public routes stay available; sign-in stays fail-closed without a durable audit sink; `/admin` stays 404; invitation, protected-claim writes and deactivation stay fail-closed stubs. Hosted authentication remains **disabled**.
 
@@ -103,16 +105,19 @@ These are **not** settled here and must not be guessed in code:
 | Item | Notes |
 |------|--------|
 | Distributed lockout remote verification | Store applied and metadata-verified; dormant sign-in uses it; hosted authentication remains disabled until remaining D5 gates close |
-| Lawful basis / privacy notice / Gate M / insurance readiness | Required before personal-data processing |
+| Lawful basis / privacy notice / Gate M / insurance readiness | Required before personal-data processing. Owner confirmation of relationship policy is not Ghana-qualified legal approval |
 | Positive production-project identification | Operational proof, not a value stored in this repository |
 | AdultRelationship physical schema | Design recorded in `MILESTONE_4C_ADULT_RELATIONSHIP_AND_CONSENT_ARCHITECTURE.md`. Migration, RLS application and `link_adult_relationship` remain unauthorised |
-| Whether a `parent` or `legal_guardian` role grant requires a matching AdultRelationship | Recommended invariant; safeguarding owner confirms before persistence |
+
+The RoleAssignment ↔ AdultRelationship matching rule, and parent/legal-guardian `review_at` (annual and on changed circumstances), are **confirmed owner policy**. They are recorded in `MILESTONE_4C_ADULT_RELATIONSHIP_AND_CONSENT_ARCHITECTURE.md`. They do not authorise persistence, live collection or closure of Gate M.
 
 ---
 
-## What this pass does not do
+## What this document does not do
 
-- Does not apply or draft SQL.
-- Does not change `lib/auth/roles.ts` or enable `link_adult_relationship`.
-- Does not connect Supabase, start authentication, or collect personal data.
+- Does not treat dormant authentication code as live hosted authentication.
+- Does not authorise application of repository SQL to any hosted project.
+- Does not treat parent-role or lockout capability in repository SQL as proof that the hosted production project has been migrated.
+- Does not enable `link_adult_relationship` or hosted authentication.
+- Does not collect participant data or close Gate M.
 - Does not record secrets, project references or environment values.

@@ -23,12 +23,12 @@
 | Programme → YDG | `/ydg` | Informational |
 | Programme → How YDG works | `/how-ydg-works` | Informational |
 | Programme → Tracks | `/tracks` | Informational |
-| Families → Parents & safeguarding | `/parents` | Informational |
 | Schools & partners | `/schools` | Informational |
 | Mobile amusement | `/mobile-amusement` | Informational |
 | About | `/about` | Informational |
 | Enquiry preview | `/contact` | Demonstration-only |
-| Mobile drawer: Safety & Safeguarding | `/parents` | Informational |
+
+No header, drawer or Families item targets `/parents`. `/parents` is intentionally unavailable (404).
 
 ### Site footer (`components/layout/SiteFooter.tsx`)
 
@@ -36,7 +36,7 @@
 |-------|--------|-------|
 | Route links (mirror nav) | respective routes | Informational |
 | Enquiry preview | `/contact` | Demonstration-only |
-| Complaints | `/parents` | Informational (not a complaints system) |
+| Complaints | none | Not published. No footer target to `/parents`. |
 | Demo notice | inline text from `demoEnquiryNotice` | Operationally blocked context |
 
 ### Root metadata (`app/layout.tsx`)
@@ -72,7 +72,7 @@
 | Mobile amusement stand | `/mobile-amusement` | Informational |
 | How YDG works | `/how-ydg-works` | Informational |
 | Programme tracks | `/tracks` | Informational |
-| Safety & safeguarding | `/parents` | Informational |
+| High-level eligibility and guardian approval | public YDG copy | Informational — not a `/parents` CTA |
 | For schools & referrers | `/schools` | Informational |
 | About Mecellino Haven | `/about` | Informational |
 | Enquiry preview (band + implicit header) | `/contact` | Demonstration-only |
@@ -94,7 +94,7 @@
 |-------|---------|
 | Identity | Mecellino Haven purpose in Ghana |
 | Leadership | Named roles (public identity safeguard) |
-| Girls 70% commitment | Programme equity intent — not a quota guarantee |
+| Girls 70% commitment | Binding annual programme-population rule: girls and young women must be at least 70% of total YDG enrolment in each reporting year, monitored cumulatively across cohorts. Not a per-cohort requirement. Public copy states the commitment and measurement method without claiming it has been achieved, and without guaranteeing applicant selection or individual outcomes. |
 | Selection model | Merit/context; not a place guarantee |
 | Pilot funding | Foundation pilot context |
 | Recruitment | **Closed** — explicit |
@@ -105,7 +105,7 @@
 |-------|--------|-------|
 | *(none in page body)* | — | — |
 
-**Gap:** No outbound CTAs to `/ydg`, `/contact`, or `/parents` in page component — users rely on header/footer.
+**Gap:** No outbound CTAs to `/ydg` or `/contact` in the About page body — users rely on header/footer. `/parents` is not a public CTA.
 
 ### Gates
 
@@ -133,7 +133,7 @@
 | Label | Target | Class |
 |-------|--------|-------|
 | Path: A young person | `/how-ydg-works` | Informational |
-| Path: A parent or guardian | `/parents` | Informational |
+| Path: A parent or guardian | public YDG / About copy | Informational — no `/parents` target |
 | Path: A school or referrer | `/schools` | Informational |
 | Enquiry preview | `/contact` | Demonstration-only |
 | See programme tracks | `/tracks` | Informational |
@@ -166,7 +166,7 @@
 |-------|--------|-------|
 | *(no in-page CTAs)* | — | — |
 
-**Gap:** Dead-end for users who arrive without header — no links to `/tracks`, `/parents`, or `/contact`.
+**Gap:** Dead-end for users who arrive without header — no links to `/tracks` or `/contact`. `/parents` is not a public CTA.
 
 ---
 
@@ -196,36 +196,13 @@
 
 ## Route: `/parents`
 
-**Source:** `app/(site)/parents/page.tsx`
+**Source:** `app/(site)/parents/page.tsx` plus `proxy.ts` — **intentionally unavailable (404)**
 
-### Primary content
+`/parents` is not a live public family, consent or safeguarding route. Detailed guardian approval, consent and safeguarding guidance is reserved for controlled participant onboarding (`RESERVED_PARENT_ONBOARDING_CONTENT.md`). Public pages may state high-level eligibility and guardian-approval requirements only. No public navigation or CTA targets `/parents`. No replacement public safeguarding route is introduced.
 
-| Block | Message |
-|-------|---------|
-| Safeguarding overview | Ratios, authorised adults |
-| Consent | Ages 13–17 minor band; 18–25 adult band; Safeguarding Lead exception |
-| Supervision rules | Including “under-18s” wording |
-| Emergency | Emergency services — no org hotline |
-| FAQ | Fees, media, disability, school need, selection, withdrawal |
-| Not a guarantee | Explicit anti-guarantee list |
-
-### CTAs
-
-| Label | Target | Class |
-|-------|--------|-------|
-| Enquiry preview (if present in shell) | `/contact` | Demonstration-only |
-| Footer complaints | `/parents` | Informational |
-
-### Safeguarding copy inventory
-
-- Consent before participation.
-- Two authorised adults for under-18 activities.
-- Safeguarding Lead named for consent exception only — **no contact route**.
-- No live organisational reporting channel on public web.
-
-### Terminology flag
-
-- Supervision: “under-18s” vs consent: “ages 13–17” — see decisions doc.
+| Element | Class |
+|---------|-------|
+| `/parents` and `/parents/*` | **Operationally blocked** (404) |
 
 ---
 
@@ -345,11 +322,11 @@ Post-submit copy confirms demonstration-only.
 | Programme name | YDG used consistently; no FDG/IGNITE on public routes | OK |
 | UNFOLD sequence | Canonical seven stages (Play → Discover → Explore → Experience → Prepare → Execute → Mentor) match public site copy | OK |
 | Age range | 13–25 on programme facts and tracks | OK |
-| Consent bands | 13–17 and 18–25 on `/parents` | OK |
-| Supervision wording | “under-18s” on `/parents` supervision vs “13–17” consent | Minor inconsistency — product decision |
+| Consent bands | 13–17 and 18–25 reserved for controlled onboarding; `/parents` is 404 | OK |
+| Public guardian approval | Stated at high level on public YDG pages; no public `/parents` CTA | OK |
 | Enquiry form | “under 18?” vs consent bands 13–17 / 18–25 | UX modelling gap — product decision |
 | Register interest | `/tracks` lede + form hint reference future intake | OK with recruitment closed gates |
-| Guarantees | Anti-guarantee copy on `/parents`; no employment promises | OK |
+| Guarantees | Anti-guarantee copy on `/about` and public YDG pages; no employment promises | OK |
 | Enquiry transmission | None — demo only | OK |
 | Admin | 404 | OK |
 | Partnerships/dates/contacts | Not invented on site | OK |
@@ -360,7 +337,7 @@ Post-submit copy confirms demonstration-only.
 
 | Content | Locations |
 |---------|-----------|
-| Safeguarding summary | `/`, `/parents` |
+| High-level eligibility and guardian approval | `/`, `/ydg` |
 | UNFOLD | `/ydg` (short), `/how-ydg-works` (full) |
 | Four tracks | `/ydg`, `/tracks` |
 | Recruitment closed | `/about`, hints on `/contact`, programme facts |
@@ -375,5 +352,5 @@ Post-submit copy confirms demonstration-only.
 |-------|---------------------------------------------|
 | Informational nav/content links | 40+ (including repeats) |
 | Demonstration-only enquiry CTAs | Header, footer, 6+ page bands |
-| Operationally blocked | `/admin`, recruitment closed messaging, no event listings |
+| Operationally blocked | `/admin`, `/parents`, recruitment closed messaging, no event listings |
 | Future authenticated (copy-implied) | Register interest, help applying, live intake |

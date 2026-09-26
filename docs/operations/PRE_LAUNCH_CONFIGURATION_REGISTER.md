@@ -18,17 +18,24 @@ Record of names and operational responsibilities only. Do not store credentials,
 | External transactional email | Not configured | No Resend, SendGrid or equivalent integration is live. Configure only after the monitored contact channel is approved. |
 | Hosted authentication | HTTPS origin + Auth + database configuration | Remains fail-closed until hosted-authentication readiness gates are closed. |
 
-## Required photography and final visual assets
+## Editorial photography currently in the repository
 
-No licensed photography is in the repository. Public pages currently use original SVG artwork. Commission or licence the following before treating the public site as visually complete. Do not invent partnership, outcome or testimonial imagery.
+Nine licensed editorial photographs with documented provenance are present under `public/images/editorial/`. The authoritative records are `docs/asset-provenance.md` and `docs/product/IMAGE_PROVENANCE.json`.
 
-| Surface | Required asset | Intended concept |
+These assets are **general editorial imagery**. They are not verified Mecellino participant photographs and must not be described as showing actual Youth Discovery Gateway participants, identifiable families, or confirmed programme delivery.
+
+No participant photography and consent library has yet been approved. Participant images, testimonials and identifiable programme imagery must remain unpublished until the appropriate consent and asset-governance process is approved.
+
+| Surface | Current editorial file | Constraint |
 | --- | --- | --- |
-| Home hero | Owned wide photograph or commissioned illustration | A sheltered, welcoming gathering place — growth and belonging, not a classroom cliché. |
-| Capacity Building | Owned photograph of guided group learning | Facilitated progression and institutional participation (school, workplace or community setting). |
-| Youth Discovery Gateway | Owned photograph or commissioned illustration | Discovery, direction, evidence-building and long-term progression. No numeric age-range captions. |
-| Lifestyle Coaching | Owned photograph | Wellbeing, confidence and personal growth in an everyday setting. Not clinical or therapy imagery. |
-| Events and Entertainment | Owned event photograph | Safe, energetic community experience with visible adult supervision. |
-| Amusement | Owned concept still or commissioned illustration | Current mobile amusement through temporary event stands. No permanent park, opening hours, admission passes or fixed venue. |
+| Home hero | `home-hero-guided-learning.jpg` | Editorial only; not a participant photograph |
+| Youth Discovery Gateway | `ydg-tracks-collaboration.jpg` | Editorial only; not a participant photograph |
+| Individual / How YDG works | `individual-guided-discussion.jpg` | Editorial only; not a participant photograph |
+| Capacity Building | `institutional-document-review.jpg` | Editorial only; not a participant photograph |
+| Retirement Life Preparedness | `retirement-professional-planning.jpg` | Editorial only; not a participant photograph |
+| Lifestyle Coaching | `lifestyle-guided-session.jpg` | Editorial only; not a participant photograph |
+| Events and Entertainment | `events-traditional-gathering.jpg` | Editorial only; not a participant photograph |
+| Amusement | `amusement-portable-ringtoss.jpg` | Editorial only; temporary event-stand context |
+| About | `about-independence-square.jpg` | Civic context; caption must not claim a Mecellino facility |
 
 Deployment environment variables that must be present in the production host (values held outside the repository): `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_PROJECT_REF`, `SUPABASE_DATABASE_URL`, and the lockout pepper names above when hosted authentication is prepared.

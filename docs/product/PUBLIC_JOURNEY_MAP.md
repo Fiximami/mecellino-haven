@@ -1,7 +1,9 @@
 # Public journey map — Mecellino Haven / YDG
 
 **Milestone 3A — analysis and specification only.**
-This document maps the current public website experience for six audience groups across nine public routes. It does not describe authenticated journeys, backend services, or personal-data collection.
+This document maps the current public website experience for six audience groups across the live public routes. It does not describe authenticated journeys, backend services, or personal-data collection.
+
+`/parents` is **intentionally unavailable** and returns **404**. It is not a live public family, consent or safeguarding route. Detailed guardian approval, consent and safeguarding guidance is reserved for controlled participant onboarding. Public pages may state high-level eligibility and guardian-approval requirements. Public pages must not expose safeguarding escalation procedures, private contacts or controlled onboarding instructions. No public navigation or CTA targets `/parents`. No replacement public safeguarding route is introduced.
 
 ## Scope and modelling rules
 
@@ -9,17 +11,18 @@ This document maps the current public website experience for six audience groups
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Homepage — dual pathways (YDG + mobile amusement), safety summary, enquiry preview |
+| `/` | Homepage — dual pathways (YDG + mobile amusement), high-level eligibility and guardian-approval requirements, enquiry preview |
 | `/about` | Organisation identity, leadership, selection model, pilot funding, recruitment status |
 | `/ydg` | YDG programme overview, audience routing, UNFOLD preview, tracks summary |
 | `/how-ydg-works` | UNFOLD model and five-day delivery cycle |
 | `/tracks` | Four developmental programme tracks; eligibility 13–25 at cohort start |
-| `/parents` | Safeguarding, consent, supervision, complaints pointer, FAQ |
 | `/mobile-amusement` | Mobile stand offering — no permanent park |
 | `/schools` | School, sponsor, and mentor/facilitator relationships |
 | `/contact` | Demonstration-only enquiry preview |
 
-Legacy redirects (not separate journeys): `/attractions`, `/events`, `/visit` → `/mobile-amusement`; `/gallery` → `/`.
+**Not a public journey:** `/parents` returns 404. Reserved onboarding copy is held in `RESERVED_PARENT_ONBOARDING_CONTENT.md` and is not published.
+
+Legacy redirects (not separate journeys): `/attractions`, `/events`, `/visit` → `/mobile-amusement`; `/gallery` → `/`. `/ydg`, `/how-ydg-works` and `/tracks` remain available through their capacity-building canonical paths.
 
 ### Age, education stage, and programme track
 
@@ -40,7 +43,7 @@ These are **related but separate**. The site must not be read as implying:
 ### 1. Likely entry route
 
 - **Direct:** Homepage hero or “Two pathways” → `/ydg` or `/how-ydg-works`.
-- **Via family:** Parent/guardian reads `/parents` first, then shares `/ydg`, `/tracks`, or `/how-ydg-works`.
+- **Via family:** Parent/guardian reads public YDG pages (`/ydg`, `/tracks`, `/how-ydg-works`) for high-level eligibility and guardian-approval requirements. Detailed consent and safeguarding guidance is reserved for controlled onboarding.
 - **Via school:** Teacher or referrer sends link to `/schools` or `/ydg`; young person may land on `/how-ydg-works` or `/tracks`.
 - **Via amusement:** `/mobile-amusement` → cross-link to `/ydg` (YDG not required to use the stand).
 - **Navigation:** Header “Programme” cluster; no dedicated “I am a young person” nav item.
@@ -52,7 +55,7 @@ There is **no dedicated young-person landing page**. The closest “start here�
 - What YDG is in plain language (not school-like, not a guarantee of a place).
 - That mobile amusement and YDG are separate offerings.
 - Age-appropriate track exists for them (see `/tracks`).
-- Safeguarding basics: authorised adults, no one-to-one alone, who consents on their behalf (13–17 band).
+- High-level guardian-approval requirement for every participant, and that detailed consent guidance is reserved for controlled onboarding.
 - That applications are **not open** and enquiry is **demonstration-only**.
 
 ### 3. Questions the current site answers
@@ -62,11 +65,11 @@ There is **no dedicated young-person landing page**. The closest “start here�
 | What is YDG? | `/`, `/ydg`, `/how-ydg-works` |
 | How does a week work? | `/how-ydg-works` (UNFOLD + five-day cycle) |
 | Which track might fit my age? | `/tracks` (with cohort-day rule) |
-| Is it safe? Who is responsible? | `/parents`, homepage safety band |
+| Is guardian approval required? | Public YDG pages state high-level approval for every participant |
 | Do I need to join YDG to use amusement? | `/mobile-amusement` (no) |
 | Can I apply now? | `/about`, `/ydg`, `/contact` (recruitment closed; demo enquiry) |
-| What if I have a disability or find reading hard? | `/parents` FAQ |
-| Is there a fee? | `/parents` FAQ (pilot context) |
+| What if I have a disability or find reading hard? | Reserved for controlled onboarding; not a public FAQ |
+| Is there a fee? | Public programme pages (Foundation pilot context); detailed fee answers reserved for onboarding |
 
 ### 4. Missing or duplicated information
 
@@ -74,13 +77,13 @@ There is **no dedicated young-person landing page**. The closest “start here�
 
 - First-person “start here for ages 13–17” page or section with reading level guidance.
 - Explicit separation of **school year / education stage** from track age bands on `/tracks` and `/ydg` path cards.
-- Live safeguarding reporting route (site states no operational reporting channel on public web).
-- Young-person-safe exit copy on every route (partially on `/parents` only).
+- Live safeguarding reporting route (none is published; no replacement public safeguarding route is introduced).
+- Young-person-safe exit copy on every route.
 
 **Duplicated**
 
 - UNFOLD summary on `/ydg` and full detail on `/how-ydg-works` (intentional layering).
-- Safeguarding ratios and supervision on `/parents` and homepage safety band (consistent but repeated).
+- High-level eligibility and guardian-approval wording across public YDG pages.
 - “Recruitment closed” on `/about`, `/ydg`, and enquiry hints on `/contact`.
 
 ### 5. Calls to action encountered
@@ -90,7 +93,7 @@ There is **no dedicated young-person landing page**. The closest “start here�
 | Explore YDG | `/` | Informational → `/ydg` |
 | How YDG works | `/`, `/ydg` | Informational → `/how-ydg-works` |
 | Programme tracks | `/ydg`, `/tracks` | Informational → `/tracks` |
-| Safety & safeguarding | `/`, header mobile drawer | Informational → `/parents` |
+| High-level eligibility and guardian approval | `/`, `/ydg` | Informational — no `/parents` target |
 | Enquiry preview | Header, footer, `/`, `/ydg`, `/tracks`, `/schools`, `/mobile-amusement` | Demonstration-only → `/contact` |
 | Mobile amusement | `/` | Informational → `/mobile-amusement` |
 
@@ -102,18 +105,18 @@ All enquiry CTAs lead to a **demonstration-only** form (`EnquiryForm` — no tra
 
 ### 7. Safeguarding and consent messages relevant
 
-- Homepage: authorised adults, no one adult alone with under-18s, consent before participation.
-- `/parents`: full consent model (13–17 minor band; 18–25 adult band); exception naming Safeguarding Lead role (no public contact route); emergency services guidance; supervision ratios; conduct expectations.
+- Public YDG pages: high-level eligibility (13–25) and guardian-approval requirement for every participant.
+- Detailed consent bands, exception process, supervision ratios and safeguarding procedures are reserved for controlled onboarding. They are not published on a public `/parents` route.
 - `/contact`: demonstration acknowledgement required; guardian fields when “under 18” selected on form (form wording, not identical to site consent band 13–17).
-- `/schools`: conduct and safeguarding expectations for referrals.
+- `/schools`: high-level conduct expectations for referrals. No public safeguarding escalation procedure.
 
-**Product note:** Supervision copy on `/parents` uses “under-18s”; consent section uses “ages 13–17”. Both are accurate in context but terminology differs — see `MILESTONE_3A_DECISIONS.md`.
+**Product note:** `/parents` returns 404. Reserved onboarding copy may still distinguish “under-18s” supervision from “ages 13–17” consent; that wording is not a public route.
 
 ### 8. Safe exit or escalation route
 
-- **Immediate danger:** `/parents` directs to emergency services (no org-specific hotline published).
+- **Immediate danger:** Public pages do not publish an organisational hotline or safeguarding escalation procedure.
 - **Leave the site:** Standard browser navigation; no persistent session on public routes.
-- **Raise a concern with the organisation:** No live operational channel on the public site; complaints pointer in footer → `/parents` (informational, not a case-management workflow).
+- **Raise a concern with the organisation:** No live operational channel and no public `/parents` pointer.
 - **Enquiry form:** Does not connect to safeguarding staff; explicitly demo-only.
 
 ### 9. Intended next step after the public website
@@ -124,7 +127,7 @@ When authenticated programme services exist (out of scope for 3A):
 2. School/community referrer may submit structured referral (referrer role).
 3. Programme operations assigns track/cohort considering age on cohort day and recorded education context — not inferred from age alone.
 
-Until then: read `/parents` and `/tracks` with a trusted adult; use demonstration enquiry only to preview UX.
+Until then: read public YDG pages with a trusted adult; use demonstration enquiry only to preview UX. Detailed consent and safeguarding guidance remains reserved for controlled onboarding.
 
 ---
 
@@ -140,7 +143,7 @@ Until then: read `/parents` and `/tracks` with a trusted adult; use demonstratio
 ### 2. Information they need first
 
 - Track 18–25 scope (life skills, work readiness — not employment guarantee).
-- Self-consent band (18–25) vs parent consent for minors — see `/parents`.
+- Guardian approval applies to every participant. Detailed 18–25 legal-consent and 13–17 programme-consent instruments are reserved for controlled onboarding.
 - Recruitment closed; no live application.
 - YDG is voluntary structured programme, not accredited qualification unless stated elsewhere (not claimed on site).
 
@@ -149,7 +152,7 @@ Until then: read `/parents` and `/tracks` with a trusted adult; use demonstratio
 | Question | Where answered |
 |----------|----------------|
 | Am I in the right age band? | `/tracks` Track 18–25 |
-| Do I need a parent to consent? | `/parents` (18–25 adult participant consent band) |
+| Do I need a parent to consent? | Public pages: guardian approval applies to everyone; detailed instruments reserved for onboarding |
 | How is a week structured? | `/how-ydg-works` |
 | Is there a job at the end? | Not guaranteed; `/about` selection model avoids outcome guarantees |
 | Can I enquire? | `/contact` (demo only) |
@@ -164,7 +167,7 @@ Until then: read `/parents` and `/tracks` with a trusted adult; use demonstratio
 **Duplicated**
 
 - Age track tables on `/ydg` and `/tracks`.
-- Consent bands explained only on `/parents` (young adults may not visit that route first).
+- Detailed consent-band instruments are reserved for controlled onboarding, not a public `/parents` page.
 
 ### 5–6. CTAs and operational status
 
@@ -172,13 +175,13 @@ Same global CTAs as Audience 1. Enquiry form “under 18?” branch less relevan
 
 ### 7. Safeguarding and consent
 
-- Adult participant consent band (18–25) on `/parents`.
-- Conduct and supervision rules still apply during programme delivery (described generally on `/parents`).
+- Guardian approval still applies to 18–25 participants. Detailed adult legal-consent instruments are reserved for controlled onboarding.
+- Public pages do not publish supervision ratios or safeguarding escalation procedures.
 - Enquiry demo consent checkbox required.
 
 ### 8. Safe exit / escalation
 
-Same as Audience 1 — no operational safeguarding form; emergency services on `/parents`.
+Same as Audience 1 — no operational safeguarding form and no public `/parents` route.
 
 ### 9. Next step after public website
 
@@ -190,19 +193,16 @@ Future: self-service or assisted intake under Participant role with adult consen
 
 ### 1. Likely entry route
 
-- Homepage “For families” → `/parents`.
-- `/ydg` path card “A parent or guardian” → `/parents`.
-- Footer “Complaints” → `/parents`.
-- Header mobile “Safety & Safeguarding” → `/parents`.
+- Homepage and `/ydg` for high-level eligibility and guardian-approval requirements.
 - `/contact` audience “A young person or family”.
+- There is **no** public Families, Safety, Complaints or `/parents` navigation target.
 
-**Approved responsible adult** is referenced in consent copy on `/parents` but has **no separate route or nav label**.
+**Approved responsible adult** is a reserved-onboarding concept. It has **no public route or nav label**.
 
 ### 2. Information they need first
 
-- Safeguarding model, supervision ratios, consent before participation.
-- Who can consent (parent, legal guardian, approved responsible adult).
-- Fees, media, disability, school requirement, selection, withdrawal — FAQ on `/parents`.
+- High-level eligibility (13–25) and that guardian approval applies to every participant.
+- That detailed consent, media, fee and safeguarding guidance is reserved for controlled onboarding.
 - Recruitment closed; enquiry is preview only.
 - Difference between YDG and mobile amusement.
 
@@ -213,9 +213,9 @@ See Audience 1 FAQ table plus:
 | Question | Where answered |
 |----------|----------------|
 | Who are the leaders? | `/about` |
-| How are participants selected? | `/about`, `/parents` FAQ |
-| What is the pilot / Foundation track? | `/about`, `/parents` (14–15 ratios) |
-| Can I complain? | Footer → `/parents` (informational pointer) |
+| How are participants selected? | `/about` (interview and documented panel; no aptitude score) |
+| What is the pilot / Foundation track? | `/about` |
+| Can I complain? | No public complaints or `/parents` pointer |
 
 ### 4. Missing or duplicated information
 
@@ -227,21 +227,21 @@ See Audience 1 FAQ table plus:
 
 **Duplicated**
 
-- Safeguarding content on `/` and `/parents`.
-- Selection / not-a-guarantee messaging on `/about`, `/ydg`, `/parents`.
+- High-level eligibility and guardian-approval wording on `/` and `/ydg`.
+- Selection / not-a-guarantee messaging on `/about` and `/ydg`.
 
 ### 5. CTAs
 
 | CTA | Type |
 |-----|------|
-| `/parents` internal anchors (consent, FAQ) | Informational |
 | Enquiry preview | Demonstration-only → `/contact` |
-| Complaints (footer) | Informational → `/parents` |
 | Programme tracks, how it works | Informational |
+
+No public CTA targets `/parents`.
 
 ### 7. Safeguarding and consent
 
-Primary audience for `/parents` content: consent bands, exception process (Safeguarding Lead role name only), emergency services, media FAQ, withdrawal.
+Public pages state only high-level eligibility and guardian-approval requirements. Detailed consent bands, exception process, media FAQ and withdrawal instruments are reserved for controlled onboarding.
 
 ### 8. Safe exit / escalation
 
@@ -298,11 +298,11 @@ Future Parent/guardian and Approved responsible adult roles: consent signing, pa
 
 ### 7. Safeguarding
 
-`/schools` conduct rules; cross-reference to `/parents` for full model. Referrers must not bypass parent consent for minors.
+`/schools` states high-level conduct expectations. Referrers must not bypass guardian approval. Detailed safeguarding procedures are reserved for controlled onboarding and are not published on a public `/parents` route.
 
 ### 8. Safe exit / escalation
 
-No operational referrer portal; emergency and safeguarding escalation same as public `/parents` limits.
+No operational referrer portal. No public safeguarding escalation procedure.
 
 ### 9. Next step after public website
 
@@ -349,7 +349,7 @@ Preview enquiry (mentor) on `/schools` → `/contact` — **demonstration-only**
 
 ### 7. Safeguarding
 
-Screening emphasised; must align with `/parents` supervision model during delivery.
+Screening emphasised. Detailed supervision rules are reserved for controlled onboarding and staff channels.
 
 ### 8. Safe exit / escalation
 
@@ -368,8 +368,8 @@ Future Mentor and Facilitator roles with separate permission sets from Participa
 Staff are not a primary public audience. Likely paths:
 
 - `/about` (leadership names and roles — public identity safeguard applies).
-- `/parents` (operational safeguarding copy they must align delivery with).
-- `/admin/*` returns **404** (operational gate visible — no admin UI on public site).
+- Reserved onboarding records (not a public `/parents` route) for delivery alignment.
+- `/admin/*` and `/parents` return **404**.
 
 ### 2. Information they need first
 
@@ -380,8 +380,8 @@ Staff are not a primary public audience. Likely paths:
 
 | Question | Where answered |
 |----------|----------------|
-| Public programme boundaries? | `/about`, `/ydg`, `/parents` |
-| Pilot vs broader delivery? | `/about`, `/parents` ratios |
+| Public programme boundaries? | `/about`, `/ydg` |
+| Pilot vs broader delivery? | `/about` |
 | Is admin available? | `/admin` blocked (404) |
 
 ### 4. Missing or duplicated information
@@ -422,41 +422,37 @@ flowchart TD
   ydg["/ydg"]
   how["/how-ydg-works"]
   tracks["/tracks"]
-  parents["/parents"]
   schools["/schools"]
   amuse["/mobile-amusement"]
   about["/about"]
   contact["/contact demo enquiry"]
-  admin["/admin 404 gate"]
+  blocked["/parents and /admin return 404"]
 
   entry --> home
   home --> ydg
   home --> amuse
-  home --> parents
   home --> schools
   home --> about
   home --> contact
   ydg --> how
   ydg --> tracks
-  ydg --> parents
   ydg --> schools
   ydg --> contact
   tracks --> contact
   schools --> contact
   amuse --> contact
   amuse --> ydg
-  parents --> contact
   about --> ydg
-  staff[Staff probing admin] --> admin
+  probe[Unavailable public probes] --> blocked
 ```
 
 ---
 
 ## Verification checklist (Milestone 3A)
 
-- [x] All nine public routes reviewed.
-- [x] Navigation and CTA targets traced via `config/routes.ts`, `SiteHeader`, `SiteFooter`, page content.
+- [x] Live public routes reviewed. `/parents` is recorded as an intentional 404, not a public journey.
+- [x] Navigation and CTA targets traced; no public navigation or CTA targets `/parents`.
 - [x] Enquiry confirmed demonstration-only (`EnquiryForm`, `demoEnquiryNotice`).
-- [x] Operational gates: recruitment closed, no live applications, `/admin` 404, no safeguarding submission route.
-- [x] Age / consent terminology inconsistencies recorded (not fixed in 3A).
+- [x] Operational gates: recruitment closed, no live applications, `/admin` 404, `/parents` 404, no public safeguarding submission or escalation route.
+- [x] Detailed consent and safeguarding guidance reserved for controlled onboarding.
 - [x] No contact details, dates, venues, or guarantees invented in this document.

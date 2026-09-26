@@ -1,6 +1,7 @@
 # Milestone 4C — AdultRelationship and ConsentRecord architecture
 
 **Status:** Design only. **4C is not complete.**\
+**Age policy:** Eligible ages are **13–25** at the official cohort start date. Consent bands are **13–17** and **18–25**. Youth aged **10–12 are not eligible**.\
 **Does not:** create or apply migrations, connect to Supabase, implement APIs or UI, enable `link_adult_relationship`, collect personal data, or mount the dormant consent component.
 
 Cross-reference: `MVP_DOMAIN_AND_EVENT_MODEL.md`, `MVP_SECURITY_PRIVACY_AND_SAFEGUARDING_BOUNDARIES.md`, `R2_CONSENT_SAFEGUARDING_AND_PRIVACY.md`, `HOSTED_AUTHENTICATION_CONTROLS_DECISION.md`, `MVP_IMPLEMENTATION_ROADMAP.md`, synthetic rules in `lib/consent/`.
@@ -21,6 +22,8 @@ Logical identifiers (`participant_person_id`, `adult_person_id`) are design hand
 
 Separate from `RoleAssignment` (D3). A parent role grant does not create a child link. An AdultRelationship of kind `parent` does not grant programme-operations powers.
 
+**Confirmed owner policy (not Ghana-qualified legal approval):** whenever a `parent` or `legal_guardian` protected role is granted, a matching verified and **active** AdultRelationship of that kind must exist. This is especially important for minors. The two facts remain distinct: the role answers what the account may do; the relationship answers which Person is linked to which participant. Persistence of this invariant remains blocked until the relationship schema, RLS and `link_adult_relationship` enablement gates close.
+
 ### Fields
 
 | Field | Purpose |
@@ -35,7 +38,7 @@ Separate from `RoleAssignment` (D3). A parent role grant does not create a child
 | `accessibility_accommodation_id` | Optional opaque reference when identity or telephone reuse is independently verified. Null on the normal path |
 | `effective_from` | When the relationship may be used |
 | `effective_until` | Optional scheduled end |
-| `review_at` | Required for ARA; optional for parent and legal guardian pending safeguarding policy |
+| `review_at` | Required for `parent`, `legal_guardian` and ARA. Parent and legal-guardian relationships are reviewed annually and whenever relevant circumstances change |
 | `created_at` | Insert time |
 | `created_by_account_id` | Server-validated account that created the row |
 | `created_by_role` | Protected role at creation |
@@ -50,6 +53,8 @@ Do **not** store safeguarding case narratives, third-party reports, medical deta
 
 - `parent` and `legal_guardian` remain distinct protected roles and distinct relationship kinds (D1). That role decision is already resolved.
 - Parent or legal guardian may be selected only with `exception_status = not_applicable` and `exception_id` null.
+- A `parent` or `legal_guardian` RoleAssignment is valid only while a matching verified `active` AdultRelationship of that kind exists.
+- `review_at` is required for parent, legal-guardian and ARA relationships. Parent and legal-guardian reviews run at least annually and whenever relevant circumstances change. Changed circumstances can revoke or supersede; they do not silently keep eligibility.
 - `approved_responsible_adult` is eligible only with `exception_status = exception_approved`, a linked `exception_id`, and current required instruments. Pending, unknown and refused stay ineligible.
 - ARA cannot be `active` for a participant while a parent or legal-guardian relationship is also `active` for that participant, unless the earlier relationship is revoked or superseded first.
 
@@ -94,7 +99,7 @@ Each instrument is its own record. Media is optional and separate. Adult acknowl
 |-------|---------|
 | `id` | Opaque record identifier |
 | `participant_person_id` | Participant |
-| `consent_band` | `10_17` \| `18_25` |
+| `consent_band` | `13_17` \| `18_25` |
 | `instrument_kind` | `programme_consent` \| `participant_assent` \| `participant_legal_consent` \| `adult_acknowledgement` \| `media` \| `first_aid` \| `supervised_trips` \| `transport` \| `code_of_conduct` |
 | `instrument_text_version` | Version identifier of the text shown; not free-text legal copy in the row |
 | `status` | `requested` \| `granted` \| `withdrawn` \| `expired` \| `refused` |
@@ -105,7 +110,7 @@ Each instrument is its own record. Media is optional and separate. Adult acknowl
 | `withdrawn_at` | Set when status is `withdrawn` |
 | `superseded_at` | Set when a later version supersedes this row |
 | `expires_at` | Optional; expiry is not a substitute for withdrawal |
-| `relationship_id` | Required when an adult acts (programme consent, adult acknowledgement, or adult-recorded media for 10–17). Null when the participant records assent, 18–25 legal consent, or their own media |
+| `relationship_id` | Required when an adult acts (programme consent, adult acknowledgement, or adult-recorded media for 13–17). Null when the participant records assent, 18–25 legal consent, or their own media |
 | `supersedes_record_id` | Previous row of the same participant + band + kind |
 
 Do **not** persist `exception_pending` or `exception_approved` as ConsentRecord statuses. Those belong on AdultRelationship / the exception header. Synthetic 4C-V vocabulary may still list them; the physical consent row must not double as the exception workflow.
@@ -114,13 +119,13 @@ Do **not** persist `exception_pending` or `exception_approved` as ConsentRecord 
 
 | Instrument | Band | Actor |
 |------------|------|-------|
-| Programme consent | 10–17 | Linked `parent` or `legal_guardian`, or SL-approved ARA |
-| Participant assent | 10–17 | Participant only |
+| Programme consent | 13–17 | Linked `parent` or `legal_guardian`, or SL-approved ARA |
+| Participant assent | 13–17 | Participant only |
 | Participant legal consent | 18–25 | Participant only |
 | Adult acknowledgement | 18–25 | Linked parent, legal guardian or ARA — eligibility only, never a veto |
-| Media | 10–17 | Linked adult; optional |
+| Media | 13–17 | Linked adult; optional |
 | Media | 18–25 | Participant; optional |
-| First aid, trips, transport (when used), code of conduct | Per `/parents` | Same adult/participant split as required instruments |
+| First aid, trips, transport (when used), code of conduct | Reserved onboarding | Same adult/participant split as required instruments |
 
 Withdrawal of a required non-media instrument ends eligibility for the current episode. It does not erase this row. A new version is a **new** ConsentRecord. Re-entry does not revive a withdrawn participation episode.
 
@@ -150,8 +155,8 @@ Professional ten-step process:
 5. **Conflict and shared-contact checks.** Fail closed on identity or telephone reuse unless an independently verified accessibility accommodation is already recorded against both Persons.
 6. **Recorded approval or refusal.** Decision is stored on the restricted exception header (`exception_approved` or `refused`) with actor role, account, timestamp and a closed reason **code**. Narrative stays out of AdultRelationship and out of ConsentRecord.
 7. **Approval before participation.** ARA is ineligible until `exception_approved` and the relationship is `active`. No `enrolled` or `active` episode on this path beforehand.
-8. **Separate participant consent or assent.** Exception approval does not replace 10–17 programme consent, 10–17 assent, or 18–25 legal consent.
-9. **Review on changed circumstances.** `review_at` and a new review when identity, household, contact details or suitability change. Changed circumstances can revoke or supersede; they do not silently keep eligibility.
+8. **Separate participant consent or assent.** Exception approval does not replace 13–17 programme consent, 13–17 assent, or 18–25 legal consent.
+9. **Review on changed circumstances.** ARA `review_at` requires a new review when identity, household, contact details or suitability change. Parent and legal-guardian relationships use the same change trigger **and** an annual review. Changed circumstances can revoke or supersede; they do not silently keep eligibility.
 10. **Restricted, auditable access.** Exception headers and any later case narrative are not readable by general administrators, mentors, facilitators, partners, parents who are not the linked adult, or the public.
 
 Exception **header** (same private schema, still not created in this pass): identifier, relationship id, status, referred-by, reviewed-by role `safeguarding_lead`, decided-at, closed reason code. Sensitive notes, if they exist later, belong in the segregated safeguarding case store (4I), not on this header.
@@ -203,18 +208,19 @@ Withdrawal does not erase consent, relationship or audit history.
 - `parent` and `legal_guardian` are distinct protected roles and relationship kinds.
 - AdultRelationship **schema design** is authorised (this document).
 - The founder currently fulfils the Safeguarding Lead **role**; model the role, not personal identity.
-- Participants aged 10–12 remain in programme scope.
+- Youth aged 10–12 are not currently eligible for YDG.
 - The demonstration enquiry form remains unchanged and non-persistent.
 - Synthetic 4C-V eligibility remains the tested policy surface until persistence is separately approved.
 - Adult legal consent cannot be overridden by acknowledgement or by another adult.
 - No scoring, ranking or automated placement.
 - No public Safeguarding Lead contact.
+- Whenever a `parent` or `legal_guardian` protected role is granted, a matching verified and **active** AdultRelationship of that kind is required, especially for minors. Owner/Safeguarding Owner policy; not Ghana-qualified legal approval.
+- Parent and legal-guardian `review_at` is required. Those relationships are reviewed annually and whenever relevant circumstances change.
 
 ### Provisional owner decisions
 
 - The founder will perform the **initial owner review**. That review is an owner decision, not Ghana-qualified legal approval.
 - Fourteen days is only a **proposed** retention period for abandoned enquiries or incomplete drafts.
-- Whether a `parent` or `legal_guardian` RoleAssignment requires a matching AdultRelationship remains a recommended invariant until the safeguarding owner confirms it before persistence.
 
 ### Legal / privacy decisions still required
 
@@ -226,9 +232,7 @@ Withdrawal does not erase consent, relationship or audit history.
 
 ### Safeguarding Owner decisions still required
 
-- Age-specific safeguarding approval before **recruitment** of participants aged 10–12.
-- Confirmation of the RoleAssignment ↔ AdultRelationship invariant.
-- `review_at` policy for parent and legal-guardian relationships (required, optional, or unused). ARA already requires `review_at`; parent and legal-guardian policy is unresolved.
+- Youth aged 10–12 remain outside YDG eligibility, recruitment, consent and participant-facing programme bands.
 - Closed reason-code vocabulary for ARA decisions (codes only; no sensitive narrative in the general record).
 - 3A P4 concern channel, volunteer screening and the 4I case store remain out of 4C.
 
@@ -250,17 +254,17 @@ This document does not satisfy those conditions.
 - Instrument text approved.
 - Retention periods set for the classes that will actually be stored.
 - D5 hosted-authentication enablement gates closed.
-- Gate M closed before any 10–17 personal data.
+- Gate M closed before any 13–17 personal data.
 - `link_adult_relationship` still denied until the reviewed relationship write path exists.
 - Dormant `OnboardingConsentFoundation` remains unmounted.
 - Demonstration enquiry remains non-persistent and is not consent capture.
 
-### Additional conditions for ages 10–12
+### Ages 10–12
 
-- In scope for design and for later Discovery Gateway (10–13).
-- **Recruitment remains blocked** until age-specific safeguarding approval is recorded.
-- Gate M still applies to all 10–17 personal data, including 10–12.
-- No 10–12 PII, family UI or live instruments in this pass.
+- Youth aged 10–12 are **not currently eligible** for Youth Discovery Gateway.
+- They must not appear in active YDG recruitment, eligibility, consent or participant-facing programme bands.
+- Gate M still applies before any 13–17 personal data.
+- No 10–12 PII, family UI or live instruments.
 
 ---
 
